@@ -13,7 +13,7 @@ public class Cliente {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.universidad = universidad;
+        this.universidad = universidad;//Determina si está afiliado a la universidad se usa 'e' para estudiante, 'a' para administrativo o n para ninguno
     }
 
     public Cliente() {

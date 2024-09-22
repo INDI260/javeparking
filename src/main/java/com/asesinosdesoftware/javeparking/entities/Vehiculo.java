@@ -4,7 +4,7 @@ public class Vehiculo {
 
     private int id;
     private String placa;
-    private char tamano;
+    private char tamano;//El tamaño del vehiculo. Puede ser grande mediano o pequeño (g, m, p)
     private char tipo;
 
     public Vehiculo(int id, String placa, char tamano, char tipo) {
