@@ -3,7 +3,7 @@ package com.asesinosdesoftware.javeparking.entities;
 public class Puesto {
 
     private int id;
-    private char tamano;
+    private char tamano;//El tamaño del puesto, puede ser grande mediano o pequeño (g, m, p)
     private boolean disponibilidad;
 
     public Puesto(int id, char tamano, boolean disponibilidad) {
