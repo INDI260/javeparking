@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class HelloApplication extends Application {
 
@@ -22,8 +23,16 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
 
-        JDBCController controller = new JDBCController();
-        Connection connection = controller.getConnection();
+        JDBCController controller = null;
+        try {
+            controller = new JDBCController();
+            Connection connection = controller.getConnection();
+            controller.inicializarTablas(connection);
+        } catch (SQLException e) {
+            System.out.println("Ocurrio un error en la conexión de base de datos: " + e);
+        } catch (Exception e) {
+            System.out.println("Ocurrio un error: " + e);
+        }
 
         launch();
     }
