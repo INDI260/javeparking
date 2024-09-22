@@ -23,11 +23,14 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
 
-        JDBCController controller = null;
+
         try {
-            controller = new JDBCController();
+            JDBCController controller = new JDBCController();
             Connection connection = controller.getConnection();
             controller.inicializarTablas(connection);
+            connection.close();
+
+
         } catch (SQLException e) {
             System.out.println("Ocurrio un error en la conexión de base de datos: " + e);
         } catch (Exception e) {

@@ -33,128 +33,138 @@ public class JDBCController {
 
         Statement stmt = connection.createStatement();
         stmt.execute("DROP TABLE IF EXISTS `javeparking`.`administrador`;");
-        stmt.execute("DROP TABLE IF EXISTS vehiculo");
         stmt.execute("DROP TABLE IF EXISTS pago");
-        stmt.execute("DROP TABLE IF EXISTS cliente");
         stmt.execute("DROP TABLE IF EXISTS empleado");
         stmt.execute("DROP TABLE IF EXISTS reserva");
         stmt.execute("DROP TABLE IF EXISTS puesto");
         stmt.execute("DROP TABLE IF EXISTS parqueadero");
+        stmt.execute("DROP TABLE IF EXISTS vehiculo");
+        stmt.execute("DROP TABLE IF EXISTS cliente");
 
 
         stmt.execute("CREATE TABLE `javeparking`.`administrador` (\n" +
-                        "  `id` INT NOT NULL,\n" +
-                        "  `cedula` VARCHAR(20) NULL,\n" +
-                        "  `nombre` VARCHAR(45) NULL,\n" +
-                        "  `apellido` VARCHAR(45) NULL,\n" +
-                        "  PRIMARY KEY (`id`));");
+                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `cedula` VARCHAR(20) NULL,\n" +
+                "  `nombre` VARCHAR(45) NULL,\n" +
+                "  `apellido` VARCHAR(45) NULL,\n" +
+                "  PRIMARY KEY (`id`),\n" +
+                "  UNIQUE INDEX `cedula_UNIQUE` (`cedula` ASC) VISIBLE)");
 
 
 
         stmt.execute("CREATE TABLE `javeparking`.`cliente` (\n" +
-                        "  `id` INT NOT NULL,\n" +
-                        "  `cedula` VARCHAR(20) NULL,\n" +
-                        "  `nombre` VARCHAR(100) NULL,\n" +
-                        "  `apellido` VARCHAR(100) NULL,\n" +
-                        "  `universidad` VARCHAR(45) NULL,\n" +
-                        "  PRIMARY KEY (`id`));\n");
+                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `cedula` VARCHAR(20) NULL,\n" +
+                "  `nombre` VARCHAR(45) NULL,\n" +
+                "  `apellido` VARCHAR(45) NULL,\n" +
+                "  `universidad` VARCHAR(1) NULL,\n" +
+                "  PRIMARY KEY (`id`),\n" +
+                "  UNIQUE INDEX `cedula_UNIQUE` (`cedula` ASC) VISIBLE);");
 
 
 
         stmt.execute("CREATE TABLE `javeparking`.`empleado` (\n" +
-                        "  `id` INT NOT NULL,\n" +
-                        "  `cedula` VARCHAR(20) NULL,\n" +
-                        "  `nombre` VARCHAR(100) NULL,\n" +
-                        "  `apellido` VARCHAR(100) NULL,\n" +
-                        "  PRIMARY KEY (`id`));\n");
+                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `cedula` VARCHAR(20) NULL,\n" +
+                "  `nombre` VARCHAR(45) NULL,\n" +
+                "  `apellido` VARCHAR(45) NULL,\n" +
+                "  PRIMARY KEY (`id`),\n" +
+                "  UNIQUE INDEX `cedula_UNIQUE` (`cedula` ASC) VISIBLE);\n");
 
 
 
         stmt.execute("CREATE TABLE `javeparking`.`parqueadero` (\n" +
-                        "  `id` INT NOT NULL,\n" +
-                        "  PRIMARY KEY (`id`));\n");
+                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  PRIMARY KEY (`id`));");
 
 
 
         stmt.execute("CREATE TABLE `javeparking`.`puesto` (\n" +
-                        "  `id` INT NOT NULL,\n" +
-                        "  `tamano` VARCHAR(45) NULL,\n" +
-                        "  `disponibilidad` BINARY NULL,\n" +
-                        "  `parqueaderoID` INT NULL,\n" +
-                        "  PRIMARY KEY (`id`),\n" +
-                        "  INDEX `parqueaderoID_idx` (`parqueaderoID` ASC) VISIBLE,\n" +
-                        "  CONSTRAINT `parqueaderoID`\n" +
-                        "    FOREIGN KEY (`parqueaderoID`)\n" +
-                        "    REFERENCES `javeparking`.`parqueadero` (`id`)\n" +
-                        "    ON DELETE NO ACTION\n" +
-                        "    ON UPDATE NO ACTION);\n");
+                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `tamano` VARCHAR(1) NULL,\n" +
+                "  `disponibilidad` BIT NULL,\n" +
+                "  `parqueaderoID` INT NULL,\n" +
+                "  PRIMARY KEY (`id`),\n" +
+                "  INDEX `parqueaderoID_idx` (`parqueaderoID` ASC) VISIBLE,\n" +
+                "  CONSTRAINT `parqueaderoID`\n" +
+                "    FOREIGN KEY (`parqueaderoID`)\n" +
+                "    REFERENCES `javeparking`.`parqueadero` (`id`)\n" +
+                "    ON DELETE NO ACTION\n" +
+                "    ON UPDATE NO ACTION);");
 
 
 
         stmt.execute("CREATE TABLE `javeparking`.`vehiculo` (\n" +
-                        "  `id` INT NOT NULL,\n" +
-                        "  `placa` VARCHAR(10) NULL,\n" +
-                        "  `tamano` VARCHAR(45) NULL,\n" +
-                        "  `tipo` VARCHAR(45) NULL,\n" +
-                        "  `clienteID` INT NULL,\n" +
-                        "  PRIMARY KEY (`id`),\n" +
-                        "  INDEX `clienteID_idx` (`clienteID` ASC) VISIBLE,\n" +
-                        "  CONSTRAINT `clienteID`\n" +
-                        "    FOREIGN KEY (`clienteID`)\n" +
-                        "    REFERENCES `javeparking`.`cliente` (`id`)\n" +
-                        "    ON DELETE NO ACTION\n" +
-                        "    ON UPDATE NO ACTION);");
+                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `placa` VARCHAR(10) NULL,\n" +
+                "  `tamano` VARCHAR(1) NULL,\n" +
+                "  `tipo` VARCHAR(45) NULL,\n" +
+                "  `clienteID` INT NULL,\n" +
+                "  PRIMARY KEY (`id`),\n" +
+                "  UNIQUE INDEX `placa_UNIQUE` (`placa` ASC) VISIBLE,\n" +
+                "  INDEX `clienteID_idx` (`clienteID` ASC) VISIBLE,\n" +
+                "  CONSTRAINT `clienteID`\n" +
+                "    FOREIGN KEY (`clienteID`)\n" +
+                "    REFERENCES `javeparking`.`cliente` (`id`)\n" +
+                "    ON DELETE NO ACTION\n" +
+                "    ON UPDATE NO ACTION);");
 
 
 
         stmt.execute("CREATE TABLE `javeparking`.`reserva` (\n" +
-                        "  `id` INT NOT NULL,\n" +
-                        "  `fecha` DATE NULL,\n" +
-                        "  `horaEntrada` VARCHAR(45) NULL,\n" +
-                        "  `hroaSalida` VARCHAR(45) NULL,\n" +
-                        "  `vehiculo` VARCHAR(45) NULL,\n" +
-                        "  `puestoID` INT NULL,\n" +
-                        "  PRIMARY KEY (`id`),\n" +
-                        "  INDEX `puestoID_idx` (`puestoID` ASC) VISIBLE,\n" +
-                        "  CONSTRAINT `puestoID`\n" +
-                        "    FOREIGN KEY (`puestoID`)\n" +
-                        "    REFERENCES `javeparking`.`puesto` (`id`)\n" +
-                        "    ON DELETE NO ACTION\n" +
-                        "    ON UPDATE NO ACTION);");
+                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `fecha` DATE NULL,\n" +
+                "  `horaEntrada` VARCHAR(45) NULL,\n" +
+                "  `horaSalida` VARCHAR(45) NULL,\n" +
+                "  `vehiculoID` INT NULL,\n" +
+                "  `puestoID` INT NULL,\n" +
+                "  PRIMARY KEY (`id`),\n" +
+                "  INDEX `vehiculoID_idx` (`vehiculoID` ASC) VISIBLE,\n" +
+                "  INDEX `puestoId_idx` (`puestoID` ASC) VISIBLE,\n" +
+                "  CONSTRAINT `vehiculoID`\n" +
+                "    FOREIGN KEY (`vehiculoID`)\n" +
+                "    REFERENCES `javeparking`.`vehiculo` (`id`)\n" +
+                "    ON DELETE NO ACTION\n" +
+                "    ON UPDATE NO ACTION,\n" +
+                "  CONSTRAINT `puestoId`\n" +
+                "    FOREIGN KEY (`puestoID`)\n" +
+                "    REFERENCES `javeparking`.`puesto` (`id`)\n" +
+                "    ON DELETE NO ACTION\n" +
+                "    ON UPDATE NO ACTION);");
 
 
 
         stmt.execute("CREATE TABLE `javeparking`.`pago` (\n" +
-                "  `id` INT NOT NULL,\n" +
-                "  `reservaID` INT NULL,\n" +
+                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `valor` DECIMAL NULL,\n" +
+                "  `reservaID` INT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
                 "  INDEX `reservaID_idx` (`reservaID` ASC) VISIBLE,\n" +
                 "  CONSTRAINT `reservaID`\n" +
                 "    FOREIGN KEY (`reservaID`)\n" +
                 "    REFERENCES `javeparking`.`reserva` (`id`)\n" +
                 "    ON DELETE NO ACTION\n" +
-                "    ON UPDATE NO ACTION);\n");
+                "    ON UPDATE NO ACTION);");
 
-        stmt.execute("INSERT INTO `javeparking`.`administrador` (`id`, `cedula`, `nombre`, `apellido`) VALUES ('1', '10', 'Luis', 'Ramos');\n");
+        stmt.execute("INSERT INTO `javeparking`.`administrador` (`cedula`, `nombre`, `apellido`) VALUES ('10', 'Luis', 'Ramos');\n");
 
-        stmt.execute("INSERT INTO `javeparking`.`cliente` (`id`, `cedula`, `nombre`, `apellido`) VALUES ('1', '30 ', 'Emily', 'Ramos');\n");
-        stmt.execute("INSERT INTO `javeparking`.`cliente` (`id`, `cedula`, `nombre`, `apellido`, `universidad`) VALUES ('2', '40', 'Tran', 'Esposito', 'A');\n");
-        stmt.execute("INSERT INTO `javeparking`.`cliente` (`id`, `cedula`, `nombre`, `apellido`, `universidad`) VALUES ('3', '50', 'Maria', 'Menethil', 'E');\n");
+        stmt.execute("INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`) VALUES ( '30 ', 'Emily', 'Ramos');\n");
+        stmt.execute("INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`) VALUES ( '40', 'Tran', 'Esposito', 'A');\n");
+        stmt.execute("INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`) VALUES ('50', 'Maria', 'Menethil', 'E');\n");
 
-        stmt.execute("INSERT INTO `javeparking`.`empleado` (`id`, `cedula`, `nombre`, `apellido`) VALUES ('1', '20', 'Simba', 'Gonzales');\n");
+        stmt.execute("INSERT INTO `javeparking`.`empleado` ( `cedula`, `nombre`, `apellido`) VALUES ( '20', 'Simba', 'Gonzales');\n");
 
         stmt.execute("INSERT INTO `javeparking`.`parqueadero` (`id`) VALUES ('1');\n");
 
-        stmt.execute("INSERT INTO `javeparking`.`puesto` (`id`, `tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('1', 'g', '0', '1');");
-        stmt.execute("INSERT INTO `javeparking`.`puesto` (`id`, `tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('2', 'g', '0', '1');");
-        stmt.execute("INSERT INTO `javeparking`.`puesto` (`id`, `tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('3', 'g', '0', '1');");
-        stmt.execute("INSERT INTO `javeparking`.`puesto` (`id`, `tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('4', 'm', '0', '1');");
-        stmt.execute("INSERT INTO `javeparking`.`puesto` (`id`, `tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('5', 'm', '0', '1');");
-        stmt.execute("INSERT INTO `javeparking`.`puesto` (`id`, `tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('6', 'm', '0', '1');");
-        stmt.execute("INSERT INTO `javeparking`.`puesto` (`id`, `tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('7', 'p', '0', '1');");
-        stmt.execute("INSERT INTO `javeparking`.`puesto` (`id`, `tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('8', 'p', '0', '1');");
-        stmt.execute("INSERT INTO `javeparking`.`puesto` (`id`, `tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('9', 'p', '0', '1');");
+        stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('g', b'0', b'1');");
+        stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('g', b'0', b'1');");
+        stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('g', b'0', b'1');");
+        stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('m', b'0', b'1');");
+        stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('m', b'0', b'1');");
+        stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('m', b'0', b'1');");
+        stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('p', b'0', b'1');");
+        stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('p', b'0', b'1');");
+        stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('p', b'0', b'1');");
 
 
 
