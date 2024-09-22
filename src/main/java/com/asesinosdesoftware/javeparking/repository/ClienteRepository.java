@@ -14,7 +14,7 @@ public class ClienteRepository {
      * @return Si se encuentra retorna un objero tipo cliente con los parametros encontrados en la base de datos o de lo contrario retorna null
      * @throws SQLException
      */
-    public Cliente buscarCliente(Connection connection, String cedula) throws SQLException {
+    public Cliente buscarCliente(Connection connection, String cedula, Cliente cliente) throws SQLException {
 
         String sql = "SELECT * FROM cliente WHERE cedula = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -23,7 +23,12 @@ public class ClienteRepository {
 
         while (resultSet.next()) {
             if (resultSet.getString("cedula").equals(cedula)) {
-                return new Cliente(resultSet.getInt("id"),resultSet.getString("cedula"),resultSet.getString("nombre"),resultSet.getString("apellido"),resultSet.getString("universidad").charAt(0));
+                cliente.setId(resultSet.getInt("id"));
+                cliente.setCedula(resultSet.getString("cedula"));
+                cliente.setNombre(resultSet.getString("nombre"));
+                cliente.setApellido(resultSet.getString("apellido"));
+                cliente.setUniversidad(resultSet.getString("universidad").charAt(0));
+                return cliente;
             }
         }
         return null;
@@ -38,13 +43,13 @@ public class ClienteRepository {
      */
     public void agregarCliente(Connection connection, Cliente cliente) throws SQLException, ClienteRepositoryException {
 
-        if(buscarCliente(connection, cliente.getCedula()) != null) {
+        if(buscarCliente(connection, cliente.getCedula(), new Cliente()) != null) {
             String sql = "INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`) VALUES ( ?, ?, ?, ?);";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, cliente.getCedula());
             ps.setString(2, cliente.getNombre());
             ps.setString(3, cliente.getApellido());
-            ps.setString(4,Character.toString(cliente.getUniversidad()));
+            ps.setString(4, Character.toString(cliente.getUniversidad()));
             ps.executeUpdate();
         }
         else {

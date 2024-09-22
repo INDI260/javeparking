@@ -14,6 +14,10 @@ public class Vehiculo {
         this.tipo = tipo;
     }
 
+    public Vehiculo(){
+
+    }
+
     public int getId() {
         return id;
     }

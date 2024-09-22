@@ -17,7 +17,7 @@ public class VehiculoRepository {
      * @return Si se encuentra retorna un objero tipo Vehiculo con los parametros encontrados en la base de datos o de lo contrario retorna null
      * @throws SQLException
      */
-    public Vehiculo buscarVehiculo(Connection connection, String placa) throws SQLException {
+    public Vehiculo buscarVehiculo(Connection connection, String placa, Vehiculo vehiculo) throws SQLException {
 
         String sql = "SELECT * FROM vehiculos WHERE placa = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -26,7 +26,11 @@ public class VehiculoRepository {
 
         while (rs.next()) {
             if(rs.getString("placa").equals(placa)) {
-                return new Vehiculo(rs.getInt("id"), rs.getString("placa"), rs.getString("tamano").charAt(0), rs.getString("tipo").charAt(0));
+                vehiculo.setId(rs.getInt("id"));
+                vehiculo.setPlaca(rs.getString("placa"));
+                vehiculo.setTamano(rs.getString("tamano").charAt(0));
+                vehiculo.setTipo(rs.getString("tipo").charAt(0));
+                return vehiculo;
             }
         }
         return null;
@@ -41,7 +45,7 @@ public class VehiculoRepository {
      */
     public void agregarVehiculo(Connection connection, Vehiculo vehiculo) throws SQLException, VehiculoRepositoryException {
 
-        if(buscarVehiculo(connection, vehiculo.getPlaca()) != null) {
+        if(buscarVehiculo(connection, vehiculo.getPlaca(), new Vehiculo()) != null) {
             String sql = "INSERT INTO `javeparking`.`vehiculo` (`placa`, `tamano`, `tipo`) VALUES ( ?, ?, ?);";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, vehiculo.getPlaca());
@@ -50,6 +54,6 @@ public class VehiculoRepository {
             ps.executeUpdate();
         }
         else
-            throw new VehiculoRepositoryException("el vehiculo ya existe");
+            throw new VehiculoRepositoryException("El vehiculo ya existe");
     }
 }

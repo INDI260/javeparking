@@ -16,6 +16,9 @@ public class Cliente {
         this.universidad = universidad;
     }
 
+    public Cliente() {
+    }
+
     public int getId() {
         return id;
     }
