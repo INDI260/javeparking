@@ -113,7 +113,7 @@ public class JDBCController {
 
         stmt.execute("CREATE TABLE `javeparking`.`reserva` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `fecha` DATE NULL,\n" +
+                "  `fecha` VARCHAR(45) NULL,\n" +
                 "  `horaEntrada` VARCHAR(45) NULL,\n" +
                 "  `horaSalida` VARCHAR(45) NULL,\n" +
                 "  `vehiculoID` INT NULL,\n" +
