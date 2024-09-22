@@ -29,6 +29,13 @@ public class ClienteRepository {
         return null;
     }
 
+    /**
+     * Método que agrega un cliente a la base de datos a partir de un objeto tipo cliente
+     * @param connection: Conexión a la base de datos
+     * @param cliente: Objeto tipo cliente a partir del cual se crea la fila en la base de datos
+     * @throws SQLException
+     * @throws ClienteRepositoryException
+     */
     public void agregarCliente(Connection connection, Cliente cliente) throws SQLException, ClienteRepositoryException {
 
         if(buscarCliente(connection, cliente.getCedula()) != null) {
@@ -43,7 +50,5 @@ public class ClienteRepository {
         else {
             throw new ClienteRepositoryException("El cliente ya existe");
         }
-
-
     }
 }
