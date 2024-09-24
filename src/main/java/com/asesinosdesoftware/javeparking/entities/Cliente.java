@@ -2,11 +2,11 @@ package com.asesinosdesoftware.javeparking.entities;
 
 public class Cliente {
 
-    private int id;
-    private String cedula;
-    private String nombre;
-    private String apellido;
-    private char universidad;
+    private int id; //Este dato lo crea automaticamente el manejador de bases de datos y por tanto no debe asignarse manualmente
+    private String cedula; //Cedula del estudiante
+    private String nombre; //Nombre del estudiante
+    private String apellido; //Apellido del estudiante
+    private char universidad; //Determina si está afiliado a la universidad se usa 'e' para estudiante, 'a' para administrativo o n para ninguno
 
     public Cliente(int id, String cedula, String nombre, String apellido, char universidad) {
         this.id = id;
