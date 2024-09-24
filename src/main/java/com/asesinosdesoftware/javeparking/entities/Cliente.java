@@ -6,7 +6,7 @@ public class Cliente {
     private String cedula;
     private String nombre;
     private String apellido;
-    private char universidad; //Determina si está afiliado a la universidad se usa 'e' para estudiante, 'a' para administrativo o n para ninguno
+    private Character universidad; //Determina si está afiliado a la universidad se usa 'e' para estudiante, 'a' para administrativo o n para ninguno
 
     public Cliente(int id, String cedula, String nombre, String apellido, char universidad) {
         this.id = id;
@@ -51,11 +51,11 @@ public class Cliente {
         this.apellido = apellido;
     }
 
-    public char getUniversidad() {
+    public Character getUniversidad() {
         return universidad;
     }
 
-    public void setUniversidad(char universidad) {
+    public void setUniversidad(Character universidad) {
         this.universidad = universidad;
     }
 }

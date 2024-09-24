@@ -23,11 +23,10 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
 
-
         try {
             JDBCController controller = new JDBCController();
             Connection connection = controller.getConnection();
-            controller.inicializarTablas(connection);
+            //controller.inicializarTablas(connection);
             connection.close();
 
 
