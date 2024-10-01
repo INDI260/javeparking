@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.Re_VehiculoviewController">
+   <children>
+      <Label layoutX="200.0" layoutY="44.0" text="Registro Vehiculo" textFill="RED">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="195.0" layoutY="130.0" text="Tipo">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label layoutX="193.0" layoutY="175.0" text="Placa">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label layoutX="177.0" layoutY="217.0" text="Tamaño">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+
+
+      <ComboBox fx:id="IdTamano" layoutX="263.0" layoutY="214.0" prefWidth="150.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="g" />
+               <String fx:value="m" />
+               <String fx:value="p" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+      <TextField fx:id="IdTipo" layoutX="263.0" layoutY="127.0" />
+      <TextField fx:id="IdPlaca" layoutX="263.0" layoutY="172.0" />
+      <Button layoutX="231.0" layoutY="284.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="138.0" text="Registrar" textFill="#0b0b0b">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+
+   </children>
+</AnchorPane>
