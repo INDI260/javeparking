@@ -14,6 +14,11 @@ public class HelloController {
     @FXML
     private BorderPane contenedor;
 
+    @FXML
+    private void Salir() {
+        System.exit(0);
+    }
+
     // Método para cargar y mostrar la vista de registrar persona
     @FXML
     private void registrarCliente() {
