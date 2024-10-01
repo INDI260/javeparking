@@ -43,7 +43,7 @@ public class ClienteRepository {
      */
     public void agregarCliente(Connection connection, Cliente cliente) throws SQLException, ClienteRepositoryException {
 
-        if(buscarCliente(connection, cliente.getCedula(), new Cliente()) != null) {
+        if(buscarCliente(connection, cliente.getCedula(), new Cliente()) == null) {
             String sql = "INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`) VALUES ( ?, ?, ?, ?);";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, cliente.getCedula());

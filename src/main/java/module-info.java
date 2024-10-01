@@ -5,5 +5,6 @@ module com.asesinosdesoftware.javeparking {
 
 
     opens com.asesinosdesoftware.javeparking to javafx.fxml;
+    opens com.asesinosdesoftware.javeparking.controller to javafx.fxml;
     exports com.asesinosdesoftware.javeparking;
 }
