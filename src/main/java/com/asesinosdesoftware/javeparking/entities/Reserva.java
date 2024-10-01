@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class Reserva {
 
-    private int id;
-    private Date fecha;
-    private String horaEntrada;
-    private String horaSalida;
-    private Vehiculo vehiculo;
-    private Puesto puesto;
+    private int id; //Este dato lo crea automáticamte el manejador de bases de datos y por tanto no se debe asignar manualmente
+    private Date fecha; //Fecha en la cual se realizó la reserva
+    private String horaEntrada; //Hora de entrada del vehículo al parqueadero
+    private String horaSalida; //Hora de salida del vehiculo al parqueadero
+    private Vehiculo vehiculo; //Vehiculo asociado a la reserva
+    private Puesto puesto; //Puesto en el cual se va a alojar el vehiculo dentro del parqueadero
 
     public Reserva(int id, Date fecha, String horaEntrada, String horaSalida, Vehiculo vehiculo, Puesto puesto) {
         this.id = id;
