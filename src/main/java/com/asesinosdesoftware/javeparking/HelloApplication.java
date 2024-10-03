@@ -1,6 +1,6 @@
 package com.asesinosdesoftware.javeparking;
 
-import com.asesinosdesoftware.javeparking.controller.JDBCController;
+import com.asesinosdesoftware.javeparking.services.JDBCService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,7 +24,7 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
 
         try {
-            JDBCController controller = new JDBCController();
+            JDBCService controller = new JDBCService();
             Connection connection = controller.getConnection();
             //controller.inicializarTablas(connection);
             connection.close();

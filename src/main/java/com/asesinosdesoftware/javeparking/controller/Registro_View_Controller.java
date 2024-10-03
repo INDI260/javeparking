@@ -2,6 +2,7 @@ package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
+import com.asesinosdesoftware.javeparking.services.JDBCService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -30,7 +31,7 @@ public class Registro_View_Controller {
             C.setApellido(IdApellido.getText());
             C.setUniversidad(Iduniversity.getValue().charAt(0));
 
-            JDBCController controller = new JDBCController();
+            JDBCService controller = new JDBCService();
             Connection connection = controller.getConnection();
             ClienteRepository repository = new ClienteRepository();
 

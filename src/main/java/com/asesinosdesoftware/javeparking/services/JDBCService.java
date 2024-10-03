@@ -1,4 +1,4 @@
-package com.asesinosdesoftware.javeparking.controller;
+package com.asesinosdesoftware.javeparking.services;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 /**
  * Esta clase se encarga de realizar las operaciones necesarias para la conexión y la incialización de la base de datos.
  */
-public class JDBCController {
+public class JDBCService {
 
     private ResourceBundle reader = null;
     private static final String FILENAME = "dbconfig";
