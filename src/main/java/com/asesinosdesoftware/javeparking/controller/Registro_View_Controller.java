@@ -3,6 +3,7 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.services.JDBCService;
+import com.asesinosdesoftware.javeparking.services.PasswordService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -30,6 +31,7 @@ public class Registro_View_Controller {
             C.setNombre(IdNombre.getText());
             C.setApellido(IdApellido.getText());
             C.setUniversidad(Iduniversity.getValue().charAt(0));
+            //C.setHash(PasswordService.hashPassword(IdPassword.getText())); Faltaría implementar algo así para guardar la contraseña
 
             JDBCService controller = new JDBCService();
             Connection connection = controller.getConnection();
@@ -37,6 +39,8 @@ public class Registro_View_Controller {
 
             repository.agregarCliente(connection,C);
             showSuccess("Registro de cliente exitoso");
+
+            connection.close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
 
         } catch (Exception e) {
             e.printStackTrace();

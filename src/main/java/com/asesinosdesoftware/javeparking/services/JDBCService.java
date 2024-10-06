@@ -6,6 +6,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+import com.asesinosdesoftware.javeparking.entities.Administrador;
+import com.asesinosdesoftware.javeparking.entities.Cliente;
+import com.asesinosdesoftware.javeparking.entities.Empleado;
+import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
+import com.asesinosdesoftware.javeparking.repository.AdministradorRepository;
+import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
+import com.asesinosdesoftware.javeparking.repository.EmpleadoRepository;
+
 /**
  * Esta clase se encarga de realizar las operaciones necesarias para la conexión y la incialización de la base de datos.
  */
@@ -13,6 +21,9 @@ public class JDBCService {
 
     private ResourceBundle reader = null;
     private static final String FILENAME = "dbconfig";
+    private AdministradorRepository administradorRepository = new AdministradorRepository();
+    private ClienteRepository clienteRepository = new ClienteRepository();
+    private EmpleadoRepository empleadoRepository = new EmpleadoRepository();
 
     /**
      *Método que inicializa la conexión con la base de datos
@@ -29,7 +40,7 @@ public class JDBCService {
      * @param connection: Objeto tipo connection que representa la conexión con la base de datos
      * @throws SQLException
      */
-    public void inicializarTablas(Connection connection) throws SQLException {
+    public void inicializarTablas(Connection connection) throws SQLException, RepositoryException {
 
         Statement stmt = connection.createStatement();
         stmt.execute("DROP TABLE IF EXISTS `javeparking`.`administrador`;");
@@ -44,9 +55,10 @@ public class JDBCService {
 
         stmt.execute("CREATE TABLE `javeparking`.`administrador` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `cedula` VARCHAR(20) NULL,\n" +
+                "  `cedula` VARCHAR(20) NOT NULL,\n" +
                 "  `nombre` VARCHAR(45) NULL,\n" +
                 "  `apellido` VARCHAR(45) NULL,\n" +
+                "  `hash` VARCHAR(100) NOT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
                 "  UNIQUE INDEX `cedula_UNIQUE` (`cedula` ASC) VISIBLE)");
 
@@ -54,10 +66,11 @@ public class JDBCService {
 
         stmt.execute("CREATE TABLE `javeparking`.`cliente` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `cedula` VARCHAR(20) NULL,\n" +
+                "  `cedula` VARCHAR(20) NOT NULL,\n" +
                 "  `nombre` VARCHAR(45) NULL,\n" +
                 "  `apellido` VARCHAR(45) NULL,\n" +
                 "  `universidad` VARCHAR(1) NULL,\n" +
+                "  `hash` VARCHAR(100) NOT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
                 "  UNIQUE INDEX `cedula_UNIQUE` (`cedula` ASC) VISIBLE);");
 
@@ -65,9 +78,10 @@ public class JDBCService {
 
         stmt.execute("CREATE TABLE `javeparking`.`empleado` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `cedula` VARCHAR(20) NULL,\n" +
+                "  `cedula` VARCHAR(20) NOT NULL,\n" +
                 "  `nombre` VARCHAR(45) NULL,\n" +
                 "  `apellido` VARCHAR(45) NULL,\n" +
+                "  `hash` VARCHAR(100) NOT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
                 "  UNIQUE INDEX `cedula_UNIQUE` (`cedula` ASC) VISIBLE);\n");
 
@@ -146,13 +160,13 @@ public class JDBCService {
                 "    ON DELETE NO ACTION\n" +
                 "    ON UPDATE NO ACTION);");
 
-        stmt.execute("INSERT INTO `javeparking`.`administrador` (`cedula`, `nombre`, `apellido`) VALUES ('10', 'Luis', 'Ramos');\n");
+        administradorRepository.agregarAdministrador(connection,new Administrador("10", "Luis", "Ramos", PasswordService.hashPassword("1234")));
 
-        stmt.execute("INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`) VALUES ( '30 ', 'Emily', 'Ramos');\n");
-        stmt.execute("INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`) VALUES ( '40', 'Tran', 'Esposito', 'A');\n");
-        stmt.execute("INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`) VALUES ('50', 'Maria', 'Menethil', 'E');\n");
+        clienteRepository.agregarCliente(connection, new Cliente("30", "Emily", "Ramos" , 'n',PasswordService.hashPassword("1234")));
+        clienteRepository.agregarCliente(connection, new Cliente("40", "Tran", "Esposito", 'a', PasswordService.hashPassword("1234")));
+        clienteRepository.agregarCliente(connection, new Cliente("50", "Maria", "Menethil", 'e', PasswordService.hashPassword("1234")));
 
-        stmt.execute("INSERT INTO `javeparking`.`empleado` ( `cedula`, `nombre`, `apellido`) VALUES ( '20', 'Simba', 'Gonzales');\n");
+        empleadoRepository.agregarEmpleado(connection, new Empleado("20", "Simba", "Gonzales", PasswordService.hashPassword("1234")));
 
         stmt.execute("INSERT INTO `javeparking`.`parqueadero` (`id`) VALUES ('1');\n");
 

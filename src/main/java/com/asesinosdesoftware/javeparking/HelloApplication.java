@@ -26,7 +26,7 @@ public class HelloApplication extends Application {
         try {
             JDBCService controller = new JDBCService();
             Connection connection = controller.getConnection();
-            //controller.inicializarTablas(connection);
+            controller.inicializarTablas(connection);
             connection.close();
 
 

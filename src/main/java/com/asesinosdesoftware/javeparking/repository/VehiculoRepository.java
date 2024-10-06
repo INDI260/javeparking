@@ -1,7 +1,7 @@
 package com.asesinosdesoftware.javeparking.repository;
 
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
-import com.asesinosdesoftware.javeparking.exceptions.VehiculoRepositoryException;
+import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,9 +41,9 @@ public class VehiculoRepository {
      * @param connection: Conexión a la base de datos
      * @param vehiculo: Objeto tipo Vehiculo a partir del cual se crea la ila en la base de datos
      * @throws SQLException
-     * @throws VehiculoRepositoryException
+     * @throws RepositoryException
      */
-    public void agregarVehiculo(Connection connection, Vehiculo vehiculo) throws SQLException, VehiculoRepositoryException {
+    public void agregarVehiculo(Connection connection, Vehiculo vehiculo) throws SQLException, RepositoryException {
 
         if(buscarVehiculo(connection, vehiculo.getPlaca(), new Vehiculo()) != null) {
             String sql = "INSERT INTO `javeparking`.`vehiculo` (`placa`, `tamano`, `tipo`) VALUES ( ?, ?, ?);";
@@ -54,6 +54,6 @@ public class VehiculoRepository {
             ps.executeUpdate();
         }
         else
-            throw new VehiculoRepositoryException("El vehiculo ya existe");
+            throw new RepositoryException("El vehiculo ya existe");
     }
 }
