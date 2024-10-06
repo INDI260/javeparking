@@ -2,6 +2,7 @@ module com.asesinosdesoftware.javeparking {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires spring.security.crypto;
 
 
     opens com.asesinosdesoftware.javeparking to javafx.fxml;

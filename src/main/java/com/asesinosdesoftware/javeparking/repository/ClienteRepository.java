@@ -28,6 +28,7 @@ public class ClienteRepository {
                 cliente.setNombre(resultSet.getString("nombre"));
                 cliente.setApellido(resultSet.getString("apellido"));
                 cliente.setUniversidad(resultSet.getString("universidad").charAt(0));
+                cliente.setHash(resultSet.getString("hash"));
                 return cliente;
             }
         }
@@ -44,12 +45,13 @@ public class ClienteRepository {
     public void agregarCliente(Connection connection, Cliente cliente) throws SQLException, ClienteRepositoryException {
 
         if(buscarCliente(connection, cliente.getCedula(), new Cliente()) == null) {
-            String sql = "INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`) VALUES ( ?, ?, ?, ?);";
+            String sql = "INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`, `hash`) VALUES ( ?, ?, ?, ?, ?);";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, cliente.getCedula());
             ps.setString(2, cliente.getNombre());
             ps.setString(3, cliente.getApellido());
             ps.setString(4, Character.toString(cliente.getUniversidad()));
+            ps.setString(5, cliente.getHash());
             ps.executeUpdate();
         }
         else {

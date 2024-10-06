@@ -44,9 +44,10 @@ public class JDBCService {
 
         stmt.execute("CREATE TABLE `javeparking`.`administrador` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `cedula` VARCHAR(20) NULL,\n" +
+                "  `cedula` VARCHAR(20) NOT NULL,\n" +
                 "  `nombre` VARCHAR(45) NULL,\n" +
                 "  `apellido` VARCHAR(45) NULL,\n" +
+                "  `hash` VARCHAR(100) NOT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
                 "  UNIQUE INDEX `cedula_UNIQUE` (`cedula` ASC) VISIBLE)");
 
@@ -54,10 +55,11 @@ public class JDBCService {
 
         stmt.execute("CREATE TABLE `javeparking`.`cliente` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `cedula` VARCHAR(20) NULL,\n" +
+                "  `cedula` VARCHAR(20) NOT NULL,\n" +
                 "  `nombre` VARCHAR(45) NULL,\n" +
                 "  `apellido` VARCHAR(45) NULL,\n" +
                 "  `universidad` VARCHAR(1) NULL,\n" +
+                "  `hash` VARCHAR(100) NOT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
                 "  UNIQUE INDEX `cedula_UNIQUE` (`cedula` ASC) VISIBLE);");
 
@@ -65,9 +67,10 @@ public class JDBCService {
 
         stmt.execute("CREATE TABLE `javeparking`.`empleado` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `cedula` VARCHAR(20) NULL,\n" +
+                "  `cedula` VARCHAR(20) NOT NULL,\n" +
                 "  `nombre` VARCHAR(45) NULL,\n" +
                 "  `apellido` VARCHAR(45) NULL,\n" +
+                "  `hash` VARCHAR(100) NOT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
                 "  UNIQUE INDEX `cedula_UNIQUE` (`cedula` ASC) VISIBLE);\n");
 
@@ -146,13 +149,13 @@ public class JDBCService {
                 "    ON DELETE NO ACTION\n" +
                 "    ON UPDATE NO ACTION);");
 
-        stmt.execute("INSERT INTO `javeparking`.`administrador` (`cedula`, `nombre`, `apellido`) VALUES ('10', 'Luis', 'Ramos');\n");
+        stmt.execute("INSERT INTO `javeparking`.`administrador` (`cedula`, `nombre`, `apellido`,`hash`) VALUES ('10', 'Luis', 'Ramos', BCrypt.hashpw('1234',BCrypt.gensalt()));\n");
 
-        stmt.execute("INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`) VALUES ( '30 ', 'Emily', 'Ramos');\n");
-        stmt.execute("INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`) VALUES ( '40', 'Tran', 'Esposito', 'A');\n");
-        stmt.execute("INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`) VALUES ('50', 'Maria', 'Menethil', 'E');\n");
+        stmt.execute("INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `hash`) VALUES ( '30 ', 'Emily', 'Ramos', BCrypt.hashpw('1234',BCrypt.gensalt());\n");
+        stmt.execute("INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`, `hash`) VALUES ( '40', 'Tran', 'Esposito', 'A', BCrypt.hashpw('1234',BCrypt.gensalt());\n");
+        stmt.execute("INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`, `hash`) VALUES ('50', 'Maria', 'Menethil', 'E', BCrypt.hashpw('1234',BCrypt.gensalt());\n");
 
-        stmt.execute("INSERT INTO `javeparking`.`empleado` ( `cedula`, `nombre`, `apellido`) VALUES ( '20', 'Simba', 'Gonzales');\n");
+        stmt.execute("INSERT INTO `javeparking`.`empleado` ( `cedula`, `nombre`, `apellido`, `hash`) VALUES ( '20', 'Simba', 'Gonzales', BCrypt.hashpw('1234',BCrypt.gensalt()));\n");
 
         stmt.execute("INSERT INTO `javeparking`.`parqueadero` (`id`) VALUES ('1');\n");
 
