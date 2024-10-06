@@ -30,14 +30,30 @@ public class InicioDeSesionService {
      * @throws InicioDeSesionException
      */
     public void InicioDeSesion(Connection connection, String cedula, String password) throws SQLException, InicioDeSesionException {
-        //Por ahora solo está implementado para clientes
-        if((cliente = this.clienteRepository.buscarCliente(connection, cedula, cliente)) != null){
+        if ((administrador = administradorRepository.buscarAdministrador(connection,cedula,administrador)) != null){
+            if(PasswordService.checkPassword(password,administrador.getHash())){
+                Sesion.setTipo('A');
+                administrador = new Administrador();
+            }
+            else{
+                throw new InicioDeSesionException("Contraseña incorrecta");
+            }
+        }
+        else if((cliente = this.clienteRepository.buscarCliente(connection, cedula, cliente)) != null){
             if(PasswordService.checkPassword(password, cliente.getHash())){
                 Sesion.setTipo('c');
                 cliente = new Cliente();
             }
             else
                 throw new InicioDeSesionException("Contraseña incorrecta");
+        }
+        else if((empleado = empleadoRepository.buscarEmpleado(connection,cedula,empleado)) != null){
+            if(PasswordService.checkPassword(password, empleado.getHash())){
+                Sesion.setTipo('e');
+                empleado = new Empleado();
+            }
+            else
+                throw new InicioDeSesionException("Contraaseña incorrecta");
         }
         else
             throw new InicioDeSesionException("No existe un usuario con ese documento");
