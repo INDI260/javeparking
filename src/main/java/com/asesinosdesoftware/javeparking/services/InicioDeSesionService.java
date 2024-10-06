@@ -30,7 +30,10 @@ public class InicioDeSesionService {
      * @throws InicioDeSesionException
      */
     public void InicioDeSesion(Connection connection, String cedula, String password) throws SQLException, InicioDeSesionException {
-        if ((administrador = administradorRepository.buscarAdministrador(connection,cedula,administrador)) != null){
+        if(Sesion.getTipo() != 'n'){
+            throw new InicioDeSesionException("Ya hay una sesión iniciada. Por favor cierre la sesión antes de comenzar otra.");
+        }
+        else if ((administrador = administradorRepository.buscarAdministrador(connection,cedula,administrador)) != null){
             if(PasswordService.checkPassword(password,administrador.getHash())){
                 Sesion.setTipo('A');
                 administrador = new Administrador();
@@ -58,5 +61,9 @@ public class InicioDeSesionService {
         else
             throw new InicioDeSesionException("No existe un usuario con ese documento");
 
+    }
+
+    public void CerrarSesion(){
+        Sesion.setTipo('n');
     }
 }
