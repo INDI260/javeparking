@@ -1,7 +1,7 @@
 package com.asesinosdesoftware.javeparking.repository;
 
 import com.asesinosdesoftware.javeparking.entities.Cliente;
-import com.asesinosdesoftware.javeparking.exceptions.ClienteRepositoryException;
+import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
 
 import java.sql.*;
 
@@ -40,9 +40,9 @@ public class ClienteRepository {
      * @param connection: Conexión a la base de datos
      * @param cliente: Objeto tipo cliente a partir del cual se crea la fila en la base de datos
      * @throws SQLException
-     * @throws ClienteRepositoryException
+     * @throws RepositoryException
      */
-    public void agregarCliente(Connection connection, Cliente cliente) throws SQLException, ClienteRepositoryException {
+    public void agregarCliente(Connection connection, Cliente cliente) throws SQLException, RepositoryException {
 
         if(buscarCliente(connection, cliente.getCedula(), new Cliente()) == null) {
             String sql = "INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`, `hash`) VALUES ( ?, ?, ?, ?, ?);";
@@ -55,7 +55,7 @@ public class ClienteRepository {
             ps.executeUpdate();
         }
         else {
-            throw new ClienteRepositoryException("El cliente ya existe");
+            throw new RepositoryException("El cliente ya existe");
         }
     }
 }

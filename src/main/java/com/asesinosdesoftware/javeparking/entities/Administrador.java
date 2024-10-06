@@ -9,6 +9,20 @@ public class Administrador {
     private String hash;//Hash de la constraseña del administrador
 
     /**
+     * Método constructor por parametros
+     * @param cedula
+     * @param nombre
+     * @param apellido
+     * @param hash
+     */
+    public Administrador(String cedula, String nombre, String apellido, String hash) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.hash = hash;
+    }
+
+    /**
      * Método constructor vacío
      */
     public Administrador() {}

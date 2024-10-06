@@ -9,6 +9,20 @@ public class Empleado {
     private String hash;//Hash de la contraseña del empleado
 
     /**
+     * Método constructor por parametros
+     * @param cedula
+     * @param nombre
+     * @param apellido
+     * @param hash
+     */
+    public Empleado(String cedula, String nombre, String apellido, String hash) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.hash = hash;
+    }
+
+    /**
      * Método constructor vacío
      */
     public Empleado() {

@@ -10,6 +10,22 @@ public class Cliente {
     private String hash; //Hash de la contraseña del cliente
 
     /**
+     * Método contructor por parametros
+     * @param cedula
+     * @param nombre
+     * @param apellido
+     * @param universidad
+     * @param hash
+     */
+    public Cliente(String cedula, String nombre, String apellido, Character universidad, String hash) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.universidad = universidad;
+        this.hash = hash;
+    }
+
+    /**
      * Método constructor vacío
      */
     public Cliente() {
