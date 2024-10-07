@@ -35,7 +35,8 @@ public class InicioDeSesionService {
         }
         else if ((administrador = administradorRepository.buscarAdministrador(connection,cedula,administrador)) != null){
             if(PasswordService.checkPassword(password,administrador.getHash())){
-                Sesion.setTipo('A');
+                Sesion.setcedula(cedula);
+                Sesion.setTipo('a');
                 administrador = new Administrador();
             }
             else{
@@ -44,6 +45,7 @@ public class InicioDeSesionService {
         }
         else if((cliente = this.clienteRepository.buscarCliente(connection, cedula, cliente)) != null){
             if(PasswordService.checkPassword(password, cliente.getHash())){
+                Sesion.setcedula(cedula);
                 Sesion.setTipo('c');
                 cliente = new Cliente();
             }
@@ -52,6 +54,7 @@ public class InicioDeSesionService {
         }
         else if((empleado = empleadoRepository.buscarEmpleado(connection,cedula,empleado)) != null){
             if(PasswordService.checkPassword(password, empleado.getHash())){
+                Sesion.setcedula(cedula);
                 Sesion.setTipo('e');
                 empleado = new Empleado();
             }

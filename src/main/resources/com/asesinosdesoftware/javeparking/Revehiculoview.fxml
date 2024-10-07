@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.Re_VehiculoviewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.ReVehiculoviewController">
    <children>
       <Label layoutX="200.0" layoutY="44.0" text="Registro Vehiculo" textFill="RED">
          <font>
@@ -38,7 +38,7 @@
       </ComboBox>
       <TextField fx:id="IdTipo" layoutX="263.0" layoutY="127.0" />
       <TextField fx:id="IdPlaca" layoutX="263.0" layoutY="172.0" />
-      <Button layoutX="231.0" layoutY="284.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="138.0" text="Registrar" textFill="#0b0b0b">
+      <Button layoutX="231.0" layoutY="284.0" mnemonicParsing="false" onAction="#registrovehiculo" prefHeight="35.0" prefWidth="138.0" text="Registrar" textFill="#0b0b0b">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

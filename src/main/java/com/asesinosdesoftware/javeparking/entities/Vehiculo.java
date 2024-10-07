@@ -6,12 +6,14 @@ public class Vehiculo {
     private String placa;
     private char tamano;//El tamaño del vehiculo. Puede ser grande mediano o pequeño (g, m, p)
     private char tipo;
+    private int clienteid;
 
-    public Vehiculo(int id, String placa, char tamano, char tipo) {
+    public Vehiculo(int id, String placa, char tamano, char tipo,int clienteid) {
         this.id = id;
         this.placa = placa;
         this.tamano = tamano;
         this.tipo = tipo;
+        this.clienteid = clienteid;
     }
 
     public Vehiculo(){
@@ -49,4 +51,9 @@ public class Vehiculo {
     public void setTipo(char tipo) {
         this.tipo = tipo;
     }
+
+    public int getClienteid() {return clienteid;}
+
+    public void setClienteid(int clienteid) {this.clienteid = clienteid;}
+
 }

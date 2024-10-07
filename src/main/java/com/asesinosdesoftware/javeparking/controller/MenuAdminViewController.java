@@ -1,4 +1,4 @@
 package com.asesinosdesoftware.javeparking.controller;
 
-public class Re_VehiculoviewController {
+public class MenuAdminViewController {
 }

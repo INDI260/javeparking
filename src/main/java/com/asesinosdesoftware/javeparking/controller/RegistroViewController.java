@@ -11,7 +11,10 @@ import javafx.scene.control.TextField;
 
 import java.sql.Connection;
 
-public class Registro_View_Controller {
+public class RegistroViewController {
+
+    @FXML
+    public TextField IdPassword;
     @FXML
     private ComboBox <String> Iduniversity;
     @FXML
@@ -31,16 +34,16 @@ public class Registro_View_Controller {
             C.setNombre(IdNombre.getText());
             C.setApellido(IdApellido.getText());
             C.setUniversidad(Iduniversity.getValue().charAt(0));
-            //C.setHash(PasswordService.hashPassword(IdPassword.getText())); Faltaría implementar algo así para guardar la contraseña
+            C.setHash(PasswordService.hashPassword(IdPassword.getText()));
 
             JDBCService controller = new JDBCService();
             Connection connection = controller.getConnection();
             ClienteRepository repository = new ClienteRepository();
 
             repository.agregarCliente(connection,C);
-            showSuccess("Registro de cliente exitoso");
 
             connection.close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
+            showSuccess("Registro de cliente exitoso");
 
         } catch (Exception e) {
             e.printStackTrace();

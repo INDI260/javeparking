@@ -1,4 +1,4 @@
 package com.asesinosdesoftware.javeparking.controller;
 
-public class InicioSesionViewController {
+public class MenuOperarioViewController {
 }

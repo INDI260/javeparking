@@ -19,7 +19,7 @@ public class VehiculoRepository {
      */
     public Vehiculo buscarVehiculo(Connection connection, String placa, Vehiculo vehiculo) throws SQLException {
 
-        String sql = "SELECT * FROM vehiculos WHERE placa = ?";
+        String sql = "SELECT * FROM vehiculo WHERE placa = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, placa);
         ResultSet rs = ps.executeQuery();
@@ -30,6 +30,7 @@ public class VehiculoRepository {
                 vehiculo.setPlaca(rs.getString("placa"));
                 vehiculo.setTamano(rs.getString("tamano").charAt(0));
                 vehiculo.setTipo(rs.getString("tipo").charAt(0));
+                vehiculo.setClienteid(rs.getInt("clienteid"));
                 return vehiculo;
             }
         }
@@ -45,12 +46,13 @@ public class VehiculoRepository {
      */
     public void agregarVehiculo(Connection connection, Vehiculo vehiculo) throws SQLException, RepositoryException {
 
-        if(buscarVehiculo(connection, vehiculo.getPlaca(), new Vehiculo()) != null) {
-            String sql = "INSERT INTO `javeparking`.`vehiculo` (`placa`, `tamano`, `tipo`) VALUES ( ?, ?, ?);";
+        if(buscarVehiculo(connection, vehiculo.getPlaca(), new Vehiculo()) == null) {
+            String sql = "INSERT INTO `javeparking`.`vehiculo` (`placa`, `tamano`, `tipo`,`clienteid`) VALUES ( ?, ?, ?,?);";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, vehiculo.getPlaca());
             ps.setString(2, Character.toString(vehiculo.getTamano()));
             ps.setString(3,Character.toString(vehiculo.getTipo()));
+            ps.setInt(4, vehiculo.getClienteid());
             ps.executeUpdate();
         }
         else

@@ -1,19 +1,28 @@
 package com.asesinosdesoftware.javeparking;
 
+import com.asesinosdesoftware.javeparking.entities.Sesion;
+import com.asesinosdesoftware.javeparking.services.InicioDeSesionService;
+import com.asesinosdesoftware.javeparking.services.JDBCService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class HelloController {
-
-    // Contenedor principal del layout, inyectado desde el archivo FXML
     @FXML
     private BorderPane contenedor;
+
+    @FXML
+    public TextField Usuario;
+    @FXML
+    public TextField Contrasena;
+    // Contenedor principal del layout, inyectado desde el archivo FXML
 
     @FXML
     private void Salir() {
@@ -35,14 +44,52 @@ public class HelloController {
     // Método para cargar y mostrar la vista de Inicio de sesion
     @FXML
     private void InicioSesion() {
-        try {
-            // Carga la vista desde el archivo FXML
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("Inicio_sesion_view.fxml"));
-            // Establece la vista cargada en el centro del contenedor principal
-            contenedor.setCenter(pane);
-        } catch (IOException e) {
-            e.printStackTrace();
+     try{
+
+         JDBCService controller = new JDBCService();
+         Connection connection = controller.getConnection();
+         InicioDeSesionService U = new InicioDeSesionService();
+
+         U.InicioDeSesion(connection,Usuario.getText(),Contrasena.getText());
+         if(Sesion.getTipo()=='a'){
+             try {
+                 // Carga la vista desde el archivo FXML
+                 AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuAdminView.fxml"));
+                 // Establece la vista cargada en el centro del contenedor principal
+                 contenedor.setCenter(pane);
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+
+         }
+         if(Sesion.getTipo()=='c'){
+             try {
+                 // Carga la vista desde el archivo FXML
+                 AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuClienteView.fxml"));
+                 // Establece la vista cargada en el centro del contenedor principal
+                 contenedor.setCenter(pane);
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+
+         }
+         if(Sesion.getTipo()=='e'){
+             try {
+                 // Carga la vista desde el archivo FXML
+                 AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuOperarioView.fxml"));
+                 // Establece la vista cargada en el centro del contenedor principal
+                 contenedor.setCenter(pane);
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+
+         }
+
+     }
+     catch (Exception e) {
+         e.printStackTrace();
         }
+
     }
 
     private void showError(String message) {
