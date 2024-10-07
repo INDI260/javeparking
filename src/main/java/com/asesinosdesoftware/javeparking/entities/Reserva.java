@@ -1,28 +1,44 @@
 package com.asesinosdesoftware.javeparking.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 public class Reserva {
 
     private int id;
-    private Date fecha;
-    private String horaEntrada;
-    private String horaSalida;
+    /*Una manera básica de asignar un atributo de LocalDateTime puede ser a partir de un string de esta manera:
+    ISO_LOCAL_DATE_TIME = ISO_LOCAL_DATE + ‘T’ + ISO_LOCAL_TIME
+    Un ejemplo sería este:
+    LocalDateTime today = LocalDateTime.parse("2019-03-27T10:15:30");
+    */
+    private LocalDateTime horaEntrada;//Este atributo guarda la fecha y la hora de entrada del vehiculo en la reserva.
+    private LocalDateTime horaSalida;//Este atributo guarda la fehca y la hora de salida del vehiculo en la reserva
     private Vehiculo vehiculo;
     private Puesto puesto;
 
-    public Reserva(int id, Date fecha, String horaEntrada, String horaSalida, Vehiculo vehiculo, Puesto puesto) {
+    /**
+     * Constructor por parametros de Reserva.
+     * @param id
+     * @param horaEntrada
+     * @param horaSalida
+     * @param vehiculo
+     * @param puesto
+     */
+    public Reserva(int id,  LocalDateTime horaEntrada, LocalDateTime horaSalida, Vehiculo vehiculo, Puesto puesto) {
         this.id = id;
-        this.fecha = fecha;
         this.horaEntrada = horaEntrada;
         this.horaSalida = horaSalida;
         this.vehiculo = vehiculo;
         this.puesto = puesto;
     }
 
+    /**
+     * Constructor vacío de reserva.
+     */
     public Reserva() {
     }
 
+    /* Getters y Setters */
     public int getId() {
         return id;
     }
@@ -31,27 +47,20 @@ public class Reserva {
         this.id = id;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getHoraEntrada() {
+    public LocalDateTime getHoraEntrada() {
         return horaEntrada;
     }
 
-    public void setHoraEntrada(String horaEntrada) {
+    public void setHoraEntrada(LocalDateTime horaEntrada) {
         this.horaEntrada = horaEntrada;
     }
 
-    public String getHoraSalida() {
+    public LocalDateTime getHoraSalida() {
         return horaSalida;
     }
 
-    public void setHoraSalida(String horaSalida) {
+    public void setHoraSalida(LocalDateTime horaSalida) {
         this.horaSalida = horaSalida;
     }
 

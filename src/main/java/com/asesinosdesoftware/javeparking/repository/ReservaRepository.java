@@ -17,13 +17,12 @@ public class ReservaRepository {
      * @throws SQLException
      */
     public void agregarReserva(Connection connection, Reserva reserva) throws SQLException {
-        String sql = "INSERT INTO `javeparking`.`reserva` (`fecha`, `horaEntrada`, `horaSalida`, `vehiculoID`, `puestoID`) VALUES ( ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO `javeparking`.`reserva` (`horaEntrada`, `horaSalida`, `vehiculoID`, `puestoID`) VALUES ( ?, ?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1,reserva.getFecha().toString());
-        ps.setString(2,reserva.getHoraEntrada());
-        ps.setString(3,reserva.getHoraSalida());
-        ps.setInt(4, reserva.getVehiculo().getId());
-        ps.setInt(5, reserva.getPuesto().getId());
+        ps.setObject(1,reserva.getHoraEntrada());
+        ps.setObject(2,reserva.getHoraSalida());
+        ps.setInt(3, reserva.getVehiculo().getId());
+        ps.setInt(4, reserva.getPuesto().getId());
         ps.executeUpdate();
 
     }

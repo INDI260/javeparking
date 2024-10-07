@@ -127,9 +127,8 @@ public class JDBCService {
 
         stmt.execute("CREATE TABLE `javeparking`.`reserva` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `fecha` VARCHAR(45) NULL,\n" +
-                "  `horaEntrada` VARCHAR(45) NULL,\n" +
-                "  `horaSalida` VARCHAR(45) NULL,\n" +
+                "  `horaEntrada` DATETIME NOT NULL,\n" +
+                "  `horaSalida` DATETIME NULL,\n" +
                 "  `vehiculoID` INT NULL,\n" +
                 "  `puestoID` INT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
