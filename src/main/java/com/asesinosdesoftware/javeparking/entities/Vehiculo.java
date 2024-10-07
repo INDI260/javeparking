@@ -8,6 +8,14 @@ public class Vehiculo {
     private char tipo;
     private int clienteid;
 
+    /**
+     * Método constructor por parametros de vehiculo.
+     * @param id
+     * @param placa
+     * @param tamano
+     * @param tipo
+     * @param clienteid
+     */
     public Vehiculo(int id, String placa, char tamano, char tipo,int clienteid) {
         this.id = id;
         this.placa = placa;
@@ -16,10 +24,14 @@ public class Vehiculo {
         this.clienteid = clienteid;
     }
 
+    /**
+     * Constructor vació de vehiculo.
+     */
     public Vehiculo(){
 
     }
 
+    /* Getters y setters*/
     public int getId() {
         return id;
     }
