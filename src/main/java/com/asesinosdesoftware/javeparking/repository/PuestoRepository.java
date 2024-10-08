@@ -51,4 +51,6 @@ public class PuestoRepository {
         ps.setBoolean(2, puesto.isDisponibilidad());
         ps.executeUpdate();
     }
+
+
 }

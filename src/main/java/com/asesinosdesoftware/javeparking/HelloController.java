@@ -29,6 +29,20 @@ public class HelloController {
         System.exit(0);
     }
 
+    @FXML
+    private void CerrarSesion() {
+        InicioDeSesionService Cerrar = new InicioDeSesionService();
+        Cerrar.CerrarSesion();
+        try {
+            // Carga la vista desde el archivo FXML
+            BorderPane pane = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
+            // Establece la vista cargada en el centro del contenedor principal
+            contenedor.setTop(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     // Método para cargar y mostrar la vista de registrar persona
     @FXML
     private void registrarCliente() {
@@ -51,45 +65,48 @@ public class HelloController {
          InicioDeSesionService U = new InicioDeSesionService();
 
          U.InicioDeSesion(connection,Usuario.getText(),Contrasena.getText());
-         if(Sesion.getTipo()=='a'){
-             try {
-                 // Carga la vista desde el archivo FXML
-                 AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuAdminView.fxml"));
-                 // Establece la vista cargada en el centro del contenedor principal
-                 contenedor.setCenter(pane);
-             } catch (IOException e) {
-                 e.printStackTrace();
-             }
-
-         }
-         if(Sesion.getTipo()=='c'){
-             try {
-                 // Carga la vista desde el archivo FXML
-                 AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuClienteView.fxml"));
-                 // Establece la vista cargada en el centro del contenedor principal
-                 contenedor.setCenter(pane);
-             } catch (IOException e) {
-                 e.printStackTrace();
-             }
-
-         }
-         if(Sesion.getTipo()=='e'){
-             try {
-                 // Carga la vista desde el archivo FXML
-                 AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuOperarioView.fxml"));
-                 // Establece la vista cargada en el centro del contenedor principal
-                 contenedor.setCenter(pane);
-             } catch (IOException e) {
-                 e.printStackTrace();
-             }
-
-         }
-
+         Menu();
      }
      catch (Exception e) {
          e.printStackTrace();
         }
 
+    }
+    @FXML
+    private void Menu(){
+        if(Sesion.getTipo()=='a'){
+            try {
+                // Carga la vista desde el archivo FXML
+                AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuAdminView.fxml"));
+                // Establece la vista cargada en el centro del contenedor principal
+                contenedor.setCenter(pane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        if(Sesion.getTipo()=='c'){
+            try {
+                // Carga la vista desde el archivo FXML
+                AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuClienteView.fxml"));
+                // Establece la vista cargada en el centro del contenedor principal
+                contenedor.setCenter(pane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        if(Sesion.getTipo()=='e'){
+            try {
+                // Carga la vista desde el archivo FXML
+                AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuOperarioView.fxml"));
+                // Establece la vista cargada en el centro del contenedor principal
+                contenedor.setCenter(pane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     private void showError(String message) {
