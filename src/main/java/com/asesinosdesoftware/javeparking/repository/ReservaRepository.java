@@ -37,7 +37,7 @@ public class ReservaRepository {
      * @throws SQLException
      */
     public static Reserva buscarReservaVehiculo(Connection connection, Reserva reserva) throws SQLException {
-        String sql = "SELECT * FORM reserva WHERE vehiculoID = ?";
+        String sql = "SELECT * FORM `javeparking`.`reserva` WHERE vehiculoID = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1,reserva.getVehiculo().getId());
         ResultSet rs = ps.executeQuery();
