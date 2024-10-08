@@ -17,7 +17,7 @@ public class AdministradorRepository {
      * @return Si se encuentra retorna un objero tipo administrador con los parametros encontrados en la base de datos o de lo contrario retorna null
      * @throws SQLException
      */
-    public Administrador buscarAdministrador(Connection connection, String cedula, Administrador administrador) throws SQLException {
+    public static Administrador buscarAdministrador(Connection connection, String cedula, Administrador administrador) throws SQLException {
 
         String sql = "select * from administrador where cedula = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -44,7 +44,7 @@ public class AdministradorRepository {
      * @throws SQLException
      * @throws RepositoryException
      */
-    public void agregarAdministrador(Connection connection, Administrador administrador) throws SQLException, RepositoryException {
+    public static void agregarAdministrador(Connection connection, Administrador administrador) throws SQLException, RepositoryException {
 
         if(buscarAdministrador(connection, administrador.getCedula(), new Administrador()) == null) {
             String sql = "INSERT INTO `javeparking`.`administrador` (`cedula`, `nombre`, `apellido`, `hash`) VALUES ( ?, ?, ?, ?);";

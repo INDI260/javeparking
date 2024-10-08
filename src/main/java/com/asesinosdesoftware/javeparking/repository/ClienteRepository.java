@@ -14,7 +14,7 @@ public class ClienteRepository {
      * @return Si se encuentra retorna un objero tipo cliente con los parametros encontrados en la base de datos o de lo contrario retorna null
      * @throws SQLException
      */
-    public Cliente buscarCliente(Connection connection, String cedula, Cliente cliente) throws SQLException {
+    public static Cliente buscarCliente(Connection connection, String cedula, Cliente cliente) throws SQLException {
 
         String sql = "SELECT * FROM cliente WHERE cedula = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -42,7 +42,7 @@ public class ClienteRepository {
      * @throws SQLException
      * @throws RepositoryException
      */
-    public void agregarCliente(Connection connection, Cliente cliente) throws SQLException, RepositoryException {
+    public static void agregarCliente(Connection connection, Cliente cliente) throws SQLException, RepositoryException {
 
         if(buscarCliente(connection, cliente.getCedula(), new Cliente()) == null) {
             String sql = "INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`, `hash`) VALUES ( ?, ?, ?, ?, ?);";

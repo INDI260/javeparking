@@ -19,7 +19,7 @@ public class PuestoRepository {
      * @return Retorna un objeto tipo puesto con el primer puesto que cumpla las condiciones buscadas
      * @throws SQLException
      */
-    public Puesto buscarPuesto(String tamano, boolean disponibilidad, Connection connection, Puesto puesto) throws SQLException {
+    public static Puesto buscarPuesto(String tamano, boolean disponibilidad, Connection connection, Puesto puesto) throws SQLException {
 
         String sql = "SELECT * FROM Puesto WHERE tamano = ? and disponibilidad = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -39,12 +39,38 @@ public class PuestoRepository {
     }
 
     /**
+     * Método que busca un puesto en la base de datos a partir de su id
+     * @param id: id a buscar
+     * @param connection: Conexión a labase de datos
+     * @param puesto: Objeto tipo puesto para almacenar lo encontrado
+     * @return Un objeto tipo puesto si se encuentra o null si no se encuentra
+     * @throws SQLException
+     */
+    public static Puesto buscarPuesto(int id, Connection connection, Puesto puesto) throws SQLException {
+
+        String sql = "SELECT * FROM Puesto WHERE id = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            if (rs.getInt("id") == id) {
+                puesto.setId(rs.getInt("id"));
+                puesto.setTamano(rs.getString("tamano").charAt(0));
+                puesto.setDisponibilidad(rs.getBoolean("disponibilidad"));
+                return puesto;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Método que agrega un puesto de las caracteristicas deseadas a la base de datos
      * @param connection: conexión a la base de datos
      * @param puesto: Objeto tipo puesto con las características deseadas
      * @throws SQLException
      */
-    public void agregarPuesto(Connection connection,Puesto puesto) throws SQLException {
+    public static void agregarPuesto(Connection connection,Puesto puesto) throws SQLException {
 
         String sql = "INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES (?, ?, b'1');";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -59,7 +85,7 @@ public class PuestoRepository {
      * @param puesto: Objeto tipo puesto a partir del cual se va a modificar al disponibilidad
      * @throws SQLException
      */
-    public void actualizarPuesto(Connection connection, Puesto puesto) throws SQLException {
+    public static void actualizarPuesto(Connection connection, Puesto puesto) throws SQLException {
 
         String sql = "UPDATE `javeparking`.`puesto` SET `disponibilidad` = ? WHERE `id` = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -76,7 +102,7 @@ public class PuestoRepository {
      * @param tamano: Tamaño del cual se buscaran los puestos
      * @throws SQLException
      */
-    public void listarPuestos(Connection connection, List<Puesto> puestos, boolean disponibilidad, char tamano) throws SQLException {
+    public static void listarPuestos(Connection connection, List<Puesto> puestos, boolean disponibilidad, char tamano) throws SQLException {
 
         String sql = "SELECT * FROM `javeparking`.`puesto` WHERE `disponibilidad` = ? and tamano = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
