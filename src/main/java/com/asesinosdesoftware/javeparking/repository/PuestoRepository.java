@@ -61,7 +61,7 @@ public class PuestoRepository {
      */
     public void actualizarPuesto(Connection connection, Puesto puesto) throws SQLException {
 
-        String sql = "UPDATE puesto `javeparking`.`puesto` SET `disponibilidad` = ? WHERE `id` = ?";
+        String sql = "UPDATE `javeparking`.`puesto` SET `disponibilidad` = ? WHERE `id` = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setBoolean(1, puesto.isDisponibilidad());
         ps.setInt(2, puesto.getId());
