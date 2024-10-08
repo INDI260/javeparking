@@ -7,13 +7,20 @@ import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
 import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
 import com.asesinosdesoftware.javeparking.services.JDBCService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.asesinosdesoftware.javeparking.repository.ReservaRepository.buscarReservaVehiculo;
 
 public class ReservaParqViewController {
     @FXML
@@ -21,9 +28,6 @@ public class ReservaParqViewController {
 
     @FXML
     private TableColumn<Puesto, Integer> columnaID;
-
-    @FXML
-    private TableColumn<Puesto, String> columnaIDParqueadero;
 
     @FXML
     private TableColumn<Puesto, String> columnaTamano;
@@ -37,6 +41,43 @@ public class ReservaParqViewController {
     public TextField IDplaca;
 
 
+    @FXML
+    public void initialize() {
+        // Configurar las columnas de la tabla
+        columnaID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnaTamano.setCellValueFactory(new PropertyValueFactory<>("tamano"));
+
+        // Escuchar cambios en el ComboBox de tamaño
+        IdTamano.setOnAction(event -> {
+            String tamanoSeleccionado = IdTamano.getValue();
+            if (tamanoSeleccionado != null) {
+                cargarPuestosFiltrados(tamanoSeleccionado.charAt(0));
+            }
+        });
+    }
+
+    private void cargarPuestosFiltrados(char tamanoSeleccionado) {
+        // Crear lista de puestos
+        List<Puesto> puestos = new ArrayList<>();
+        try {
+            // Obtener la conexión (ajusta con tu configuración)
+            JDBCService controller = new JDBCService();
+            Connection connection = controller.getConnection();
+            PuestoRepository PR = new PuestoRepository();
+
+            // Llamar al método del repositorio para listar puestos
+            PR.listarPuestos(connection, puestos, false, tamanoSeleccionado);
+
+            // Convertir la lista en una lista observable para actualizar la tabla
+            ObservableList<Puesto> puestosObservable = FXCollections.observableArrayList(puestos);
+            tablaReservas.setItems(puestosObservable);
+
+            connection.close();  // Cerrar conexión
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void CrearReserva() {
@@ -70,11 +111,18 @@ public class ReservaParqViewController {
             R.setVehiculo(V);
             R.setPuesto(P);
             ReservaRepository RR = new ReservaRepository();
+           // if(buscarReservaVehiculo(connection,R)!=null){
+               // showError("Reserva ya existe");
+               // return;
+          //  }
             RR.agregarReserva(connection,R);
+            P.setDisponibilidad(true);
+            PR.actualizarPuesto(connection,P);
             connection.close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
             showSuccess("Reserva de Parqueadero Exitosa");
 
         } catch (Exception e) {
+            showError("Error al crear Reserva");
             e.printStackTrace();
 
         }
