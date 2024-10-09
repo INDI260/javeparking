@@ -13,8 +13,8 @@ public class Reserva {
     */
     private LocalDateTime horaEntrada;//Este atributo guarda la fecha y la hora de entrada del vehiculo en la reserva.
     private LocalDateTime horaSalida;//Este atributo guarda la fehca y la hora de salida del vehiculo en la reserva
-    private Vehiculo vehiculo;
-    private Puesto puesto;
+    private Vehiculo vehiculo; //Vehiculo asociado a la reserva
+    private Puesto puesto; //Puesto en el cual se va a alojar el vehiculo dentro del parqueadero
 
     /**
      * Constructor por parametros de Reserva.

@@ -2,11 +2,12 @@ package com.asesinosdesoftware.javeparking.entities;
 
 public class Vehiculo {
 
-    private int id;
-    private String placa;
+    private int id; //Este dato lo crea automáticamte el manejador de bases de datos y por tanto no se debe asignar manualmente
+    private String placa; //Placa del vehiculo
     private char tamano;//El tamaño del vehiculo. Puede ser grande mediano o pequeño (g, m, p)
-    private char tipo;
+    private char tipo; //Tipo de vehiculo
     private int clienteid;
+
 
     /**
      * Método constructor por parametros de vehiculo.
