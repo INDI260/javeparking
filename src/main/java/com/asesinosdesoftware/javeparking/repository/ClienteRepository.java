@@ -1,7 +1,7 @@
 package com.asesinosdesoftware.javeparking.repository;
 
 import com.asesinosdesoftware.javeparking.entities.Cliente;
-import com.asesinosdesoftware.javeparking.exceptions.ClienteRepositoryException;
+import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
 
 import java.sql.*;
 
@@ -14,7 +14,7 @@ public class ClienteRepository {
      * @return Si se encuentra retorna un objero tipo cliente con los parametros encontrados en la base de datos o de lo contrario retorna null
      * @throws SQLException
      */
-    public Cliente buscarCliente(Connection connection, String cedula, Cliente cliente) throws SQLException {
+    public static Cliente buscarCliente(Connection connection, String cedula, Cliente cliente) throws SQLException {
 
         String sql = "SELECT * FROM cliente WHERE cedula = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -28,6 +28,7 @@ public class ClienteRepository {
                 cliente.setNombre(resultSet.getString("nombre"));
                 cliente.setApellido(resultSet.getString("apellido"));
                 cliente.setUniversidad(resultSet.getString("universidad").charAt(0));
+                cliente.setHash(resultSet.getString("hash"));
                 return cliente;
             }
         }
@@ -39,21 +40,22 @@ public class ClienteRepository {
      * @param connection: Conexión a la base de datos
      * @param cliente: Objeto tipo cliente a partir del cual se crea la fila en la base de datos
      * @throws SQLException
-     * @throws ClienteRepositoryException
+     * @throws RepositoryException
      */
-    public void agregarCliente(Connection connection, Cliente cliente) throws SQLException, ClienteRepositoryException {
+    public static void agregarCliente(Connection connection, Cliente cliente) throws SQLException, RepositoryException {
 
         if(buscarCliente(connection, cliente.getCedula(), new Cliente()) == null) {
-            String sql = "INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`) VALUES ( ?, ?, ?, ?);";
+            String sql = "INSERT INTO `javeparking`.`cliente` (`cedula`, `nombre`, `apellido`, `universidad`, `hash`) VALUES ( ?, ?, ?, ?, ?);";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, cliente.getCedula());
             ps.setString(2, cliente.getNombre());
             ps.setString(3, cliente.getApellido());
             ps.setString(4, Character.toString(cliente.getUniversidad()));
+            ps.setString(5, cliente.getHash());
             ps.executeUpdate();
         }
         else {
-            throw new ClienteRepositoryException("El cliente ya existe");
+            throw new RepositoryException("El cliente ya existe");
         }
     }
 }

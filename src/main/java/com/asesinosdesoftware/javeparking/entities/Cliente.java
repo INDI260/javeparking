@@ -7,19 +7,34 @@ public class Cliente {
     private String nombre; //Nombre del estudiante
     private String apellido; //Apellido del estudiante
     private char universidad; //Determina si está afiliado a la universidad se usa 'e' para estudiante, 'a' para administrativo o n para ninguno
+    private String hash; //Hash de la contraseña del cliente
 
 
-    public Cliente(int id, String cedula, String nombre, String apellido, char universidad) {
-        this.id = id;
+    /**
+     * Método contructor por parametros
+     * @param cedula
+     * @param nombre
+     * @param apellido
+     * @param universidad
+     * @param hash
+     */
+    public Cliente(String cedula, String nombre, String apellido, Character universidad, String hash) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.universidad = universidad;//Determina si está afiliado a la universidad se usa 'e' para estudiante, 'a' para administrativo o n para ninguno
+
+        this.universidad = universidad;
+        this.hash = hash;
+
     }
 
+    /**
+     * Método constructor vacío
+     */
     public Cliente() {
     }
 
+    /*Getters y Setters*/
     public int getId() {
         return id;
     }
@@ -59,4 +74,8 @@ public class Cliente {
     public void setUniversidad(Character universidad) {
         this.universidad = universidad;
     }
+
+    public String getHash() {return hash;}
+
+    public void setHash(String hash) {this.hash = hash;}
 }
