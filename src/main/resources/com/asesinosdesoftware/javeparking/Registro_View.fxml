@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.RegistroViewController">
+   <children>
+      <Label layoutX="210.0" layoutY="30.0" text="Registro Cliente" textFill="RED">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="65.0" layoutY="112.0" text="Cedula">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label layoutX="61.0" layoutY="153.0" text="Nombre">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label layoutX="61.0" layoutY="200.0" text="Apellido">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label layoutX="49.0" layoutY="240.0" text="Universidad">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+
+
+      <ComboBox fx:id="Iduniversity" layoutX="156.0" layoutY="237.0" prefWidth="150.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="e" />
+               <String fx:value="a" />
+               <String fx:value="n" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+      <TextField fx:id="IDCedula" layoutX="156.0" layoutY="109.0" />
+      <TextField fx:id="IdNombre" layoutX="156.0" layoutY="150.0" />
+      <TextField fx:id="IdApellido" layoutX="156.0" layoutY="197.0" />
+      <Button layoutX="410.0" layoutY="106.0" mnemonicParsing="false" onAction="#registro" prefHeight="137.0" prefWidth="138.0" text="Registrar" textFill="#0b0b0b">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="51.0" layoutY="286.0" text="Contraseña">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="IdPassword" layoutX="156.0" layoutY="284.0" />
+
+   </children>
+</AnchorPane>

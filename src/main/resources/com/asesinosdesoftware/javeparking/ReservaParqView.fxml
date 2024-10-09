@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.ReservaParqViewController">
+
+    <!-- Definimos la tabla para reservas -->
+    <TableView fx:id="tablaReservas" layoutX="173.0" layoutY="266.0" prefHeight="120.0" prefWidth="302.0">
+        <!-- Columna para "ID" -->
+        <columns>
+            <TableColumn fx:id="columnaID" prefWidth="150.0" text="ID" />
+            <!-- Columna para "Tamaño" -->
+            <TableColumn fx:id="columnaTamano" prefWidth="150.0" text="Tamaño" />
+        </columns>
+    </TableView>
+
+    <Label layoutX="163.0" layoutY="30.0" text="Reserva de parqueadero">
+        <font>
+            <Font name="System Bold" size="24.0" />
+        </font>
+    </Label>
+
+    <!-- Etiqueta para Hora de Entrada -->
+    <Label layoutX="76.0" layoutY="89.0" text="Hora de entrada" />
+
+    <!-- ComboBox para seleccionar la hora de entrada (solo entre 08:00 y 20:00) -->
+    <ComboBox fx:id="IDHoraEntrada" layoutX="180.0" layoutY="85.0" prefHeight="25.0" prefWidth="150.0">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <!-- Opciones restringidas de horas entre 08:00 y 20:00 -->
+                <String fx:value="08:00" />
+                <String fx:value="09:00" />
+                <String fx:value="10:00" />
+                <String fx:value="11:00" />
+                <String fx:value="12:00" />
+                <String fx:value="13:00" />
+                <String fx:value="14:00" />
+                <String fx:value="15:00" />
+                <String fx:value="16:00" />
+                <String fx:value="17:00" />
+                <String fx:value="18:00" />
+                <String fx:value="19:00" />
+                <String fx:value="20:00" />
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <ComboBox fx:id="IdTamano" layoutX="180.0" layoutY="174.0" prefWidth="150.0">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="g" />
+                <String fx:value="m" />
+                <String fx:value="p" />
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <!-- Etiqueta para Hora de Salida -->
+    <Label layoutX="80.0" layoutY="136.0" text="Hora de salida" />
+
+    <!-- ComboBox para seleccionar la hora de salida (solo entre 08:00 y 20:00) -->
+    <ComboBox fx:id="IDHoraSalida" layoutX="180.0" layoutY="132.0" prefHeight="25.0" prefWidth="150.0">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <!-- Opciones restringidas de horas entre 08:00 y 20:00 -->
+                <String fx:value="08:00" />
+                <String fx:value="09:00" />
+                <String fx:value="10:00" />
+                <String fx:value="11:00" />
+                <String fx:value="12:00" />
+                <String fx:value="13:00" />
+                <String fx:value="14:00" />
+                <String fx:value="15:00" />
+                <String fx:value="16:00" />
+                <String fx:value="17:00" />
+                <String fx:value="18:00" />
+                <String fx:value="19:00" />
+                <String fx:value="20:00" />
+            </FXCollections>
+        </items>
+    </ComboBox>
+   <Label layoutX="113.0" layoutY="178.0" text="Tamaño" />
+   <Button layoutX="408.0" layoutY="106.0" mnemonicParsing="false" onAction="#CrearReserva" prefHeight="120.0" prefWidth="121.0" text="Crear Reserva">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font>
+   </Button>
+   <Label layoutX="128.0" layoutY="222.0" text="Placa" />
+   <TextField fx:id="IDplaca" layoutX="180.0" layoutY="218.0" prefHeight="25.0" prefWidth="150.0" />
+
+</AnchorPane>
