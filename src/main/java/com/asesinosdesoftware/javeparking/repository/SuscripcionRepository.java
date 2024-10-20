@@ -8,7 +8,7 @@ public class SuscripcionRepository {
 
     // Método para agregar una suscripción
     public static void agregarSuscripcion(Connection connection, Suscripcion suscripcion) throws SQLException {
-        String sql = "INSERT INTO Suscripcion (cliente_id, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Suscripcion (clienteID, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         ps.setInt(1, suscripcion.getCliente().getId());

@@ -50,6 +50,7 @@ public class JDBCService {
         stmt.execute("DROP TABLE IF EXISTS puesto");
         stmt.execute("DROP TABLE IF EXISTS parqueadero");
         stmt.execute("DROP TABLE IF EXISTS vehiculo");
+        stmt.execute("DROP TABLE IF EXISTS suscripcion");
         stmt.execute("DROP TABLE IF EXISTS cliente");
 
 
@@ -145,7 +146,18 @@ public class JDBCService {
                 "    ON DELETE NO ACTION\n" +
                 "    ON UPDATE NO ACTION);");
 
-
+        stmt.execute("CREATE TABLE `javeparking`.`suscripcion` (\n" +
+                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `clienteID` INT NOT NULL,\n" +  // Debe coincidir con el tipo de dato en la tabla cliente
+                "  `fecha_inicio` DATE NULL,\n" +
+                "  `fecha_fin` DATE NULL,\n" +
+                "  `estado` VARCHAR(100) NOT NULL,\n" +
+                "  PRIMARY KEY (`id`),\n" +
+                "  CONSTRAINT `fk_cliente_suscripcion`\n" +
+                "    FOREIGN KEY (`clienteID`)\n" +
+                "    REFERENCES `javeparking`.`cliente` (`id`)\n" + // Referencia a la tabla cliente
+                "    ON DELETE NO ACTION\n" +
+                "    ON UPDATE NO ACTION);");
 
         stmt.execute("CREATE TABLE `javeparking`.`pago` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
