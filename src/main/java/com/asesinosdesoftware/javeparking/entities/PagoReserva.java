@@ -1,5 +1,6 @@
 package com.asesinosdesoftware.javeparking.entities;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class PagoReserva {
@@ -8,14 +9,14 @@ public class PagoReserva {
 
     private int id; // Este dato lo crea automáticamente el manejador de bases de datos
     private Reserva reserva; // Reserva asociada al pago (opcional)
-    private double valor; // El valor monetario que debe recibirse en el pago
+    private BigDecimal valor; // El valor monetario que debe recibirse en el pago
     private LocalDateTime fechaPago;//Este atributo guarda la fecha y la hora de entrada del vehículo en la reserva.
     private String metodoPago;
 
     public PagoReserva() {
     }
 
-    public PagoReserva(int id, Reserva reserva, double valor, LocalDateTime fechaPago) {
+    public PagoReserva(int id, Reserva reserva, BigDecimal valor, LocalDateTime fechaPago) {
         this.id = id;
         this.reserva = reserva;
         this.valor = valor;
@@ -39,11 +40,11 @@ public class PagoReserva {
         this.reserva = reserva;
     }
 
-    public double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 
