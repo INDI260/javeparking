@@ -3,6 +3,7 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
+import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
 import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
@@ -30,8 +31,8 @@ public class ReVehiculoviewController {
         v.setTipo(IdTipo.getText().charAt(0));
         v.setPlaca(IdPlaca.getText());
 
-        JDBCInitializer controller = new JDBCInitializer();
-        Connection connection = controller.getConnection();
+        DBConnectionManager dbConnectionManager = new DBConnectionManager();
+        Connection connection = dbConnectionManager.getConnection();
 
         VehiculoRepository vehiculoRepository = new VehiculoRepository();
         ClienteRepository clienterepository = new ClienteRepository();

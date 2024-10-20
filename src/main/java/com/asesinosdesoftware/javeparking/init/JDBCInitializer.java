@@ -25,7 +25,7 @@ public class JDBCInitializer {
     private EmpleadoRepository empleadoRepository;
 
     /**
-     * Método constructor por para
+     * Método constructor por parametros de JDBCInitializer
      * @param dbConnectionManager
      * @param administradorRepository
      * @param clienteRepository
