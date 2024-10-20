@@ -22,6 +22,10 @@ public class SuscripcionViewController {
     private DatePicker fechaInicioPicker; // Campo para ingresar la fecha de fin
     @FXML
     private DatePicker fechaFinPicker; // Campo para ingresar la fecha de fin
+    @FXML
+    private TextField valorMensualidadField; // Campo para ingresar el valor de la mensualidad
+
+    private SuscripcionRepository suscripcionRepo = new SuscripcionRepository(); // Instancia del repositorio
 
     @FXML
     private void agregarSuscripcion() {
@@ -72,6 +76,49 @@ public class SuscripcionViewController {
             showError("Error al agregar suscripción: " + e.getMessage());
         } catch (NumberFormatException e) {
             showError("Por favor, ingrese un ID de cliente válido.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Error en la entrada de datos: " + e.getMessage());
+        }
+    }
+
+    // Método para registrar el pago de la mensualidad
+    @FXML
+    private void pagarMensualidad() {
+        try {
+            // Verificar que el valor de la mensualidad sea un número válido
+            float valorMensualidad = 0;
+            try {
+                valorMensualidad = Float.parseFloat(valorMensualidadField.getText());
+                if (valorMensualidad <= 0) {
+                    showError("El valor de la mensualidad debe ser mayor a 0.");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                showError("Por favor, ingrese un valor válido para la mensualidad.");
+                return;
+            }
+
+            // Obtener el cliente actual usando la cédula de sesión
+            Cliente cliente = new Cliente();
+            ClienteRepository CR = new ClienteRepository();
+            JDBCService jdbcService = new JDBCService();
+            Connection connection = jdbcService.getConnection();
+            CR.buscarCliente(connection, Sesion.getcedula(), cliente); // Obtener cliente a partir de la cédula de sesión
+
+            // Realizar el pago y registrar en la base de datos
+            SuscripcionRepository suscripcionRepo = new SuscripcionRepository();
+            suscripcionRepo.pagarMensualidad(connection, cliente.getId(), valorMensualidad);
+
+            // Cerrar la conexión
+            connection.close();
+
+            // Mostrar mensaje de éxito
+            showSuccess("Pago realizado con éxito.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showError("Error al realizar el pago: " + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             showError("Error en la entrada de datos: " + e.getMessage());
