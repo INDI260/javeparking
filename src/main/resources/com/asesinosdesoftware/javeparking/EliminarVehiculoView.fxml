@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.EliminarVehiculoViewController">
+   <children>
+      <Label layoutX="160.0" layoutY="33.0" text="Eliminacion de Vehiculos" textFill="#ff0606">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="241.0" layoutY="262.0" mnemonicParsing="false" onAction="#EliminarVehiculo" prefHeight="47.0" prefWidth="118.0" text="Eliminar">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Label layoutX="160.0" layoutY="177.0" prefHeight="27.0" prefWidth="54.0" text="Placa">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <TextField fx:id="IDPlaca" layoutX="226.0" layoutY="178.0" />
+   </children>
+</AnchorPane>
