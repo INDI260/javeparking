@@ -71,4 +71,24 @@ public class MenuClienteViewController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void pagar() {
+        try {
+            // Cargar la vista desde el archivo FXML
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("/com/asesinosdesoftware/javeparking/PagoClView.fxml"));
+            // Limpiar los hijos actuales del contenedor principal
+            contenedor.getChildren().clear();
+            // Ajustar las propiedades de posicionamiento de AnchorPane para que ocupe todo el espacio
+            AnchorPane.setTopAnchor(pane, 0.0);
+            AnchorPane.setBottomAnchor(pane, 0.0);
+            AnchorPane.setLeftAnchor(pane, 0.0);
+            AnchorPane.setRightAnchor(pane, 0.0);
+            // Agregar la nueva vista cargada al contenedor principal
+            contenedor.getChildren().add(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

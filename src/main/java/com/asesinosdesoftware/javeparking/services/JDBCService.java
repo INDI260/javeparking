@@ -44,7 +44,7 @@ public class JDBCService {
 
         Statement stmt = connection.createStatement();
         stmt.execute("DROP TABLE IF EXISTS `javeparking`.`administrador`;");
-        stmt.execute("DROP TABLE IF EXISTS pago");
+        stmt.execute("DROP TABLE IF EXISTS pagoreserva");
         stmt.execute("DROP TABLE IF EXISTS empleado");
         stmt.execute("DROP TABLE IF EXISTS reserva");
         stmt.execute("DROP TABLE IF EXISTS puesto");
@@ -90,7 +90,9 @@ public class JDBCService {
 
         stmt.execute("CREATE TABLE `javeparking`.`parqueadero` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `TarifaEstandar` FLOAT NOT NULL,\n" +
                 "  PRIMARY KEY (`id`));");
+
 
 
 
@@ -159,17 +161,22 @@ public class JDBCService {
                 "    ON DELETE NO ACTION\n" +
                 "    ON UPDATE NO ACTION);");
 
-        stmt.execute("CREATE TABLE `javeparking`.`pago` (\n" +
+        stmt.execute("CREATE TABLE `javeparking`.`pagoReserva` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `valor` DECIMAL NULL,\n" +
                 "  `reservaID` INT NULL,\n" +
+                "  `fechaPago` DATETIME NOT NULL,\n" +
+                "  `metodoPago` VARCHAR(100) NOT NULL,\n" + // Nueva columna metodoPago
                 "  PRIMARY KEY (`id`),\n" +
                 "  INDEX `reservaID_idx` (`reservaID` ASC) VISIBLE,\n" +
                 "  CONSTRAINT `reservaID`\n" +
                 "    FOREIGN KEY (`reservaID`)\n" +
                 "    REFERENCES `javeparking`.`reserva` (`id`)\n" +
                 "    ON DELETE NO ACTION\n" +
-                "    ON UPDATE NO ACTION);");
+                "    ON UPDATE NO ACTION,\n" +
+                "  CONSTRAINT `check_metodoPago`\n" + // Restricción CHECK
+                "    CHECK (`metodoPago` IN ('Online', 'Presencial'))\n" +
+                ");");
 
         administradorRepository.agregarAdministrador(connection,new Administrador("10", "Luis", "Ramos", PasswordService.hashPassword("1234")));
 
@@ -179,7 +186,7 @@ public class JDBCService {
 
         empleadoRepository.agregarEmpleado(connection, new Empleado("20", "Simba", "Gonzales", PasswordService.hashPassword("1234")));
 
-        stmt.execute("INSERT INTO `javeparking`.`parqueadero` (`id`) VALUES ('1');\n");
+        stmt.execute("INSERT INTO `javeparking`.`parqueadero` (`id`, `TarifaEstandar`) VALUES ('1', 15.50);\n");
 
         stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('g', b'0', b'1');");
         stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('g', b'0', b'1');");

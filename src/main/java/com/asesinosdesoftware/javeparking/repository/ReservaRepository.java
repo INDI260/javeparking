@@ -37,7 +37,7 @@ public class ReservaRepository {
      * @throws SQLException
      */
     public static Reserva buscarReservaVehiculo(Connection connection, Reserva reserva) throws SQLException {
-        String sql = "SELECT * FORM `javeparking`.`reserva` WHERE vehiculoID = ?";
+        String sql = "SELECT * FROM `javeparking`.`reserva` WHERE vehiculoID = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1,reserva.getVehiculo().getId());
         ResultSet rs = ps.executeQuery();
@@ -53,4 +53,34 @@ public class ReservaRepository {
         }
         return null;
     }
+
+    public static Reserva buscarReservaPorId(Connection connection, int reservaId, Reserva reserva) throws SQLException {
+        String sql = "SELECT * FROM `javeparking`.`reserva` WHERE `id` = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, reservaId);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            reserva.setId(rs.getInt("id"));
+
+            // Inicializa el objeto Vehiculo
+            Vehiculo vehiculo = new Vehiculo();
+            reserva.setVehiculo(VehiculoRepository.buscarVehiculo(connection, rs.getInt("vehiculoID"), vehiculo));
+
+            reserva.setHoraEntrada((LocalDateTime) rs.getObject("horaEntrada"));
+            reserva.setHoraSalida((LocalDateTime) rs.getObject("horaSalida"));
+
+            // Inicializa el objeto Puesto
+            Puesto puesto = new Puesto();
+            reserva.setPuesto(PuestoRepository.buscarPuesto(rs.getInt("puestoID"), connection, puesto));
+
+            return reserva;
+        }
+
+        return null; // Si no se encuentra la reserva
+    }
+
+
+
+
 }

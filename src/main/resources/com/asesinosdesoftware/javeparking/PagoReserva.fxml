@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.PagoReservaController">
+   <children>
+      <Label layoutX="286.0" layoutY="31.0" text="Pago de Reservas" />
+      <Label layoutX="130.0" layoutY="115.0" text="Placa Vehiculo" />
+      <Label layoutX="154.0" layoutY="169.0" text="ID Reserva" />
+      <TextField fx:id="IDPlaca" layoutX="258.0" layoutY="111.0" />
+      <TextField fx:id="IDReserva" layoutX="258.0" layoutY="165.0" />
+      <Button layoutX="181.0" layoutY="259.0" mnemonicParsing="false" onAction="#mostrarprecio" text="Verificar Precio" />
+      <Button layoutX="368.0" layoutY="259.0" mnemonicParsing="false" onAction="#pagoReservas" text="Pagar" />
+   </children>
+</AnchorPane>
