@@ -9,7 +9,7 @@ public class PagoReserva {
     private int id; // Este dato lo crea automáticamente el manejador de bases de datos
     private Reserva reserva; // Reserva asociada al pago (opcional)
     private double valor; // El valor monetario que debe recibirse en el pago
-    private LocalDateTime fechaPago;//Este atributo guarda la fecha y la hora de entrada del vehiculo en la reserva.
+    private LocalDateTime fechaPago;//Este atributo guarda la fecha y la hora de entrada del vehículo en la reserva.
     private String metodoPago;
 
     public PagoReserva() {

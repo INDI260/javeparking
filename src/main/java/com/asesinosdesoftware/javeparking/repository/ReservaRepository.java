@@ -68,14 +68,14 @@ public class ReservaRepository {
 
             // Inicializa el objeto Vehiculo
             Vehiculo vehiculo = new Vehiculo();
-            reserva.setVehiculo(VehiculoRepository.buscarVehiculo(connection, rs.getInt("vehiculoID"), vehiculo));
+            reserva.setVehiculo(vehiculoRepository.buscarVehiculo(connection, rs.getInt("vehiculoID"), vehiculo));
 
             reserva.setHoraEntrada((LocalDateTime) rs.getObject("horaEntrada"));
             reserva.setHoraSalida((LocalDateTime) rs.getObject("horaSalida"));
 
             // Inicializa el objeto Puesto
             Puesto puesto = new Puesto();
-            reserva.setPuesto(PuestoRepository.buscarPuesto(rs.getInt("puestoID"), connection, puesto));
+            reserva.setPuesto(puestoRepository.buscarPuesto(rs.getInt("puestoID"), connection, puesto));
 
             return reserva;
         }
