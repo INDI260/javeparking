@@ -2,20 +2,24 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.asesinosdesoftware.javeparking.controller.SuscripcionViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.SuscripcionViewController">
     <children>
-        <Label text="Registrar Suscripción" style="-fx-font-size: 20; -fx-font-weight: bold;" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0"/>
+        <Label layoutX="200.0" layoutY="22.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="Registrar Suscripción" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="22.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
 
-        <Label text="ID Cliente:" AnchorPane.topAnchor="60.0" AnchorPane.leftAnchor="20.0"/>
-        <TextField fx:id="idCliente" promptText="Ingrese ID del cliente" AnchorPane.topAnchor="80.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"/>
+        <Label layoutX="20.0" layoutY="102.0" text="Fecha de Inicio:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="102.0" />
+        <DatePicker fx:id="fechaInicioPicker" layoutX="20.0" layoutY="122.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="122.0" />
 
-        <Label text="Fecha de Inicio:" AnchorPane.topAnchor="120.0" AnchorPane.leftAnchor="20.0"/>
-        <DatePicker fx:id="fechaInicioPicker" AnchorPane.topAnchor="140.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"/>
+        <Label text="Fecha de Fin:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0" />
+        <DatePicker fx:id="fechaFinPicker" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="200.0" />
 
-        <Label text="Fecha de Fin:" AnchorPane.topAnchor="180.0" AnchorPane.leftAnchor="20.0"/>
-        <DatePicker fx:id="fechaFinPicker" AnchorPane.topAnchor="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"/>
-
-        <Button text="Agregar Suscripción" onAction="#agregarSuscripcion" AnchorPane.topAnchor="240.0" AnchorPane.leftAnchor="20.0"/>
+        <Button layoutX="200.0" layoutY="254.0" onAction="#agregarSuscripcion" prefHeight="50.0" prefWidth="199.0" text="Agregar Suscripción" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="254.0">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
     </children>
 </AnchorPane>

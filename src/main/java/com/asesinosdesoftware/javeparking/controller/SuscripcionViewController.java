@@ -1,7 +1,9 @@
 package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.Cliente;
+import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Suscripcion;
+import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
 import com.asesinosdesoftware.javeparking.services.JDBCService;
 import javafx.fxml.FXML;
@@ -15,12 +17,7 @@ import java.time.LocalDate;
 
 public class SuscripcionViewController {
 
-    @FXML
-    private TextField idCliente; // Campo para ingresar el ID del cliente
-    @FXML
-    private TextField fechaInicio; // Campo para ingresar la fecha de inicio
-    @FXML
-    private TextField fechaFin; // Campo para ingresar la fecha de fin
+
     @FXML
     private DatePicker fechaInicioPicker; // Campo para ingresar la fecha de fin
     @FXML
@@ -29,13 +26,18 @@ public class SuscripcionViewController {
     @FXML
     private void agregarSuscripcion() {
         try {
-            int clienteId = Integer.parseInt(idCliente.getText());
+
             LocalDate fechaInicioSuscripcion = fechaInicioPicker.getValue(); // Obtener fecha de inicio del DatePicker
             LocalDate fechaFinSuscripcion = fechaFinPicker.getValue(); // Obtener fecha de fin del DatePicker
 
             // Crear objeto Cliente
             Cliente cliente = new Cliente();
-            cliente.setId(clienteId);
+            ClienteRepository CR = new ClienteRepository();
+
+            // Conectar a la base de datos
+            JDBCService jdbcService = new JDBCService();
+            Connection connection = jdbcService.getConnection();
+            CR.buscarCliente(connection,Sesion.getcedula(),cliente);
 
             // Crear objeto Suscripcion
             Suscripcion suscripcion = new Suscripcion();
@@ -51,12 +53,13 @@ public class SuscripcionViewController {
             } else {
                 estadoSuscripcion = "Activa"; // La suscripción es activa
             }
+
+            if (fechaFinSuscripcion.isBefore(fechaInicioSuscripcion)) {
+                showError("Fecha de Fin menor a la de inicio.");
+                return;
+            }
             // Establecer el estado de la suscripción
             suscripcion.setEstado(estadoSuscripcion);
-
-            // Conectar a la base de datos
-            JDBCService jdbcService = new JDBCService();
-            Connection connection = jdbcService.getConnection();
 
             // Agregar suscripción a la base de datos
             SuscripcionRepository.agregarSuscripcion(connection, suscripcion);
