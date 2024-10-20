@@ -20,8 +20,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.asesinosdesoftware.javeparking.repository.ReservaRepository.buscarReservaVehiculo;
-
 public class ReservaParqViewController {
     @FXML
     private TableView<Puesto> tablaReservas;

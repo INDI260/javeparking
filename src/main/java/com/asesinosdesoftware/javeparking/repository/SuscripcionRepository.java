@@ -7,7 +7,7 @@ import java.sql.*;
 public class SuscripcionRepository {
 
     // Método para agregar una suscripción
-    public static void agregarSuscripcion(Connection connection, Suscripcion suscripcion) throws SQLException {
+    public void agregarSuscripcion(Connection connection, Suscripcion suscripcion) throws SQLException {
         String sql = "INSERT INTO Suscripcion (clienteID, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -26,7 +26,7 @@ public class SuscripcionRepository {
     }
 
     // Método para registrar el pago de una mensualidad
-    public static void pagarMensualidad(Connection connection, int suscripcionId, float valor) throws SQLException {
+    public void pagarMensualidad(Connection connection, int suscripcionId, float valor) throws SQLException {
         String sql = "INSERT INTO Pago (suscripcion_id, valor, fecha_pago) VALUES (?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, suscripcionId);

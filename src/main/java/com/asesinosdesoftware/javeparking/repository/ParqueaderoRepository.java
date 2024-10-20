@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 
 public class ParqueaderoRepository {
 
-    public static Parqueadero buscarParqueaderoPorId(Connection connection, int id, Parqueadero parqueadero) throws SQLException {
+    public Parqueadero buscarParqueaderoPorId(Connection connection, int id, Parqueadero parqueadero) throws SQLException {
         String sql = "SELECT * FROM `javeparking`.`parqueadero` WHERE `id` = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);

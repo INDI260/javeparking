@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class PagoRepository {
 
     // Método para registrar un pago de reserva
-    public static void agregarPagoReserva(Connection connection, PagoReserva pagoReserva) throws SQLException {
+    public void agregarPagoReserva(Connection connection, PagoReserva pagoReserva) throws SQLException {
         String sql = "INSERT INTO pagoReserva (reservaID, valor, fechaPago, metodoPago) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, pagoReserva.getReserva().getId()); // ID de la reserva

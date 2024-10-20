@@ -44,7 +44,7 @@ public class JDBCService {
 
         Statement stmt = connection.createStatement();
         stmt.execute("DROP TABLE IF EXISTS `javeparking`.`administrador`;");
-        stmt.execute("DROP TABLE IF EXISTS pagoreserva");
+        stmt.execute("DROP TABLE IF EXISTS pagoReserva");
         stmt.execute("DROP TABLE IF EXISTS empleado");
         stmt.execute("DROP TABLE IF EXISTS reserva");
         stmt.execute("DROP TABLE IF EXISTS puesto");
@@ -151,8 +151,8 @@ public class JDBCService {
         stmt.execute("CREATE TABLE `javeparking`.`suscripcion` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `clienteID` INT NOT NULL,\n" +  // Debe coincidir con el tipo de dato en la tabla cliente
-                "  `fecha_inicio` DATE NULL,\n" +
-                "  `fecha_fin` DATE NULL,\n" +
+                "  `fecha_inicio` DATETIME NULL,\n" +
+                "  `fecha_fin` DATETIME NULL,\n" +
                 "  `estado` VARCHAR(100) NOT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
                 "  CONSTRAINT `fk_cliente_suscripcion`\n" +
