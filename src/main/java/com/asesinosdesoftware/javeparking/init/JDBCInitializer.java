@@ -1,4 +1,4 @@
-package com.asesinosdesoftware.javeparking.services;
+package com.asesinosdesoftware.javeparking.init;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,11 +13,12 @@ import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
 import com.asesinosdesoftware.javeparking.repository.AdministradorRepository;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.EmpleadoRepository;
+import com.asesinosdesoftware.javeparking.services.PasswordService;
 
 /**
  * Esta clase se encarga de realizar las operaciones necesarias para la conexión y la incialización de la base de datos.
  */
-public class JDBCService {
+public class JDBCInitializer {
 
     private ResourceBundle reader = null;
     private static final String FILENAME = "dbconfig";
@@ -183,6 +184,10 @@ public class JDBCService {
 
         connection.close();
 
+    }
+
+    public static void main(String[] args) {
+        new JDBCInitializer();
     }
 
 }

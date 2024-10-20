@@ -21,6 +21,8 @@ public class InicioDeSesionService {
     private Cliente cliente = new Cliente();
     private Empleado empleado = new Empleado();
 
+
+
     /**
      * Método que permite iniciar sesión a partir de una cedula y una contraseña, determina si el usuario es un cliente, un empleado o un administrador y actualiza la sesión de accuerdo con ello
      * @param connection: Conexión a la base de datos
