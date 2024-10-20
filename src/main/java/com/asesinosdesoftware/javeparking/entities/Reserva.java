@@ -2,7 +2,6 @@ package com.asesinosdesoftware.javeparking.entities;
 
 import java.time.LocalDateTime;
 
-
 public class Reserva {
 
     private int id;

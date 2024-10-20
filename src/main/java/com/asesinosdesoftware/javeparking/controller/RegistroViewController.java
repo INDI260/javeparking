@@ -4,12 +4,15 @@ import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.services.JDBCService;
 import com.asesinosdesoftware.javeparking.services.PasswordService;
+import com.asesinosdesoftware.javeparking.entities.Suscripcion;
+import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.sql.Connection;
+import java.time.LocalDate;
 
 public class RegistroViewController {
 
