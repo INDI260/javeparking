@@ -6,7 +6,7 @@ import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
 import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
-import com.asesinosdesoftware.javeparking.services.JDBCService;
+import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,8 +19,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.asesinosdesoftware.javeparking.repository.ReservaRepository.buscarReservaVehiculo;
 
 public class ReservaParqViewController {
     @FXML
@@ -61,7 +59,7 @@ public class ReservaParqViewController {
         List<Puesto> puestos = new ArrayList<>();
         try {
             // Obtener la conexión (ajusta con tu configuración)
-            JDBCService controller = new JDBCService();
+            JDBCInitializer controller = new JDBCInitializer();
             Connection connection = controller.getConnection();
             PuestoRepository PR = new PuestoRepository();
 
@@ -95,7 +93,7 @@ public class ReservaParqViewController {
             }
             Vehiculo V = new Vehiculo();
             VehiculoRepository VR = new VehiculoRepository();
-            JDBCService controller = new JDBCService();
+            JDBCInitializer controller = new JDBCInitializer();
             Connection connection = controller.getConnection();
             VR.buscarVehiculo(connection,IDplaca.getText(),V);
 

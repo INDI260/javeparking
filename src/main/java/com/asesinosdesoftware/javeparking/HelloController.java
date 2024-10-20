@@ -2,11 +2,10 @@ package com.asesinosdesoftware.javeparking;
 
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.services.InicioDeSesionService;
-import com.asesinosdesoftware.javeparking.services.JDBCService;
+import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -60,7 +59,7 @@ public class HelloController {
     private void InicioSesion() {
      try{
 
-         JDBCService controller = new JDBCService();
+         JDBCInitializer controller = new JDBCInitializer();
          Connection connection = controller.getConnection();
          InicioDeSesionService U = new InicioDeSesionService();
 
