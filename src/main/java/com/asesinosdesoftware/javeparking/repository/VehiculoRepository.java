@@ -85,29 +85,4 @@ public class VehiculoRepository {
         else
             throw new RepositoryException("El vehiculo ya existe");
     }
-
-    /**
-     * Método que busca un vehiculo en la base de datos a partir de su placa
-     * @param connection: Conexión a la base de datos
-     * @param placa: Dato a partir del cual se hace la búsqueda
-     * @param vehiculo: Objeto Vehiculo donde se almacenarán los datos encontrados
-     * @return Si se encuentra, retorna true, de lo contrario, retorna false
-     * @throws SQLException
-     */
-    public boolean buscarVehiculoPorPlaca(Connection connection, String placa, Vehiculo vehiculo) throws SQLException {
-        String sql = "SELECT * FROM vehiculo WHERE placa = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, placa);
-        ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            vehiculo.setId(rs.getInt("id"));
-            vehiculo.setPlaca(rs.getString("placa"));
-            vehiculo.setTamano(rs.getString("tamano").charAt(0));
-            vehiculo.setTipo(rs.getString("tipo").charAt(0));
-            vehiculo.setClienteid(rs.getInt("clienteid"));
-            return true; // Vehículo encontrado
-        }
-        return false; // Vehículo no encontrado
-    }
 }

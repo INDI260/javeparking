@@ -26,7 +26,7 @@ public class PagoService {
     IDBConnectionManager dbConnectionManager;
 
 
-    public void pagarReserva(String placa, String idReserva) throws SQLException {
+    public BigDecimal pagarReserva(String placa, String idReserva) throws SQLException {
         vehiculoRepository.buscarVehiculo(dbConnectionManager.getConnection(), placa, vehiculo);
         reservaRepository.buscarReservaPorId(dbConnectionManager.getConnection(), Integer.parseInt(idReserva), reserva);
         puestoRepository.buscarPuesto(reserva.getPuesto().getId(), dbConnectionManager.getConnection(), puesto);
@@ -38,7 +38,7 @@ public class PagoService {
         pagoReserva.setReserva(reserva);
         pagoReserva.setMetodoPago("Online");
 
-        BigDecimal tarifa = new BigDecimal(0);
+        BigDecimal tarifa;
         if(puesto.getTamano() == 'p'){
             tarifa = parqueadero.getTarifaPequeno();
         }
@@ -54,7 +54,9 @@ public class PagoService {
         pagoReserva.setValor(tarifa.multiply(BigDecimal.valueOf(duracion)));
         pagoRepository.agregarPagoReserva(dbConnectionManager.getConnection(), pagoReserva);
 
+        return pagoReserva.getValor();
     }
+
 
     /**
      * Método constructor por parámetros de PagoService

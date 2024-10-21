@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 public class PagoReservaController {
 
     PagoService pagoService;
+    BigDecimal precio;
 
     @FXML
     public TextField IDPlaca;
@@ -26,80 +28,23 @@ public class PagoReservaController {
     @FXML
     private void pagoReservas()  {
         try{
-            pagoService.pagarReserva(IDPlaca.getText(),IDReserva.getText());
+            precio = pagoService.pagarReserva(IDPlaca.getText(),IDReserva.getText());
         }catch (SQLException e) {
             showError("Error en el pago de reservas: " + e.getMessage());
         }
     }
 
     @FXML
-    private void mostrarprecio(){
-        {
-            try{
-                Vehiculo V = new Vehiculo();
-                VehiculoRepository VR = new VehiculoRepository();
-                Cliente C = new Cliente();
-                ClienteRepository CR = new ClienteRepository();
-                Puesto P = new Puesto();
-                PuestoRepository PR = new PuestoRepository();
-                Reserva R = new Reserva();
-                ReservaRepository RR = new ReservaRepository();
-                Parqueadero Pq =new Parqueadero();
-                ParqueaderoRepository PQR = new ParqueaderoRepository();
-                PagoReserva Pago = new PagoReserva();
-                JDBCService jdbcService = new JDBCService();
-                Connection connection = jdbcService.getConnection();
-
-                VR.buscarVehiculo(connection,IDPlaca.getText(),V);
-
-                int hola =Integer.parseInt(IDReserva.getText());
-
-                RR.buscarReservaPorId(connection,hola,R);
-
-                PR.buscarPuesto(R.getPuesto().getId(),connection,P);
-
-                PQR.buscarParqueaderoPorId(connection,P.getPq(),Pq);
-
-                LocalDateTime fechaActual = LocalDateTime.now();
-
-                Pago.setFechaPago(fechaActual);
-                Pago.setReserva(R);
-                Pago.setMetodoPago("Online");
-
-                if(P.getTamano()=='m'){
-                    double valorpuesto=Pq.getTarifaEstandar()*1.5;
-                    Duration duracion = Duration.between(R.getHoraEntrada(), R.getHoraSalida());
-                    int hours = (int) duracion.toHours();// Se fuerza a int si es necesario
-                    double ValorTotal=valorpuesto*hours;
-                    Pago.setValor(ValorTotal);
-                }
-                if(P.getTamano()=='p'){
-                    double valorpuesto=Pq.getTarifaEstandar()*1;
-                    Duration duracion = Duration.between(R.getHoraEntrada(), R.getHoraSalida());
-                    int hours = (int) duracion.toHours();// Se fuerza a int si es necesario
-                    double ValorTotal=valorpuesto*hours;
-                    Pago.setValor(ValorTotal);
-
-                }
-                if(P.getTamano()=='g'){
-                    double valorpuesto=Pq.getTarifaEstandar()*2;
-                    Duration duracion = Duration.between(R.getHoraEntrada(), R.getHoraSalida());
-                    int hours = (int) duracion.toHours();// Se fuerza a int si es necesario
-                    double ValorTotal=valorpuesto*hours;
-                    Pago.setValor(ValorTotal);
-
-                }
-
-                showSuccess("El valor de la reserva es: "+Pago.getValor());
-
-
-            }catch (SQLException e) {
-                showError("Pago fallido");
-                e.printStackTrace();
-
-            }
+    private void mostrarPrecio(){
+        if(precio != null) {
+            showSuccess("El valor de la reserva es: " + precio);
         }
+        else{
+            showError("No se le ha asignado un valor a la reserva");
+        }
+
     }
+
     // Método para mostrar un mensaje de error
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
