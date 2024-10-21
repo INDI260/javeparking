@@ -26,7 +26,7 @@ public class SuscripcionViewController {
     @FXML
     private void agregarSuscripcion() {
         try {
-
+            SuscripcionRepository suscripcionRepository = new SuscripcionRepository();
             LocalDate fechaInicioSuscripcion = fechaInicioPicker.getValue(); // Obtener fecha de inicio del DatePicker
             LocalDate fechaFinSuscripcion = fechaFinPicker.getValue(); // Obtener fecha de fin del DatePicker
 
@@ -62,7 +62,7 @@ public class SuscripcionViewController {
             suscripcion.setEstado(estadoSuscripcion);
 
             // Agregar suscripción a la base de datos
-            SuscripcionRepository.agregarSuscripcion(connection, suscripcion);
+            suscripcionRepository.agregarSuscripcion(connection, suscripcion);
 
             connection.close(); // Cerrar la conexión
             showSuccess("Suscripción agregada exitosamente");
