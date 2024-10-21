@@ -26,7 +26,7 @@ public class SuscripcionViewController {
     @FXML
     private void agregarSuscripcion() {
         try {
-            SuscripcionRepository suscripcionRepository = new SuscripcionRepository();
+
             LocalDate fechaInicioSuscripcion = fechaInicioPicker.getValue(); // Obtener fecha de inicio del DatePicker
             LocalDate fechaFinSuscripcion = fechaFinPicker.getValue(); // Obtener fecha de fin del DatePicker
 
@@ -44,6 +44,7 @@ public class SuscripcionViewController {
             suscripcion.setCliente(cliente);
             suscripcion.setFechaInicio(fechaInicioSuscripcion);
             suscripcion.setFechaFin(fechaFinSuscripcion);
+            SuscripcionRepository suscripcionRepository = new SuscripcionRepository();
 
             // Calcular el estado de la suscripción
             LocalDate fechaActual = LocalDate.now();
