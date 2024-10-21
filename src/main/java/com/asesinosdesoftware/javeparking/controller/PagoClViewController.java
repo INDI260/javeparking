@@ -5,7 +5,6 @@ import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
 import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
-import com.asesinosdesoftware.javeparking.services.JDBCService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
@@ -54,7 +53,7 @@ public class PagoClViewController {
             // Limpiar los hijos actuales del contenedor principal
             contenedor.getChildren().clear();
 
-            // Establecer los anclajes para que el nuevo pane ocupe t0do el contenedor
+            // Establecer los anclajes para que el nuevo pane ocupe todo el contenedor
             AnchorPane.setTopAnchor(pane, 0.0);
             AnchorPane.setBottomAnchor(pane, 0.0);
             AnchorPane.setLeftAnchor(pane, 0.0);

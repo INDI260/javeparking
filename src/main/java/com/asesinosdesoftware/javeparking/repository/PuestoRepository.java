@@ -110,7 +110,7 @@ public class PuestoRepository {
         ps.setString(2, Character.toString(tamano));
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            puestos.add(new Puesto(rs.getInt("id"),rs.getString("tamano").charAt(0),rs.getBoolean("disponibilidad")));
+            puestos.add(new Puesto(rs.getInt("id"),rs.getString("tamano").charAt(0),rs.getBoolean("disponibilidad"),rs.getInt("parqueaderoID")));
         }
     }
 

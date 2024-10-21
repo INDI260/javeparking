@@ -25,7 +25,9 @@ public class ParqueaderoRepository {
         // Si el parqueadero con el ID dado existe
         if (rs.next()) {
             parqueadero.setId(rs.getInt("id"));
-            parqueadero.setTarifaEstandar(rs.getFloat("TarifaEstandar"));
+            parqueadero.setTarifaPequeno(rs.getBigDecimal("TarifaPequeno"));
+            parqueadero.setTarifaMediano(rs.getBigDecimal("TarifaMediano"));
+            parqueadero.setTarifaGrande(rs.getBigDecimal("TarifaGrande"));
             return parqueadero;
         }
 

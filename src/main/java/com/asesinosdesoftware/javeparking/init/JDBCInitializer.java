@@ -93,7 +93,9 @@ public class JDBCInitializer {
 
         stmt.execute("CREATE TABLE `javeparking`.`parqueadero` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `TarifaEstandar` FLOAT NOT NULL,\n" +
+                "  `TarifaPequeno` DECIMAL NOT NULL,\n" +
+                "  `TarifaMediano` DECIMAL NOT NULL,\n" +
+                "  `TarifaGrande` DECIMAL NOT NULL,\n" +
                 "  PRIMARY KEY (`id`));");
 
 
@@ -191,7 +193,7 @@ public class JDBCInitializer {
         stmt.execute("CREATE TABLE `javeparking`.`pagoSuscripcion` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `suscripcionID` INT NOT NULL,\n" +
-                "  `monto` DECIMAL(10, 2) NOT NULL,\n" +
+                "  `valor` DECIMAL(10, 2) NOT NULL,\n" +
                 "  `fechaPago` DATETIME NOT NULL,\n" +
                 "  `metodoPago` VARCHAR(50) NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
@@ -211,7 +213,7 @@ public class JDBCInitializer {
 
         empleadoRepository.agregarEmpleado(dbConnectionManager.getConnection(), new Empleado("20", "Simba", "Gonzales", PasswordService.hashPassword("1234")));
 
-        stmt.execute("INSERT INTO `javeparking`.`parqueadero` (`id`, `TarifaEstandar`) VALUES ('1', 15.50);\n");
+        stmt.execute("INSERT INTO `javeparking`.`parqueadero` (`TarifaPequeno`, `TarifaMediano`, `TarifaGrande`) VALUES (15.50, 18.7, 20.8 );\n");
 
         stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('g', b'0', b'1');");
         stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('g', b'0', b'1');");
