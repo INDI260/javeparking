@@ -24,15 +24,90 @@ public class InicioDeSesionTest {
     IDBConnectionManager dbConnectionManager = new DBConnectionManager();
 
     @BeforeEach
-    void setUp() throws SQLException, RepositoryException {
-        JDBCInitializer jdbcInitializer = new JDBCInitializer(dbConnectionManager,new AdministradorRepository(),new ClienteRepository(), new EmpleadoRepository());
-        inicioDeSesionService = new InicioDeSesionService();
-        jdbcInitializer.inicializarTablas();
+    void setUp() {
+        try {
+            JDBCInitializer jdbcInitializer = new JDBCInitializer(dbConnectionManager, new AdministradorRepository(), new ClienteRepository(), new EmpleadoRepository());
+            inicioDeSesionService = new InicioDeSesionService();
+            jdbcInitializer.inicializarTablas();
+            inicioDeSesionService.CerrarSesion();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    void InicioDeSesionAdmin() throws SQLException, InicioDeSesionException {
-        inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "10", "1234");
-        assertEquals('a', Sesion.getTipo());
+    void cerrarSesion(){
+        inicioDeSesionService.CerrarSesion();
+        assertEquals('n', Sesion.getTipo());
     }
+
+    @Test
+    void inicioDeSesionAdmin() {
+        try {
+            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "10", "1234");
+            assertEquals('a', Sesion.getTipo());
+        } catch (SQLException | InicioDeSesionException e) {
+            fail(e.getMessage());
+        }
+
+    }
+
+    @Test
+    void inicioDeSesionEmpleado() {
+        try {
+            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "20", "1234");
+            assertEquals('e', Sesion.getTipo());
+        } catch (SQLException | InicioDeSesionException e) {
+            fail(e.getMessage());
+        }
+
+    }
+
+    @Test
+    void inicioDeSesionCliente() {
+        try {
+            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "30", "1234");
+            assertEquals('c', Sesion.getTipo());
+        } catch (SQLException | InicioDeSesionException e) {
+            fail(e.getMessage());
+        }
+
+    }
+
+    @Test
+    void inicioDeSesionConSesionYaAbierta() {
+        try{
+            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "10", "1234");
+            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "20", "1234");
+            fail();
+        }
+        catch (SQLException | InicioDeSesionException e) {
+
+        }
+    }
+
+    @Test
+    void inicioDeSesionContraseniaIncorrecta() {
+        try{
+            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "10", "2345");
+            fail();
+        }
+        catch (SQLException | InicioDeSesionException e) {
+
+        }
+    }
+
+    @Test
+    void inicioDeSesionUsuarioNoExistente() {
+        try{
+            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "00", "1234");
+            fail();
+        }
+        catch (SQLException | InicioDeSesionException e) {
+
+        }
+    }
+
+
 }
