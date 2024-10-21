@@ -26,7 +26,7 @@ public class InicioDeSesionService {
     /**
      * Método que permite iniciar sesión a partir de una cedula y una contraseña, determina si el usuario es un cliente, un empleado o un administrador y actualiza la sesión de accuerdo con ello
      * @param connection: Conexión a la base de datos
-     * @param cedula: Cedula ingresada por el usuario
+     * @param cedula: Cédula ingresada por el usuario
      * @param password: Contraseña ingresada por el usuario
      * @throws SQLException
      * @throws InicioDeSesionException
