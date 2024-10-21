@@ -7,12 +7,21 @@ public class Puesto {
     private boolean disponibilidad; //Detemina si el puesto está disponible u ocupado (false para disponible, true para ocupado)
     private int Pq = 1;
 
+    /**
+     * Método constructor por parámetros
+     * @param id
+     * @param tamano
+     * @param disponibilidad
+     */
     public Puesto(int id, char tamano, boolean disponibilidad) {
         this.id = id;
         this.tamano = tamano;
         this.disponibilidad = disponibilidad;
     }
 
+    /**
+     * Método constructor vacío
+     */
     public Puesto() {
     }
 

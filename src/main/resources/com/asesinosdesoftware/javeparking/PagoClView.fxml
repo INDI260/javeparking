@@ -6,7 +6,7 @@
 
 <AnchorPane fx:id="contenedor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.PagoClViewController">
     <children>
-        <Button layoutX="226.0" layoutY="218.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="147.0" text="Pago Suscripcion">
+        <Button layoutX="226.0" layoutY="218.0" mnemonicParsing="false" onAction="#Suscripcion" prefHeight="29.0" prefWidth="147.0" text="Pago Suscripcion">
             <font>
                 <Font size="14.0" />
             </font></Button>

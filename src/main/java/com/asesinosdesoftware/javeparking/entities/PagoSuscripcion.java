@@ -2,35 +2,28 @@ package com.asesinosdesoftware.javeparking.entities;
 
 import java.time.LocalDateTime;
 
-public class PagoReserva {
-
-
+public class PagoSuscripcion {
 
     private int id; // Este dato lo crea automáticamente el manejador de bases de datos
-    private Reserva reserva; // Reserva asociada al pago (opcional)
+    private Suscripcion suscripcion; // Suscripcion asociada al pago
     private double valor; // El valor monetario que debe recibirse en el pago
-    private LocalDateTime fechaPago;//Este atributo guarda la fecha y la hora de entrada del vehículo en la reserva.
-    private String metodoPago;
+    private LocalDateTime fechaPago; // Este atributo guarda la fecha y la hora del pago
+    private String metodoPago; // Método de pago (ej: Tarjeta de Crédito, PayPal)
 
     /**
      * Método constructor por parámetros
-     * @param id
-     * @param reserva
+     * @param suscripcion
      * @param valor
      * @param fechaPago
+     * @param metodoPago
      */
-    public PagoReserva(int id, Reserva reserva, double valor, LocalDateTime fechaPago) {
-        this.id = id;
-        this.reserva = reserva;
+    public PagoSuscripcion(Suscripcion suscripcion, double valor, LocalDateTime fechaPago, String metodoPago) {
+        this.suscripcion = suscripcion;
         this.valor = valor;
         this.fechaPago = fechaPago;
+        this.metodoPago = metodoPago;
     }
 
-    /**
-     * Método constructor vacío
-     */
-    public PagoReserva() {
-    }
     // Getters y Setters
     public int getId() {
         return id;
@@ -40,12 +33,12 @@ public class PagoReserva {
         this.id = id;
     }
 
-    public Reserva getReserva() {
-        return reserva;
+    public Suscripcion getSuscripcion() {
+        return suscripcion;
     }
 
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
+    public void setSuscripcion(Suscripcion suscripcion) {
+        this.suscripcion = suscripcion;
     }
 
     public double getValor() {
@@ -72,5 +65,4 @@ public class PagoReserva {
         this.metodoPago = metodoPago;
     }
 }
-
 

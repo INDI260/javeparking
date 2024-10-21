@@ -3,8 +3,10 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Suscripcion;
+import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
+import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
 import com.asesinosdesoftware.javeparking.services.JDBCService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -17,54 +19,64 @@ import java.time.LocalDate;
 
 public class SuscripcionViewController {
 
-
     @FXML
-    private DatePicker fechaInicioPicker; // Campo para ingresar la fecha de fin
+    private TextField placaTextField; // Campo para ingresar la placa
+    @FXML
+    private DatePicker fechaInicioPicker; // Campo para ingresar la fecha de inicio
     @FXML
     private DatePicker fechaFinPicker; // Campo para ingresar la fecha de fin
 
     @FXML
     private void agregarSuscripcion() {
+        Connection connection = null;
         try {
+            String placa = placaTextField.getText();
+            LocalDate fechaInicioSuscripcion = fechaInicioPicker.getValue();
+            LocalDate fechaFinSuscripcion = fechaFinPicker.getValue();
 
-            LocalDate fechaInicioSuscripcion = fechaInicioPicker.getValue(); // Obtener fecha de inicio del DatePicker
-            LocalDate fechaFinSuscripcion = fechaFinPicker.getValue(); // Obtener fecha de fin del DatePicker
+            // Validar fechas
+            if (fechaInicioSuscripcion == null || fechaFinSuscripcion == null) {
+                showError("Por favor, ingrese ambas fechas.");
+                return;
+            }
 
-            // Crear objeto Cliente
             Cliente cliente = new Cliente();
             ClienteRepository CR = new ClienteRepository();
 
             // Conectar a la base de datos
             JDBCService jdbcService = new JDBCService();
-            Connection connection = jdbcService.getConnection();
-            CR.buscarCliente(connection,Sesion.getcedula(),cliente);
+            connection = jdbcService.getConnection();
+            CR.buscarCliente(connection, Sesion.getcedula(), cliente);
 
-            // Crear objeto Suscripcion
+            Vehiculo vehiculo = new Vehiculo();
+            VehiculoRepository vehiculoRepository = new VehiculoRepository();
+            boolean encontrado = vehiculoRepository.buscarVehiculoPorPlaca(connection, placa, vehiculo);
+
+            // Verificar si el vehículo existe
+            if (!encontrado) {
+                showError("Vehículo no encontrado. Por favor, verifique la placa.");
+                return;
+            }
+
             Suscripcion suscripcion = new Suscripcion();
             suscripcion.setCliente(cliente);
+            suscripcion.setVehiculo(vehiculo);
             suscripcion.setFechaInicio(fechaInicioSuscripcion);
             suscripcion.setFechaFin(fechaFinSuscripcion);
 
             // Calcular el estado de la suscripción
             LocalDate fechaActual = LocalDate.now();
-            String estadoSuscripcion;
-            if (fechaActual.isAfter(fechaFinSuscripcion) || fechaActual.isBefore(fechaInicioSuscripcion)) {
-                estadoSuscripcion = "Inactiva"; // La suscripción es inactiva
-            } else {
-                estadoSuscripcion = "Activa"; // La suscripción es activa
-            }
+            String estadoSuscripcion = (fechaActual.isAfter(fechaFinSuscripcion) || fechaActual.isBefore(fechaInicioSuscripcion)) ? "Inactiva" : "Activa";
 
             if (fechaFinSuscripcion.isBefore(fechaInicioSuscripcion)) {
                 showError("Fecha de Fin menor a la de inicio.");
                 return;
             }
-            // Establecer el estado de la suscripción
+
             suscripcion.setEstado(estadoSuscripcion);
 
-            // Agregar suscripción a la base de datos
-            SuscripcionRepository.agregarSuscripcion(connection, suscripcion);
-
-            connection.close(); // Cerrar la conexión
+            SuscripcionRepository suscripcionRepository = new SuscripcionRepository();
+            suscripcionRepository.agregarSuscripcion(connection, suscripcion);
             showSuccess("Suscripción agregada exitosamente");
 
         } catch (SQLException e) {
@@ -75,7 +87,19 @@ public class SuscripcionViewController {
         } catch (Exception e) {
             e.printStackTrace();
             showError("Error en la entrada de datos: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close(); // Asegúrate de cerrar la conexión en el bloque finally
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+    }
+
+    private int calcularDiasSuscripcion(LocalDate fechaInicio, LocalDate fechaFin) {
+        return (int) java.time.temporal.ChronoUnit.DAYS.between(fechaInicio, fechaFin);
     }
 
     // Método para mostrar un mensaje de error
@@ -96,3 +120,5 @@ public class SuscripcionViewController {
         alert.showAndWait();
     }
 }
+
+

@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 
 public class ReservaRepository {
 
-    VehiculoRepository vehiculoRepository;
-    PuestoRepository puestoRepository;
+    VehiculoRepository vehiculoRepository = new VehiculoRepository();
+    PuestoRepository puestoRepository = new PuestoRepository();
 
     /**
      * Método que agrega una reserva a la base de datos de acuerdo a los parametros dados

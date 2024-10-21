@@ -75,7 +75,8 @@ public class PagoReservaController {
 
             }
 
-            PagoRepository.agregarPagoReserva(connection,Pago);
+            PagoRepository pagoRepository = new PagoRepository();
+            pagoRepository.agregarPagoReserva(connection, Pago);
 
         }catch (SQLException e) {
             showError("Pago fallido");
