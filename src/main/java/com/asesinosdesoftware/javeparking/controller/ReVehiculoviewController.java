@@ -5,7 +5,7 @@ import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
-import com.asesinosdesoftware.javeparking.services.JDBCService;
+import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -30,7 +30,7 @@ public class ReVehiculoviewController {
         v.setTipo(IdTipo.getText().charAt(0));
         v.setPlaca(IdPlaca.getText());
 
-        JDBCService controller = new JDBCService();
+        JDBCInitializer controller = new JDBCInitializer();
         Connection connection = controller.getConnection();
 
         VehiculoRepository vehiculoRepository = new VehiculoRepository();

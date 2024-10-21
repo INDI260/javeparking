@@ -2,7 +2,7 @@ package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
-import com.asesinosdesoftware.javeparking.services.JDBCService;
+import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
 import com.asesinosdesoftware.javeparking.services.PasswordService;
 import com.asesinosdesoftware.javeparking.entities.Suscripcion;
 import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
@@ -39,7 +39,7 @@ public class RegistroViewController {
             C.setUniversidad(Iduniversity.getValue().charAt(0));
             C.setHash(PasswordService.hashPassword(IdPassword.getText()));
 
-            JDBCService controller = new JDBCService();
+            JDBCInitializer controller = new JDBCInitializer();
             Connection connection = controller.getConnection();
             ClienteRepository repository = new ClienteRepository();
 

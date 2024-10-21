@@ -1,12 +1,18 @@
 package com.asesinosdesoftware.javeparking;
 
-import com.asesinosdesoftware.javeparking.services.JDBCService;
+import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
+import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
+import com.asesinosdesoftware.javeparking.repository.AdministradorRepository;
+import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
+import com.asesinosdesoftware.javeparking.repository.EmpleadoRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.ClientInfoStatus;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -24,9 +30,12 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
 
         try {
-            JDBCService controller = new JDBCService();
-            Connection connection = controller.getConnection();
-            controller.inicializarTablas(connection);
+            IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+            AdministradorRepository administradorRepository = new AdministradorRepository();
+            ClienteRepository clienteRepository = new ClienteRepository();
+            EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+            JDBCInitializer initializer = new JDBCInitializer(dbConnectionManager,administradorRepository,clienteRepository,empleadoRepository);
+            initializer.inicializarTablas(connection);
             connection.close();
 
 

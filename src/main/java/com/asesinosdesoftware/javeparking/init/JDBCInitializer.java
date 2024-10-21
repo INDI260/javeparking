@@ -1,48 +1,50 @@
-package com.asesinosdesoftware.javeparking.services;
+package com.asesinosdesoftware.javeparking.init;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ResourceBundle;
 
 import com.asesinosdesoftware.javeparking.entities.Administrador;
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Empleado;
 import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
+import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.AdministradorRepository;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.EmpleadoRepository;
+import com.asesinosdesoftware.javeparking.services.PasswordService;
 
 /**
  * Esta clase se encarga de realizar las operaciones necesarias para la conexión y la incialización de la base de datos.
  */
-public class JDBCService {
+public class JDBCInitializer {
 
-    private ResourceBundle reader = null;
-    private static final String FILENAME = "dbconfig";
-    private AdministradorRepository administradorRepository = new AdministradorRepository();
-    private ClienteRepository clienteRepository = new ClienteRepository();
-    private EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+    private IDBConnectionManager dbConnectionManager;
+    private AdministradorRepository administradorRepository;
+    private ClienteRepository clienteRepository;
+    private EmpleadoRepository empleadoRepository;
 
     /**
-     *Método que inicializa la conexión con la base de datos
-     * @return El objeto de conexión con la base de datos o nulo en caso de que la conexión falle
+     * Método constructor por para
+     * @param dbConnectionManager
+     * @param administradorRepository
+     * @param clienteRepository
+     * @param empleadoRepositoy
      */
-    public Connection getConnection() throws SQLException {
-
-        reader = ResourceBundle.getBundle(FILENAME);
-        return DriverManager.getConnection(reader.getString("db.url"),reader.getString("db.username"),reader.getString("db.password"));
+    public JDBCInitializer(IDBConnectionManager dbConnectionManager, AdministradorRepository administradorRepository, ClienteRepository clienteRepository, EmpleadoRepository empleadoRepositoy) {
+        this.dbConnectionManager = dbConnectionManager;
+        this.administradorRepository = administradorRepository;
+        this.clienteRepository = clienteRepository;
+        this.empleadoRepository = empleadoRepositoy;
     }
 
     /**
      * Método que crea las tablas en la base de datos y las incializa con algunos datos para realizar pruebas
-     * @param connection: Objeto tipo connection que representa la conexión con la base de datos
      * @throws SQLException
      */
-    public void inicializarTablas(Connection connection) throws SQLException, RepositoryException {
+    public void inicializarTablas() throws SQLException, RepositoryException {
 
-        Statement stmt = connection.createStatement();
+        Statement stmt = dbConnectionManager.getConnection().createStatement();
         stmt.execute("DROP TABLE IF EXISTS `javeparking`.`administrador`;");
         stmt.execute("DROP TABLE IF EXISTS pagoReserva");
         stmt.execute("DROP TABLE IF EXISTS pagoSuscripcion");
@@ -201,13 +203,13 @@ public class JDBCService {
                 "    ON UPDATE NO ACTION\n" +
                 ");");
 
-        administradorRepository.agregarAdministrador(connection,new Administrador("10", "Luis", "Ramos", PasswordService.hashPassword("1234")));
+        administradorRepository.agregarAdministrador(dbConnectionManager.getConnection(),new Administrador("10", "Luis", "Ramos", PasswordService.hashPassword("1234")));
 
-        clienteRepository.agregarCliente(connection, new Cliente("30", "Emily", "Ramos" , 'n',PasswordService.hashPassword("1234")));
-        clienteRepository.agregarCliente(connection, new Cliente("40", "Tran", "Esposito", 'a', PasswordService.hashPassword("1234")));
-        clienteRepository.agregarCliente(connection, new Cliente("50", "Maria", "Menethil", 'e', PasswordService.hashPassword("1234")));
+        clienteRepository.agregarCliente(dbConnectionManager.getConnection(), new Cliente("30", "Emily", "Ramos" , 'n',PasswordService.hashPassword("1234")));
+        clienteRepository.agregarCliente(dbConnectionManager.getConnection(), new Cliente("40", "Tran", "Esposito", 'a', PasswordService.hashPassword("1234")));
+        clienteRepository.agregarCliente(dbConnectionManager.getConnection(), new Cliente("50", "Maria", "Menethil", 'e', PasswordService.hashPassword("1234")));
 
-        empleadoRepository.agregarEmpleado(connection, new Empleado("20", "Simba", "Gonzales", PasswordService.hashPassword("1234")));
+        empleadoRepository.agregarEmpleado(dbConnectionManager.getConnection(), new Empleado("20", "Simba", "Gonzales", PasswordService.hashPassword("1234")));
 
         stmt.execute("INSERT INTO `javeparking`.`parqueadero` (`id`, `TarifaEstandar`) VALUES ('1', 15.50);\n");
 
@@ -223,7 +225,12 @@ public class JDBCService {
 
 
 
-        connection.close();
+        dbConnectionManager.getConnection().close();
+
+    }
+
+    public static void main(String[] args) throws SQLException, RepositoryException {
+        new JDBCInitializer(new DBConnectionManager(), new AdministradorRepository(), new ClienteRepository(), new EmpleadoRepository()).inicializarTablas();
 
     }
 
