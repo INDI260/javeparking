@@ -2,7 +2,7 @@ package com.asesinosdesoftware.javeparking.entities;
 
 public class Sesion {
 
-    private static Sesion sesion = null;
+    private static Sesion sesion = new Sesion();
     private char tipo;//Se usa a para admin, c para cliente, e para empleado y n si no se ha definido aún
     private String cedula;//Contiene la cedula delusuario que inició sesión.
 
@@ -37,7 +37,7 @@ public class Sesion {
         return sesion.cedula;
     }
 
-    /**}
+    /**
      * Método setter del atributo tipo. Este método se debe usar para asignar el tipo de usuario que inició sesión
      * @param tipo: tipo de usuario que inicio sesión a para admin, c para cliente, e para empleado y n si no se ha determinado aún.
      */

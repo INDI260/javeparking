@@ -1,6 +1,7 @@
 package com.asesinosdesoftware.javeparking;
 
 import com.asesinosdesoftware.javeparking.entities.Sesion;
+import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.services.InicioDeSesionService;
 import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
 import javafx.fxml.FXML;
@@ -59,8 +60,8 @@ public class HelloController {
     private void InicioSesion() {
      try{
 
-         JDBCInitializer controller = new JDBCInitializer();
-         Connection connection = controller.getConnection();
+         DBConnectionManager dbConnectionManager = new DBConnectionManager();
+         Connection connection = dbConnectionManager.getConnection();
          InicioDeSesionService U = new InicioDeSesionService();
 
          U.InicioDeSesion(connection,Usuario.getText(),Contrasena.getText());

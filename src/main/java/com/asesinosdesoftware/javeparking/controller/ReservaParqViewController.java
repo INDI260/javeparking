@@ -3,6 +3,7 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
+import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
 import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
@@ -59,8 +60,8 @@ public class ReservaParqViewController {
         List<Puesto> puestos = new ArrayList<>();
         try {
             // Obtener la conexión (ajusta con tu configuración)
-            JDBCInitializer controller = new JDBCInitializer();
-            Connection connection = controller.getConnection();
+            DBConnectionManager dbConnectionManager = new DBConnectionManager();
+            Connection connection = dbConnectionManager.getConnection();
             PuestoRepository PR = new PuestoRepository();
 
             // Llamar al método del repositorio para listar puestos
@@ -93,8 +94,8 @@ public class ReservaParqViewController {
             }
             Vehiculo V = new Vehiculo();
             VehiculoRepository VR = new VehiculoRepository();
-            JDBCInitializer controller = new JDBCInitializer();
-            Connection connection = controller.getConnection();
+            DBConnectionManager dbConnectionManager = new DBConnectionManager();
+            Connection connection = dbConnectionManager.getConnection();
             VR.buscarVehiculo(connection,IDplaca.getText(),V);
 
             Puesto P = new Puesto();
