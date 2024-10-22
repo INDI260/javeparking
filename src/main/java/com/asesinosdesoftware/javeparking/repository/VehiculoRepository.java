@@ -85,4 +85,17 @@ public class VehiculoRepository {
         else
             throw new RepositoryException("El vehiculo ya existe");
     }
+
+    public static void eliminarVehiculo(Connection connection,Vehiculo vehiculo) throws SQLException, RepositoryException {
+
+        if (vehiculo != null) {
+            String sql = "DELETE FROM `javeparking`.`vehiculo` WHERE `placa` = ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, vehiculo.getPlaca());
+            ps.executeUpdate();
+        } else {
+            throw new RepositoryException("El vehículo no existe");
+        }
+    }
+
 }
