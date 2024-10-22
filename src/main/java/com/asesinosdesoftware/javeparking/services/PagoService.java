@@ -21,12 +21,20 @@ public class PagoService {
     ReservaRepository reservaRepository;
     Parqueadero parqueadero;
     ParqueaderoRepository parqueaderoRepository;
-    PagoReserva pagoReserva;
     PagoRepository pagoRepository;
+    Suscripcion suscripcion;
+    SuscripcionRepository suscripcionRepository;
     IDBConnectionManager dbConnectionManager;
 
 
-    public PagoReserva calcularPago(String placa, String idReserva) throws SQLException {
+    /**
+     * Método que calcula la información del pago de una reserva
+     * @param placa: Placa del vehículo en la reserva
+     * @param idReserva: ID de la Reserva a pagar
+     * @return: Un objeto tipo PagoReserva con la información del pago
+     * @throws SQLException
+     */
+    public void calcularPago(String placa, String idReserva, PagoReserva pagoReserva) throws SQLException {
         vehiculoRepository.buscarVehiculo(dbConnectionManager.getConnection(), placa, vehiculo);
         reservaRepository.buscarReservaPorId(dbConnectionManager.getConnection(), Integer.parseInt(idReserva), reserva);
         puestoRepository.buscarPuesto(reserva.getPuesto().getId(), dbConnectionManager.getConnection(), puesto);
@@ -53,9 +61,49 @@ public class PagoService {
 
         pagoReserva.setValor(tarifa.multiply(BigDecimal.valueOf(duracion)));
 
-        return pagoReserva;
     }
 
+    /**
+     * Método que calcula la información del pago de una reserva
+     * @param placa: Placa del vehículo en la reserva
+     * @param idReserva: ID de la Reserva a pagar
+     * @return: Un objeto tipo PagoReserva con la información del pago
+     * @throws SQLException
+     */
+    public void calcularPago(String placa, String idReserva, PagoSuscripcion pagoSuscripcion) throws SQLException {
+        vehiculoRepository.buscarVehiculo(dbConnectionManager.getConnection(), placa, vehiculo);
+        suscripcionRepository.
+        puestoRepository.buscarPuesto(reserva.getPuesto().getId(), dbConnectionManager.getConnection(), puesto);
+        parqueaderoRepository.buscarParqueaderoPorId(dbConnectionManager.getConnection(), puesto.getParqueaderoID(), parqueadero);
+
+        LocalDateTime fechaActual = LocalDateTime.now();
+
+        pagoSuscripcion.setFecha(fechaActual);
+        pagoSuscripcion.setSuscripcion(sus);
+        pagoSuscripcion.setMetodoPago("Online");
+
+        BigDecimal tarifa;
+        if(puesto.getTamano() == 'p'){
+            tarifa = parqueadero.getTarifaPequeno();
+        }
+        else if(puesto.getTamano() == 'm'){
+            tarifa = parqueadero.getTarifaMediano();
+        }
+        else {
+            tarifa = parqueadero.getTarifaGrande();
+        }
+
+        int duracion = (int) Duration.between(reserva.getHoraEntrada(), reserva.getHoraSalida()).toHours();
+
+        pagoReserva.setValor(tarifa.multiply(BigDecimal.valueOf(duracion)));
+
+    }
+
+    /**
+     * Método que agrega un pago de una reserva a la base de datos
+     * @param pagoReserva: Pago a añadir a la base de datos
+     * @throws SQLException
+     */
     public void pagarReserva(PagoReserva pagoReserva) throws SQLException {
         pagoRepository.agregarPagoReserva(dbConnectionManager.getConnection(), pagoReserva);
     }

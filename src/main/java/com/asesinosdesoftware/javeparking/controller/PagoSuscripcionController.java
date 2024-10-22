@@ -2,6 +2,7 @@ package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.Suscripcion;
 import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
+import com.asesinosdesoftware.javeparking.services.PagoService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -14,6 +15,9 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public class PagoSuscripcionController {
+
+    PagoService pagoService;
+    Suscripcion suscripcion;
 
     @FXML
     private TextField IDPlaca;
@@ -30,8 +34,8 @@ public class PagoSuscripcionController {
     private void mostrarValor() {
         String placa = IDPlaca.getText().trim();
 
-        try (Connection connection = jdbcService.getConnection()) {
-            Suscripcion suscripcion = buscarSuscripcionPorPlaca(placa, connection);
+        try {
+            suscripcion = buscarSuscripcionPorPlaca(placa, connection);
 
             if (suscripcion != null) {
                 calcularYMostrarValores(suscripcion);
@@ -43,10 +47,6 @@ public class PagoSuscripcionController {
         }
     }
 
-    private Suscripcion buscarSuscripcionPorPlaca(String placa, Connection connection) throws SQLException {
-        SuscripcionRepository suscripcionRepository = new SuscripcionRepository();
-        return suscripcionRepository.obtenerSuscripcionPorPlaca(connection, placa);
-    }
 
     private void calcularYMostrarValores(Suscripcion suscripcion) {
         LocalDate fechaInicio = suscripcion.getFechaInicio();

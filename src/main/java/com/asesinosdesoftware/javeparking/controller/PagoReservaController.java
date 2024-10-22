@@ -29,7 +29,7 @@ public class PagoReservaController {
     private void pagoReservas() throws SQLException {
 
         if(pagoReserva == null) {
-            pagoReserva = pagoService.calcularPago(IDPlaca.getText(),IDReserva.getText());
+            pagoService.calcularPago(IDPlaca.getText(),IDReserva.getText(), pagoReserva);
         }
         pagoService.pagarReserva(pagoReserva);
         pagoReserva = null;
@@ -38,7 +38,7 @@ public class PagoReservaController {
     @FXML
     private void mostrarPrecio(){
         try {
-            pagoReserva = pagoService.calcularPago(IDPlaca.getText(), IDReserva.getText());
+            pagoService.calcularPago(IDPlaca.getText(), IDReserva.getText(), pagoReserva);
         }
         catch (SQLException e) {
             showError("Error en el pago de reservas: " + e.getMessage());

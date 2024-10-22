@@ -1,13 +1,14 @@
 package com.asesinosdesoftware.javeparking.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Suscripcion {
     private int id;
     private Cliente cliente;
     private Vehiculo vehiculo; // Atributo para el vehículo asociado
-    private LocalDate fechaInicio; // Fecha de inicio
-    private LocalDate fechaFin; // Fecha de finalización
+    private LocalDateTime fechaInicio; // Fecha de inicio
+    private LocalDateTime fechaFin; // Fecha de finalización
     private String estado; // Activa o inactiva
 
     /**
@@ -18,7 +19,7 @@ public class Suscripcion {
      * @param fechaInicio
      * @param fechaFin
      */
-    public Suscripcion(int id, Cliente cliente, Vehiculo vehiculo, LocalDate fechaInicio, LocalDate fechaFin) {
+    public Suscripcion(int id, Cliente cliente, Vehiculo vehiculo, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
         this.id = id;
         this.cliente = cliente;
         this.vehiculo = vehiculo; // Inicializa el vehículo

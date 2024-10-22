@@ -36,6 +36,34 @@ public class ClienteRepository {
     }
 
     /**
+     * Método que busca un cliente en la base de datos a partir de su id
+     * @param connection: Conexión a la base de datos
+     * @param id: Dato a partir del cual se hace la busqueda
+     * @return Si se encuentra retorna un objero tipo cliente con los parametros encontrados en la base de datos o de lo contrario retorna null
+     * @throws SQLException
+     */
+    public Cliente buscarCliente(Connection connection, int id, Cliente cliente) throws SQLException {
+
+        String sql = "SELECT * FROM cliente WHERE id = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet resultSet = ps.executeQuery();
+
+        while (resultSet.next()) {
+            if (resultSet.getString("id").equals(id)) {
+                cliente.setId(resultSet.getInt("id"));
+                cliente.setCedula(resultSet.getString("cedula"));
+                cliente.setNombre(resultSet.getString("nombre"));
+                cliente.setApellido(resultSet.getString("apellido"));
+                cliente.setUniversidad(resultSet.getString("universidad").charAt(0));
+                cliente.setHash(resultSet.getString("hash"));
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Método que agrega un cliente a la base de datos a partir de un objeto tipo cliente
      * @param connection: Conexión a la base de datos
      * @param cliente: Objeto tipo cliente a partir del cual se crea la fila en la base de datos

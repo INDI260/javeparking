@@ -15,13 +15,13 @@ public class PagoSuscripcion extends Pago{
      * Método constructor por parámetros
      * @param suscripcion
      * @param valor
-     * @param fechaPago
+     * @param fecha
      * @param metodoPago
      */
-    public PagoSuscripcion(Suscripcion suscripcion, BigDecimal valor, LocalDateTime fechaPago, String metodoPago) {
+    public PagoSuscripcion(Suscripcion suscripcion, BigDecimal valor, LocalDateTime fecha, String metodoPago) {
         this.suscripcion = suscripcion;
         this.valor = valor;
-        this.fecha = fechaPago;
+        this.fecha = fecha;
         this.metodoPago = metodoPago;
     }
 
@@ -54,7 +54,7 @@ public class PagoSuscripcion extends Pago{
         return fecha;
     }
 
-    public void setFechaPago(LocalDateTime fechaPago) {
+    public void setFecha(LocalDateTime fechaPago) {
         this.fecha = fechaPago;
     }
 
