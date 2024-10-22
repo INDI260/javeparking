@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class PagoReservaController {
 
     PagoService pagoService;
-    BigDecimal precio;
+    PagoReserva pagoReserva;
 
     @FXML
     public TextField IDPlaca;
@@ -26,23 +26,23 @@ public class PagoReservaController {
     public TextField IDReserva;
 
     @FXML
-    private void pagoReservas()  {
-        try{
-            precio = pagoService.pagarReserva(IDPlaca.getText(),IDReserva.getText());
-        }catch (SQLException e) {
-            showError("Error en el pago de reservas: " + e.getMessage());
+    private void pagoReservas() throws SQLException {
+
+        if(pagoReserva == null) {
+            pagoReserva = pagoService.calcularPago(IDPlaca.getText(),IDReserva.getText());
         }
+        pagoService.pagarReserva(pagoReserva);
+        pagoReserva = null;
     }
 
     @FXML
     private void mostrarPrecio(){
-        if(precio != null) {
-            showSuccess("El valor de la reserva es: " + precio);
+        try {
+            pagoReserva = pagoService.calcularPago(IDPlaca.getText(), IDReserva.getText());
         }
-        else{
-            showError("No se le ha asignado un valor a la reserva");
+        catch (SQLException e) {
+            showError("Error en el pago de reservas: " + e.getMessage());
         }
-
     }
 
     // Método para mostrar un mensaje de error
