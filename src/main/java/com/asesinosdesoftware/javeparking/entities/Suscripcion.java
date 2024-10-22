@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Suscripcion {
     private int id;
     private Cliente cliente;
-    private Vehiculo vehiculo; // Agregado: Atributo para el vehículo
+    private Vehiculo vehiculo; // Atributo para el vehículo asociado
     private LocalDate fechaInicio; // Fecha de inicio
     private LocalDate fechaFin; // Fecha de finalización
     private String estado; // Activa o inactiva
@@ -29,10 +29,9 @@ public class Suscripcion {
     /**
      * Método constructor vacío
      */
-    // Constructor vacío
     public Suscripcion() {}
 
-    // Getters y Setters
+    /* Getters y Setters */
     public int getId() {
         return id;
     }

@@ -24,8 +24,8 @@ public class SuscripcionRepository {
 
         ps.setInt(1, suscripcion.getCliente().getId()); // clienteID
         ps.setInt(2, vehiculoID); // vehiculoID obtenido de la placa
-        ps.setDate(3, java.sql.Date.valueOf(suscripcion.getFechaInicio())); // fecha_inicio
-        ps.setDate(4, java.sql.Date.valueOf(suscripcion.getFechaFin())); // fecha_fin
+        ps.setObject(3, suscripcion.getFechaInicio()); // fecha_inicio
+        ps.setObject(4, suscripcion.getFechaFin()); // fecha_fin
         ps.setString(5, suscripcion.getEstado()); // estado
 
         ps.executeUpdate();

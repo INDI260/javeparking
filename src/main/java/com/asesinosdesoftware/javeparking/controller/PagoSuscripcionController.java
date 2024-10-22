@@ -2,7 +2,6 @@ package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.Suscripcion;
 import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
-import com.asesinosdesoftware.javeparking.services.JDBCService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -30,7 +29,6 @@ public class PagoSuscripcionController {
     @FXML
     private void mostrarValor() {
         String placa = IDPlaca.getText().trim();
-        JDBCService jdbcService = new JDBCService();
 
         try (Connection connection = jdbcService.getConnection()) {
             Suscripcion suscripcion = buscarSuscripcionPorPlaca(placa, connection);
