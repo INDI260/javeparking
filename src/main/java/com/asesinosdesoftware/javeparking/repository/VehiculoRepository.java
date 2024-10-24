@@ -67,7 +67,7 @@ public class VehiculoRepository {
     /**
      * Método que agrega un vehiculo a la base de datos a partir de un objeto tipo vehiculo
      * @param connection: Conexión a la base de datos
-     * @param vehiculo: Objeto tipo Vehiculo a partir del cual se crea la ila en la base de datos
+     * @param vehiculo: Objeto tipo Vehículo a partir del cual se crea la ila en la base de datos
      * @throws SQLException
      * @throws RepositoryException
      */

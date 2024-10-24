@@ -18,7 +18,7 @@ public class PagoSuscripcionRepository {
         String sql = "INSERT INTO PagoSuscripcion (suscripcionID, valor, fecha_pago, metodo_pago) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, pagoSuscripcion.getSuscripcion().getId());
-            ps.setDouble(2, pagoSuscripcion.getValor()); // Asegúrate de que esto sea double
+            ps.setBigDecimal(2, pagoSuscripcion.getValor()); // Asegúrate de que esto sea double
             ps.setObject(3, pagoSuscripcion.getFechaPago()); // Debería ser LocalDateTime
             ps.setString(4, pagoSuscripcion.getMetodoPago());
             ps.executeUpdate();
