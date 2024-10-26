@@ -22,8 +22,6 @@ public class PagoService {
     Parqueadero parqueadero;
     ParqueaderoRepository parqueaderoRepository;
     PagoRepository pagoRepository;
-    Suscripcion suscripcion;
-    SuscripcionRepository suscripcionRepository;
     IDBConnectionManager dbConnectionManager;
 
 
@@ -63,41 +61,6 @@ public class PagoService {
 
     }
 
-    /**
-     * Método que calcula la información del pago de una reserva
-     * @param placa: Placa del vehículo en la reserva
-     * @param idReserva: ID de la Reserva a pagar
-     * @return: Un objeto tipo PagoReserva con la información del pago
-     * @throws SQLException
-     */
-    public void calcularPago(String placa, String idReserva, PagoSuscripcion pagoSuscripcion) throws SQLException {
-        vehiculoRepository.buscarVehiculo(dbConnectionManager.getConnection(), placa, vehiculo);
-        suscripcionRepository.
-        puestoRepository.buscarPuesto(reserva.getPuesto().getId(), dbConnectionManager.getConnection(), puesto);
-        parqueaderoRepository.buscarParqueaderoPorId(dbConnectionManager.getConnection(), puesto.getParqueaderoID(), parqueadero);
-
-        LocalDateTime fechaActual = LocalDateTime.now();
-
-        pagoSuscripcion.setFecha(fechaActual);
-        pagoSuscripcion.setSuscripcion(sus);
-        pagoSuscripcion.setMetodoPago("Online");
-
-        BigDecimal tarifa;
-        if(puesto.getTamano() == 'p'){
-            tarifa = parqueadero.getTarifaPequeno();
-        }
-        else if(puesto.getTamano() == 'm'){
-            tarifa = parqueadero.getTarifaMediano();
-        }
-        else {
-            tarifa = parqueadero.getTarifaGrande();
-        }
-
-        int duracion = (int) Duration.between(reserva.getHoraEntrada(), reserva.getHoraSalida()).toHours();
-
-        pagoReserva.setValor(tarifa.multiply(BigDecimal.valueOf(duracion)));
-
-    }
 
     /**
      * Método que agrega un pago de una reserva a la base de datos
@@ -135,7 +98,6 @@ public class PagoService {
         this.reservaRepository = reservaRepository;
         this.parqueadero = parqueadero;
         this.parqueaderoRepository = parqueaderoRepository;
-        this.pagoReserva = pagoReserva;
         this.dbConnectionManager = dbConnectionManager;
     }
 
@@ -220,13 +182,6 @@ public class PagoService {
         this.parqueaderoRepository = parqueaderoRepository;
     }
 
-    public PagoReserva getPagoReserva() {
-        return pagoReserva;
-    }
-
-    public void setPagoReserva(PagoReserva pagoReserva) {
-        this.pagoReserva = pagoReserva;
-    }
 
     public IDBConnectionManager getDbConnectionManager() {
         return dbConnectionManager;

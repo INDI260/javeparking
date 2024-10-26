@@ -1,7 +1,9 @@
 package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.Suscripcion;
+import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
+import com.asesinosdesoftware.javeparking.services.InicioDeSesionService;
 import com.asesinosdesoftware.javeparking.services.PagoService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,12 +14,15 @@ import javafx.scene.control.TextField;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class PagoSuscripcionController {
 
     PagoService pagoService;
     Suscripcion suscripcion;
+    SuscripcionRepository suscripcionRepository;
+    IDBConnectionManager dbConnectionManager;
 
     @FXML
     private TextField IDPlaca;
@@ -33,10 +38,9 @@ public class PagoSuscripcionController {
     @FXML
 
     private void mostrarValor() {
-        String placa = IDPlaca.getText().trim();
 
         try {
-            suscripcion = buscarSuscripcionPorPlaca(placa, connection);
+            suscripcion = suscripcionRepository.buscarSuscripcionPorVehiculo(dbConnectionManager.getConnection(),IDPlaca.getText().trim(), suscripcion);
 
             if (suscripcion != null) {
                 calcularYMostrarValores(suscripcion);
@@ -50,8 +54,8 @@ public class PagoSuscripcionController {
 
 
     private void calcularYMostrarValores(Suscripcion suscripcion) {
-        LocalDate fechaInicio = suscripcion.getFechaInicio();
-        LocalDate fechaFin = suscripcion.getFechaFin();
+        LocalDateTime fechaInicio = suscripcion.getFechaInicio();
+        LocalDateTime fechaFin = suscripcion.getFechaFin();
 
         // Validar que las fechas no sean null
         if (fechaInicio == null || fechaFin == null) {
@@ -83,7 +87,7 @@ public class PagoSuscripcionController {
 
     @FXML
     private void realizarPago() {
-        // Aquí se puede implementar la lógica para realizar el pago.
+        // Aquí se puede llamar al servicio para hacer el pago
 
 
 

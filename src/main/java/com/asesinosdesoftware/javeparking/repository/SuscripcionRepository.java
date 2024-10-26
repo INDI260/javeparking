@@ -6,12 +6,14 @@ import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class SuscripcionRepository {
 
     VehiculoRepository vehiculoRepository;
     ClienteRepository clienteRepository;
+    PuestoRepository puestoRepository;
 
     /**
      * Método para registrar una suscripción
@@ -44,13 +46,15 @@ public class SuscripcionRepository {
 
 
     /**
-     * Método que busca una reserva en la base de datos a partir del id de su vehiculo
+     * Método que busca una reserva en la base de datos a partir de la placa de su vehiculo
      * @param connection: Conexión a la base de datos
+     * @param placa: Placa a partir de la cual se busca en la base de datos
      * @param suscripcion: Objeto tipo suscripcion con los parámetros a buscar
      * @return Un objeto tipo reserva si se encuentra o retorna null si no se encuentra
      * @throws SQLException
      */
-    public Reserva buscarReservaVehiculo(Connection connection, Suscripcion suscripcion) throws SQLException {
+    public Suscripcion buscarSuscripcionPorVehiculo(Connection connection, String placa, Suscripcion suscripcion) throws SQLException {
+        suscripcion.setVehiculo(vehiculoRepository.buscarVehiculo(connection, placa, suscripcion.getVehiculo()));
         String sql = "SELECT * FROM `javeparking`.`suscripcion` WHERE vehiculoID = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1,suscripcion.getVehiculo().getId());
@@ -61,8 +65,9 @@ public class SuscripcionRepository {
                 suscripcion.setVehiculo(vehiculoRepository.buscarVehiculo(connection, rs.getInt("vehiculoID"), suscripcion.getVehiculo()));
                 suscripcion.setCliente(clienteRepository.buscarCliente(connection, rs.getInt("clienteID"), suscripcion.getCliente()));
                 suscripcion.setFechaInicio((LocalDateTime) rs.getObject("fecha_inicio"));
-                suscripcion.setPuesto(puestoRepository.buscarPuesto(rs.getInt("puestoID"), connection, reserva.getPuesto()));
-                return reserva;
+                suscripcion.setFechaFin((LocalDateTime) rs.getObject("fecha_fin"));
+                suscripcion.setEstado(rs.getString("estado"));
+                return suscripcion;
             }
         }
         return null;

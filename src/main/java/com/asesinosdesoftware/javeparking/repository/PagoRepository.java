@@ -17,8 +17,8 @@ public class PagoRepository {
         String sql = "INSERT INTO pagoReserva (reservaID, valor, fechaPago, metodoPago) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, pagoReserva.getReserva().getId()); // ID de la reserva
-            ps.setDouble(2, pagoReserva.getValor()); // Valor del pago
-            ps.setObject(3, pagoReserva.getFechaPago()); // Fecha del pago
+            ps.setBigDecimal(2, pagoReserva.getValor()); // Valor del pago
+            ps.setObject(3, pagoReserva.getFecha()); // Fecha del pago
             ps.setString(4, pagoReserva.getMetodoPago()); // Método de pago
             ps.executeUpdate();
         }

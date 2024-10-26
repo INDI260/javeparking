@@ -3,9 +3,9 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Suscripcion;
+import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
-import com.asesinosdesoftware.javeparking.services.JDBCService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
@@ -14,10 +14,11 @@ import javafx.scene.control.TextField;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class SuscripcionViewController {
 
-
+    IDBConnectionManager dbConnectionManager;
     @FXML
     private DatePicker fechaInicioPicker; // Campo para ingresar la fecha de fin
     @FXML
@@ -27,16 +28,15 @@ public class SuscripcionViewController {
     private void agregarSuscripcion() {
         try {
 
-            LocalDate fechaInicioSuscripcion = fechaInicioPicker.getValue(); // Obtener fecha de inicio del DatePicker
-            LocalDate fechaFinSuscripcion = fechaFinPicker.getValue(); // Obtener fecha de fin del DatePicker
+            LocalDateTime fechaInicioSuscripcion = fechaInicioPicker.getValue().atStartOfDay(); // Obtener fecha de inicio del DatePicker
+            LocalDateTime fechaFinSuscripcion = fechaFinPicker.getValue().atStartOfDay(); // Obtener fecha de fin del DatePicker
 
             // Crear objeto Cliente
             Cliente cliente = new Cliente();
             ClienteRepository CR = new ClienteRepository();
 
             // Conectar a la base de datos
-            JDBCService jdbcService = new JDBCService();
-            Connection connection = jdbcService.getConnection();
+            Connection connection = dbConnectionManager.getConnection();
             CR.buscarCliente(connection,Sesion.getcedula(),cliente);
 
             // Crear objeto Suscripcion
@@ -47,7 +47,7 @@ public class SuscripcionViewController {
             SuscripcionRepository suscripcionRepository = new SuscripcionRepository();
 
             // Calcular el estado de la suscripción
-            LocalDate fechaActual = LocalDate.now();
+            LocalDateTime fechaActual = LocalDateTime.now();
             String estadoSuscripcion;
             if (fechaActual.isAfter(fechaFinSuscripcion) || fechaActual.isBefore(fechaInicioSuscripcion)) {
                 estadoSuscripcion = "Inactiva"; // La suscripción es inactiva

@@ -1,6 +1,7 @@
 package com.asesinosdesoftware.javeparking;
 
 import com.asesinosdesoftware.javeparking.entities.Sesion;
+import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.services.InicioDeSesionService;
 import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
 import javafx.fxml.FXML;
@@ -14,6 +15,8 @@ import java.io.IOException;
 import java.sql.Connection;
 
 public class HelloController {
+
+    IDBConnectionManager dbConnectionManager;
     @FXML
     private BorderPane contenedor;
 
@@ -59,11 +62,9 @@ public class HelloController {
     private void InicioSesion() {
      try{
 
-         JDBCInitializer controller = new JDBCInitializer();
-         Connection connection = controller.getConnection();
          InicioDeSesionService U = new InicioDeSesionService();
 
-         U.InicioDeSesion(connection,Usuario.getText(),Contrasena.getText());
+         U.InicioDeSesion(dbConnectionManager.getConnection(),Usuario.getText(),Contrasena.getText());
          Menu();
      }
      catch (Exception e) {
