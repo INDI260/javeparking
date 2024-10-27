@@ -11,8 +11,8 @@ public class InicioDeSesionTest {
 
     @BeforeEach
     void setUp() throws SQLException {
-        JDBCInitializer jdbcInitializer = new JDBCInitializer();
+        //JDBCInitializer jdbcInitializer = new JDBCInitializer();
         inicioDeSesionService = new InicioDeSesionService();
-        Connection con = jdbcInitializer.getConnection();
+        //Connection con = jdbcInitializer.getConnection();
     }
 }

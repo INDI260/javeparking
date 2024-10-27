@@ -49,6 +49,7 @@ public class JDBCInitializer {
         stmt.execute("DROP TABLE IF EXISTS pagoReserva");
         stmt.execute("DROP TABLE IF EXISTS pagoSuscripcion");
         stmt.execute("DROP TABLE IF EXISTS empleado");
+        stmt.execute("DROP TABLE IF EXISTS pago");
         stmt.execute("DROP TABLE IF EXISTS reserva");
         stmt.execute("DROP TABLE IF EXISTS puesto");
         stmt.execute("DROP TABLE IF EXISTS parqueadero");
