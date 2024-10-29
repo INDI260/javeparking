@@ -3,9 +3,13 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Suscripcion;
+import com.asesinosdesoftware.javeparking.entities.Vehiculo;
+import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
+import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
+import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
@@ -18,11 +22,15 @@ import java.time.LocalDateTime;
 
 public class SuscripcionViewController {
 
-    IDBConnectionManager dbConnectionManager;
+    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+    VehiculoRepository vehiculoRepository = new VehiculoRepository();
+    SuscripcionRepository suscripcionRepository = new SuscripcionRepository();
     @FXML
     private DatePicker fechaInicioPicker; // Campo para ingresar la fecha de fin
     @FXML
     private DatePicker fechaFinPicker; // Campo para ingresar la fecha de fin
+    @FXML
+    private TextField placaTextField;
 
     @FXML
     private void agregarSuscripcion() {
@@ -30,6 +38,7 @@ public class SuscripcionViewController {
 
             LocalDateTime fechaInicioSuscripcion = fechaInicioPicker.getValue().atStartOfDay(); // Obtener fecha de inicio del DatePicker
             LocalDateTime fechaFinSuscripcion = fechaFinPicker.getValue().atStartOfDay(); // Obtener fecha de fin del DatePicker
+            String placa = placaTextField.getText();
 
             // Crear objeto Cliente
             Cliente cliente = new Cliente();
@@ -44,7 +53,9 @@ public class SuscripcionViewController {
             suscripcion.setCliente(cliente);
             suscripcion.setFechaInicio(fechaInicioSuscripcion);
             suscripcion.setFechaFin(fechaFinSuscripcion);
-            SuscripcionRepository suscripcionRepository = new SuscripcionRepository();
+            suscripcion.setVehiculo(new Vehiculo());
+            if(vehiculoRepository.buscarVehiculo(dbConnectionManager.getConnection(), placa, suscripcion.getVehiculo()) == null)
+                showError("El vehiculo no está registrado");
 
             // Calcular el estado de la suscripción
             LocalDateTime fechaActual = LocalDateTime.now();

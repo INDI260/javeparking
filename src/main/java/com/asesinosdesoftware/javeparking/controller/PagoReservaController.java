@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class PagoReservaController {
 
     PagoService pagoService;
-    PagoReserva pagoReserva;
+    PagoReserva pagoReserva = new PagoReserva();
 
     @FXML
     public TextField IDPlaca;

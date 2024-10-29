@@ -1,6 +1,7 @@
 package com.asesinosdesoftware.javeparking;
 
 import com.asesinosdesoftware.javeparking.entities.Sesion;
+import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.services.InicioDeSesionService;
 import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
@@ -16,7 +17,7 @@ import java.sql.Connection;
 
 public class HelloController {
 
-    IDBConnectionManager dbConnectionManager;
+    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
     @FXML
     private BorderPane contenedor;
 

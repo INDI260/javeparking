@@ -3,6 +3,7 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
+import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
@@ -15,7 +16,7 @@ import javafx.scene.control.TextField;
 import java.sql.Connection;
 
 public class ReVehiculoviewController {
-    IDBConnectionManager dbConnectionManager;
+    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
     @FXML
     public ComboBox <String> IdTamano;
     @FXML

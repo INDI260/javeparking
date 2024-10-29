@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 
 public class SuscripcionRepository {
 
-    VehiculoRepository vehiculoRepository;
-    ClienteRepository clienteRepository;
+    VehiculoRepository vehiculoRepository = new VehiculoRepository();
+    ClienteRepository clienteRepository = new ClienteRepository();
     PuestoRepository puestoRepository;
 
     /**
