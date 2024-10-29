@@ -46,11 +46,14 @@ public class JDBCInitializer {
 
         Statement stmt = dbConnectionManager.getConnection().createStatement();
         stmt.execute("DROP TABLE IF EXISTS `javeparking`.`administrador`;");
-        stmt.execute("DROP TABLE IF EXISTS pago");
+        stmt.execute("DROP TABLE IF EXISTS pagoReserva");
+        stmt.execute("DROP TABLE IF EXISTS pagoSuscripcion");
         stmt.execute("DROP TABLE IF EXISTS empleado");
+        stmt.execute("DROP TABLE IF EXISTS pago");
         stmt.execute("DROP TABLE IF EXISTS reserva");
         stmt.execute("DROP TABLE IF EXISTS puesto");
         stmt.execute("DROP TABLE IF EXISTS parqueadero");
+        stmt.execute("DROP TABLE IF EXISTS suscripcion");
         stmt.execute("DROP TABLE IF EXISTS vehiculo");
         stmt.execute("DROP TABLE IF EXISTS cliente");
 
@@ -91,7 +94,11 @@ public class JDBCInitializer {
 
         stmt.execute("CREATE TABLE `javeparking`.`parqueadero` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `TarifaPequeno` DECIMAL NOT NULL,\n" +
+                "  `TarifaMediano` DECIMAL NOT NULL,\n" +
+                "  `TarifaGrande` DECIMAL NOT NULL,\n" +
                 "  PRIMARY KEY (`id`));");
+
 
 
 
@@ -147,19 +154,57 @@ public class JDBCInitializer {
                 "    ON DELETE NO ACTION\n" +
                 "    ON UPDATE NO ACTION);");
 
+        stmt.execute("CREATE TABLE `javeparking`.`suscripcion` (\n" +
+                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `clienteID` INT NOT NULL,        -- Relacionada con el cliente\n" +
+                "  `vehiculoID` INT NOT NULL,       -- Relacionada con el vehículo\n" +
+                "  `fecha_inicio` DATETIME NULL,\n" +
+                "  `fecha_fin` DATETIME NULL,\n" +
+                "  `estado` VARCHAR(100) NOT NULL,\n" +
+                "  PRIMARY KEY (`id`),\n" +
+                "  CONSTRAINT `fk_cliente_suscripcion`\n" +
+                "    FOREIGN KEY (`clienteID`)\n" +
+                "    REFERENCES `javeparking`.`cliente` (`id`)\n" +
+                "    ON DELETE NO ACTION\n" +
+                "    ON UPDATE NO ACTION,\n" +
+                "  CONSTRAINT `fk_vehiculo_suscripcion`\n" +
+                "    FOREIGN KEY (`vehiculoID`)\n" +
+                "    REFERENCES `javeparking`.`vehiculo` (`id`)   -- Referencia a la tabla vehículo\n" +
+                "    ON DELETE NO ACTION\n" +
+                "    ON UPDATE NO ACTION\n" +
+                ");");
 
-
-        stmt.execute("CREATE TABLE `javeparking`.`pago` (\n" +
+        stmt.execute("CREATE TABLE `javeparking`.`pagoReserva` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `valor` DECIMAL NULL,\n" +
                 "  `reservaID` INT NULL,\n" +
+                "  `fechaPago` DATETIME NOT NULL,\n" +
+                "  `metodoPago` VARCHAR(100) NOT NULL,\n" + // Nueva columna metodoPago
                 "  PRIMARY KEY (`id`),\n" +
                 "  INDEX `reservaID_idx` (`reservaID` ASC) VISIBLE,\n" +
                 "  CONSTRAINT `reservaID`\n" +
                 "    FOREIGN KEY (`reservaID`)\n" +
                 "    REFERENCES `javeparking`.`reserva` (`id`)\n" +
                 "    ON DELETE NO ACTION\n" +
-                "    ON UPDATE NO ACTION);");
+                "    ON UPDATE NO ACTION,\n" +
+                "  CONSTRAINT `check_metodoPago`\n" + // Restricción CHECK
+                "    CHECK (`metodoPago` IN ('Online', 'Presencial'))\n" +
+                ");");
+
+        stmt.execute("CREATE TABLE `javeparking`.`pagoSuscripcion` (\n" +
+                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `suscripcionID` INT NOT NULL,\n" +
+                "  `valor` DECIMAL(10, 2) NOT NULL,\n" +
+                "  `fechaPago` DATETIME NOT NULL,\n" +
+                "  `metodoPago` VARCHAR(50) NULL,\n" +
+                "  PRIMARY KEY (`id`),\n" +
+                "  INDEX `suscripcionID_idx` (`suscripcionID` ASC) VISIBLE,\n" +
+                "  CONSTRAINT `suscripcionID`\n" +
+                "    FOREIGN KEY (`suscripcionID`)\n" +
+                "    REFERENCES `javeparking`.`suscripcion` (`id`)\n" +
+                "    ON DELETE CASCADE\n" +
+                "    ON UPDATE NO ACTION\n" +
+                ");");
 
         administradorRepository.agregarAdministrador(dbConnectionManager.getConnection(),new Administrador("10", "Luis", "Ramos", PasswordService.hashPassword("1234")));
 
@@ -169,7 +214,7 @@ public class JDBCInitializer {
 
         empleadoRepository.agregarEmpleado(dbConnectionManager.getConnection(), new Empleado("20", "Simba", "Gonzales", PasswordService.hashPassword("1234")));
 
-        stmt.execute("INSERT INTO `javeparking`.`parqueadero` (`id`) VALUES ('1');\n");
+        stmt.execute("INSERT INTO `javeparking`.`parqueadero` (`TarifaPequeno`, `TarifaMediano`, `TarifaGrande`) VALUES (15.50, 18.7, 20.8 );\n");
 
         stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('g', b'0', b'1');");
         stmt.execute("INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES ('g', b'0', b'1');");

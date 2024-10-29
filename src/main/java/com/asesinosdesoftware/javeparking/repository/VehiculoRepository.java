@@ -13,11 +13,11 @@ public class VehiculoRepository {
     /**
      * Método que busca un vehiculo en la base de datos a partir de su placa
      * @param connection: Conexión a la base de datos
-     * @param placa: Dato a pardir del cual se hace la busqueda
-     * @return Si se encuentra retorna un objero tipo Vehiculo con los parametros encontrados en la base de datos o de lo contrario retorna null
+     * @param placa: Dato a partir del cual se hace la búsqueda
+     * @return Si se encuentra retorna un objeto tipo Vehículo con los parámetros encontrados en la base de datos o de lo contrario retorna null
      * @throws SQLException
      */
-    public static Vehiculo buscarVehiculo(Connection connection, String placa, Vehiculo vehiculo) throws SQLException {
+    public Vehiculo buscarVehiculo(Connection connection, String placa, Vehiculo vehiculo) throws SQLException {
 
         String sql = "SELECT * FROM vehiculo WHERE placa = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -40,11 +40,11 @@ public class VehiculoRepository {
     /**
      * Método que busca un vehiculo en la base de datos a partir de su Id
      * @param connection: Conexión a la base de datos
-     * @param id: Dato a pardir del cual se hace la busqueda
-     * @return Si se encuentra retorna un objero tipo Vehiculo con los parametros encontrados en la base de datos o de lo contrario retorna null
+     * @param id: Dato a partir del cual se hace la búsqueda
+     * @return Si se encuentra retorna un objeto tipo Vehículo con los parámetros encontrados en la base de datos o de lo contrario retorna null
      * @throws SQLException
      */
-    public static Vehiculo buscarVehiculo(Connection connection, int id, Vehiculo vehiculo) throws SQLException {
+    public Vehiculo buscarVehiculo(Connection connection, int id, Vehiculo vehiculo) throws SQLException {
 
         String sql = "SELECT * FROM vehiculo WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -67,11 +67,11 @@ public class VehiculoRepository {
     /**
      * Método que agrega un vehiculo a la base de datos a partir de un objeto tipo vehiculo
      * @param connection: Conexión a la base de datos
-     * @param vehiculo: Objeto tipo Vehiculo a partir del cual se crea la ila en la base de datos
+     * @param vehiculo: Objeto tipo Vehículo a partir del cual se crea la ila en la base de datos
      * @throws SQLException
      * @throws RepositoryException
      */
-    public static void agregarVehiculo(Connection connection, Vehiculo vehiculo) throws SQLException, RepositoryException {
+    public void agregarVehiculo(Connection connection, Vehiculo vehiculo) throws SQLException, RepositoryException {
 
         if(buscarVehiculo(connection, vehiculo.getPlaca(), new Vehiculo()) == null) {
             String sql = "INSERT INTO `javeparking`.`vehiculo` (`placa`, `tamano`, `tipo`,`clienteid`) VALUES ( ?, ?, ?,?);";
@@ -99,3 +99,4 @@ public class VehiculoRepository {
     }
 
 }
+

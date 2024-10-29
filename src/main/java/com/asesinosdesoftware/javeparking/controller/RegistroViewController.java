@@ -2,18 +2,23 @@ package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
 import com.asesinosdesoftware.javeparking.services.PasswordService;
+import com.asesinosdesoftware.javeparking.entities.Suscripcion;
+import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.sql.Connection;
+import java.time.LocalDate;
 
 public class RegistroViewController {
 
+    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
     @FXML
     public TextField IdPassword;
     @FXML
@@ -37,7 +42,6 @@ public class RegistroViewController {
             C.setUniversidad(Iduniversity.getValue().charAt(0));
             C.setHash(PasswordService.hashPassword(IdPassword.getText()));
 
-            DBConnectionManager dbConnectionManager = new DBConnectionManager();
             Connection connection = dbConnectionManager.getConnection();
             ClienteRepository repository = new ClienteRepository();
 

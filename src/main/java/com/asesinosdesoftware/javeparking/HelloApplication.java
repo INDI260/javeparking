@@ -35,11 +35,10 @@ public class HelloApplication extends Application {
             ClienteRepository clienteRepository = new ClienteRepository();
             EmpleadoRepository empleadoRepository = new EmpleadoRepository();
             JDBCInitializer initializer = new JDBCInitializer(dbConnectionManager,administradorRepository,clienteRepository,empleadoRepository);
-            initializer.inicializarTablas();
+            //initializer.inicializarTablas();
 
 
-        } catch (SQLException e) {
-            System.out.println("Ocurrio un error en la conexión de base de datos: " + e);
+
         } catch (Exception e) {
             System.out.println("Ocurrio un error: " + e);
         }

@@ -24,6 +24,7 @@ public class InicioDeSesionTest {
     IDBConnectionManager dbConnectionManager = new DBConnectionManager();
 
     @BeforeEach
+
     void setUp() {
         try {
             JDBCInitializer jdbcInitializer = new JDBCInitializer(dbConnectionManager, new AdministradorRepository(), new ClienteRepository(), new EmpleadoRepository());
@@ -34,6 +35,7 @@ public class InicioDeSesionTest {
         catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     @Test

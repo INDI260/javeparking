@@ -12,13 +12,16 @@ import java.time.LocalDateTime;
 
 public class ReservaRepository {
 
+    VehiculoRepository vehiculoRepository = new VehiculoRepository();
+    PuestoRepository puestoRepository = new PuestoRepository();
+
     /**
      * Método que agrega una reserva a la base de datos de acuerdo a los parametros dados
      * @param connection: Conexión con la base de datos
      * @param reserva: Objeto tipo reserva con los parametros deseados
      * @throws SQLException
      */
-    public static void agregarReserva(Connection connection, Reserva reserva) throws SQLException {
+    public void agregarReserva(Connection connection, Reserva reserva) throws SQLException {
         String sql = "INSERT INTO `javeparking`.`reserva` (`horaEntrada`, `horaSalida`, `vehiculoID`, `puestoID`) VALUES ( ?, ?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setObject(1,reserva.getHoraEntrada());
@@ -36,21 +39,48 @@ public class ReservaRepository {
      * @return Un objeto tipo reserva si se encuetnra o retorna null si no se encuentra
      * @throws SQLException
      */
-    public static Reserva buscarReservaVehiculo(Connection connection, Reserva reserva) throws SQLException {
-        String sql = "SELECT * FORM `javeparking`.`reserva` WHERE vehiculoID = ?";
+    public Reserva buscarReservaVehiculo(Connection connection, Reserva reserva) throws SQLException {
+        String sql = "SELECT * FROM `javeparking`.`reserva` WHERE vehiculoID = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1,reserva.getVehiculo().getId());
         ResultSet rs = ps.executeQuery();
         while(rs.next()){
             if(rs.getInt("vehiculoID") == reserva.getVehiculo().getId()) {
-                reserva.setId(rs.getInt("reservaID"));
-                reserva.setVehiculo(VehiculoRepository.buscarVehiculo(connection, rs.getInt("id"), reserva.getVehiculo()));
+                reserva.setId(rs.getInt("id"));
+                reserva.setVehiculo(vehiculoRepository.buscarVehiculo(connection, rs.getInt("vehiculoID"), reserva.getVehiculo()));
                 reserva.setHoraEntrada((LocalDateTime) rs.getObject("horaEntrada"));
                 reserva.setHoraSalida((LocalDateTime) rs.getObject("horaSalida"));
-                reserva.setPuesto(PuestoRepository.buscarPuesto(rs.getInt("puestoID"), connection, reserva.getPuesto()));
+                reserva.setPuesto(puestoRepository.buscarPuesto(rs.getInt("puestoID"), connection, reserva.getPuesto()));
                 return reserva;
             }
         }
         return null;
     }
+
+    public Reserva buscarReservaPorId(Connection connection, int reservaId, Reserva reserva) throws SQLException {
+        String sql = "SELECT * FROM `javeparking`.`reserva` WHERE `id` = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, reservaId);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            reserva.setId(rs.getInt("id"));
+
+            // Inicializa el objeto Vehiculo
+            Vehiculo vehiculo = new Vehiculo();
+            reserva.setVehiculo(vehiculoRepository.buscarVehiculo(connection, rs.getInt("vehiculoID"), vehiculo));
+
+            reserva.setHoraEntrada((LocalDateTime) rs.getObject("horaEntrada"));
+            reserva.setHoraSalida((LocalDateTime) rs.getObject("horaSalida"));
+
+            // Inicializa el objeto Puesto
+            Puesto puesto = new Puesto();
+            reserva.setPuesto(puestoRepository.buscarPuesto(rs.getInt("puestoID"), connection, puesto));
+
+            return reserva;
+        }
+
+        return null; // Si no se encuentra la reserva
+    }
+
 }

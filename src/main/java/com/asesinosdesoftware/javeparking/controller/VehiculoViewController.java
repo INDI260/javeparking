@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class VehiculoViewController {
 
@@ -18,7 +19,7 @@ public class VehiculoViewController {
         private void registrarvehiculo() {
             try {
                 // Cargar la vista desde el archivo FXML
-                AnchorPane pane = FXMLLoader.load(getClass().getResource("/com/asesinosdesoftware/javeparking/Revehiculoview.fxml"));
+                AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/asesinosdesoftware/javeparking/Revehiculoview.fxml")));
                 // Limpiar los hijos actuales del contenedor principal
                 contenedor.getChildren().clear();
                 // Ajustar las propiedades de posicionamiento de AnchorPane para que ocupe todo el espacio

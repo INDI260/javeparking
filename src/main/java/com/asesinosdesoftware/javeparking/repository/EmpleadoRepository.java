@@ -18,7 +18,7 @@ public class EmpleadoRepository {
      * @return Si se encuentra retorna un objero tipo Empleado con los parametros encontrados en la base de datos o de lo contrario retorna null
      * @throws SQLException
      */
-    public static Empleado buscarEmpleado(Connection connection, String cedula, Empleado empleado) throws SQLException {
+    public Empleado buscarEmpleado(Connection connection, String cedula, Empleado empleado) throws SQLException {
 
         String sql = "select * from empleado where cedula = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -45,7 +45,7 @@ public class EmpleadoRepository {
      * @throws SQLException
      * @throws RepositoryException
      */
-    public static void agregarEmpleado(Connection connection, Empleado empleado) throws SQLException, RepositoryException {
+    public void agregarEmpleado(Connection connection, Empleado empleado) throws SQLException, RepositoryException {
 
         if(buscarEmpleado(connection, empleado.getCedula(), new Empleado()) == null) {
             String sql = "INSERT INTO `javeparking`.`empleado` (`cedula`, `nombre`, `apellido`, `hash`) VALUES ( ?, ?, ?, ?);";

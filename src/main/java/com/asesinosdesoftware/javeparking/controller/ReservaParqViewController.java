@@ -4,6 +4,7 @@ import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
 import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservaParqViewController {
+
+    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
     @FXML
     private TableView<Puesto> tablaReservas;
 
@@ -60,7 +63,6 @@ public class ReservaParqViewController {
         List<Puesto> puestos = new ArrayList<>();
         try {
             // Obtener la conexión (ajusta con tu configuración)
-            DBConnectionManager dbConnectionManager = new DBConnectionManager();
             Connection connection = dbConnectionManager.getConnection();
             PuestoRepository PR = new PuestoRepository();
 
@@ -94,7 +96,6 @@ public class ReservaParqViewController {
             }
             Vehiculo V = new Vehiculo();
             VehiculoRepository VR = new VehiculoRepository();
-            DBConnectionManager dbConnectionManager = new DBConnectionManager();
             Connection connection = dbConnectionManager.getConnection();
             VR.buscarVehiculo(connection,IDplaca.getText(),V);
 
