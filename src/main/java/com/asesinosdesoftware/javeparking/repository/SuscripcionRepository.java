@@ -13,7 +13,7 @@ public class SuscripcionRepository {
 
     VehiculoRepository vehiculoRepository = new VehiculoRepository();
     ClienteRepository clienteRepository = new ClienteRepository();
-    PuestoRepository puestoRepository;
+    PuestoRepository puestoRepository = new PuestoRepository();
 
     /**
      * Método para registrar una suscripción

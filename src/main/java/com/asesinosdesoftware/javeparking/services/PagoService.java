@@ -21,7 +21,7 @@ public class PagoService {
     ReservaRepository reservaRepository;
     Parqueadero parqueadero;
     ParqueaderoRepository parqueaderoRepository;
-    PagoRepository pagoRepository;
+    PagoRepository pagoRepository = new PagoRepository();
     IDBConnectionManager dbConnectionManager;
 
 

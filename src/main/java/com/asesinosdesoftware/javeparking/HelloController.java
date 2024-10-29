@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.Objects;
 
 public class HelloController {
 
@@ -51,7 +52,7 @@ public class HelloController {
     private void registrarCliente() {
         try {
             // Carga la vista desde el archivo FXML
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("Registro_View.fxml"));
+            AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Registro_View.fxml")));
             // Establece la vista cargada en el centro del contenedor principal
             contenedor.setCenter(pane);
         } catch (IOException e) {
@@ -78,7 +79,7 @@ public class HelloController {
         if(Sesion.getTipo()=='a'){
             try {
                 // Carga la vista desde el archivo FXML
-                AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuAdminView.fxml"));
+                AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MenuAdminView.fxml")));
                 // Establece la vista cargada en el centro del contenedor principal
                 contenedor.setCenter(pane);
             } catch (IOException e) {
@@ -89,7 +90,7 @@ public class HelloController {
         if(Sesion.getTipo()=='c'){
             try {
                 // Carga la vista desde el archivo FXML
-                AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuClienteView.fxml"));
+                AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MenuClienteView.fxml")));
                 // Establece la vista cargada en el centro del contenedor principal
                 contenedor.setCenter(pane);
             } catch (IOException e) {
@@ -100,7 +101,7 @@ public class HelloController {
         if(Sesion.getTipo()=='e'){
             try {
                 // Carga la vista desde el archivo FXML
-                AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuOperarioView.fxml"));
+                AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MenuOperarioView.fxml")));
                 // Establece la vista cargada en el centro del contenedor principal
                 contenedor.setCenter(pane);
             } catch (IOException e) {
