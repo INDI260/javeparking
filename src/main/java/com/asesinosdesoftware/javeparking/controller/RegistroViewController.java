@@ -45,7 +45,7 @@ public class RegistroViewController {
             Connection connection = dbConnectionManager.getConnection();
             ClienteRepository repository = new ClienteRepository();
 
-            repository.agregarCliente(connection,C);
+            repository.agregarCliente(C);
 
             connection.close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
             showSuccess("Registro de cliente exitoso");

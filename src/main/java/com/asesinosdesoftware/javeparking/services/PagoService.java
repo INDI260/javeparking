@@ -68,7 +68,7 @@ public class PagoService {
      * @throws SQLException
      */
     public void pagarReserva(PagoReserva pagoReserva) throws SQLException {
-        pagoRepository.agregarPagoReserva(dbConnectionManager.getConnection(), pagoReserva);
+        pagoRepository.agregarPagoReserva(pagoReserva);
     }
 
 

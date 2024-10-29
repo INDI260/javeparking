@@ -38,7 +38,7 @@ public class ReVehiculoviewController {
         VehiculoRepository vehiculoRepository = new VehiculoRepository();
         ClienteRepository clienterepository = new ClienteRepository();
 
-        clienterepository.buscarCliente(connection, Sesion.getcedula(),Dueno);
+        clienterepository.buscarCliente(Sesion.getcedula(),Dueno);
         v.setClienteid(Dueno.getId());
         vehiculoRepository.agregarVehiculo(connection, v);
 

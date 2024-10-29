@@ -27,14 +27,12 @@ public class EliminarVehiculoViewController {
         Vehiculo V = new Vehiculo();
         VehiculoRepository VR = new VehiculoRepository();
 
-        JDBCService controller = new JDBCService();
-        Connection connection = controller.getConnection();
 
-        CR.buscarCliente(connection,Sesion.getcedula(),dueno);
-        VR.buscarVehiculo(connection,IDPlaca.getText(),V);
+        CR.buscarCliente(Sesion.getcedula(),dueno);
+        VR.buscarVehiculo(IDPlaca.getText(),V);
 
         if(dueno.getId()==V.getClienteid()){
-            VR.eliminarVehiculo(connection,V);
+            VR.eliminarVehiculo(V);
             showSuccess("Vehiculo eliminado correctamente");
         }
         else showError("El vehiculo no te pertenece");

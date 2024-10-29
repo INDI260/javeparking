@@ -46,7 +46,7 @@ public class SuscripcionViewController {
 
             // Conectar a la base de datos
             Connection connection = dbConnectionManager.getConnection();
-            CR.buscarCliente(connection,Sesion.getcedula(),cliente);
+            CR.buscarCliente(Sesion.getcedula(),cliente);
 
             // Crear objeto Suscripcion
             Suscripcion suscripcion = new Suscripcion();

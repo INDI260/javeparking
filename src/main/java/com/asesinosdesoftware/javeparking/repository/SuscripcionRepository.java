@@ -63,7 +63,7 @@ public class SuscripcionRepository {
             if(rs.getInt("vehiculoID") == suscripcion.getVehiculo().getId()) {
                 suscripcion.setId(rs.getInt("id"));
                 suscripcion.setVehiculo(vehiculoRepository.buscarVehiculo(connection, rs.getInt("vehiculoID"), suscripcion.getVehiculo()));
-                suscripcion.setCliente(clienteRepository.buscarCliente(connection, rs.getInt("clienteID"), suscripcion.getCliente()));
+                suscripcion.setCliente(clienteRepository.buscarCliente(rs.getInt("clienteID"), suscripcion.getCliente()));
                 suscripcion.setFechaInicio((LocalDateTime) rs.getObject("fecha_inicio"));
                 suscripcion.setFechaFin((LocalDateTime) rs.getObject("fecha_fin"));
                 suscripcion.setEstado(rs.getString("estado"));
