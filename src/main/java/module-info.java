@@ -12,4 +12,10 @@ module com.asesinosdesoftware.javeparking {
     // Abrir el paquete 'entities' a javafx.base y javafx.fxml
     opens com.asesinosdesoftware.javeparking.entities to javafx.fxml, javafx.base;
     opens com.asesinosdesoftware.javeparking.init to javafx.fxml;
+    exports com.asesinosdesoftware.javeparking.entities;
+    exports com.asesinosdesoftware.javeparking.init;
+    exports com.asesinosdesoftware.javeparking.persistencia;
+    exports com.asesinosdesoftware.javeparking.repository;
+    exports com.asesinosdesoftware.javeparking.services;
+    exports com.asesinosdesoftware.javeparking.exceptions;
 }

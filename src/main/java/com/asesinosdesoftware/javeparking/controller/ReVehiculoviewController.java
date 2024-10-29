@@ -33,7 +33,6 @@ public class ReVehiculoviewController {
         v.setTipo(IdTipo.getText().charAt(0));
         v.setPlaca(IdPlaca.getText());
 
-
         Connection connection = dbConnectionManager.getConnection();
 
         VehiculoRepository vehiculoRepository = new VehiculoRepository();

@@ -42,7 +42,6 @@ public class RegistroViewController {
             C.setUniversidad(Iduniversity.getValue().charAt(0));
             C.setHash(PasswordService.hashPassword(IdPassword.getText()));
 
-
             Connection connection = dbConnectionManager.getConnection();
             ClienteRepository repository = new ClienteRepository();
 
