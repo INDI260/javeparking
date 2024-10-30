@@ -38,7 +38,7 @@ public class Reserva {
     }
 
     /* Getters y Setters */
-    public int getId() {
+    public CharSequence getId() {
         return id;
     }
 
