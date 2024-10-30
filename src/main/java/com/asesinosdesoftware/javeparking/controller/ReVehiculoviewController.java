@@ -16,7 +16,6 @@ import javafx.scene.control.TextField;
 import java.sql.Connection;
 
 public class ReVehiculoviewController {
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
     @FXML
     public ComboBox <String> IdTamano;
     @FXML
@@ -33,16 +32,12 @@ public class ReVehiculoviewController {
         v.setTipo(IdTipo.getText().charAt(0));
         v.setPlaca(IdPlaca.getText());
 
-        Connection connection = dbConnectionManager.getConnection();
-
         VehiculoRepository vehiculoRepository = new VehiculoRepository();
         ClienteRepository clienterepository = new ClienteRepository();
 
         clienterepository.buscarCliente(Sesion.getcedula(),Dueno);
         v.setClienteid(Dueno.getId());
         vehiculoRepository.agregarVehiculo(v);
-
-        connection.close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
 
         showSuccess("Registro de Vehiculo Exitoso");
     } catch (Exception e){

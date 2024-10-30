@@ -44,7 +44,6 @@ public class SuscripcionViewController {
             ClienteRepository CR = new ClienteRepository();
 
             // Conectar a la base de datos
-            Connection connection = dbConnectionManager.getConnection();
             CR.buscarCliente(Sesion.getcedula(),cliente);
 
             // Crear objeto Suscripcion
@@ -75,7 +74,6 @@ public class SuscripcionViewController {
             // Agregar suscripción a la base de datos
             suscripcionRepository.agregarSuscripcion(suscripcion);
 
-            connection.close(); // Cerrar la conexión
             showSuccess("Suscripción agregada exitosamente");
 
         } catch (SQLException e) {

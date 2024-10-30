@@ -117,7 +117,6 @@ public class ReservaParqViewController {
             RR.agregarReserva(R);
             P.setDisponibilidad(true);
             PR.actualizarPuesto(P);
-            connection.close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
             showSuccess("Reserva de Parqueadero Exitosa");
 
         } catch (Exception e) {
