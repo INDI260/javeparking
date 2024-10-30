@@ -5,7 +5,6 @@ import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
 import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,16 +40,15 @@ public class EmpleadoRepository {
 
     /**
      * Método que agrega un empleado a la base de datos a partir de un objeto tipo Empleado
-     * @param connection: Conexión a la base de datos
      * @param empleado: Objeto tipo Empleado a partir del cual se crea la fila en la base de datos
      * @throws SQLException
      * @throws RepositoryException
      */
-    public void agregarEmpleado(Connection connection, Empleado empleado) throws SQLException, RepositoryException {
+    public void agregarEmpleado(Empleado empleado) throws SQLException, RepositoryException {
 
-        if(buscarEmpleado(connection, empleado.getCedula(), new Empleado()) == null) {
+        if(buscarEmpleado(empleado.getCedula(), new Empleado()) == null) {
             String sql = "INSERT INTO `javeparking`.`empleado` (`cedula`, `nombre`, `apellido`, `hash`) VALUES ( ?, ?, ?, ?);";
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
             ps.setString(1, empleado.getCedula());
             ps.setString(2, empleado.getNombre());
             ps.setString(3, empleado.getApellido());

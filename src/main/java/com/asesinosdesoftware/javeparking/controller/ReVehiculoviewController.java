@@ -40,7 +40,7 @@ public class ReVehiculoviewController {
 
         clienterepository.buscarCliente(Sesion.getcedula(),Dueno);
         v.setClienteid(Dueno.getId());
-        vehiculoRepository.agregarVehiculo(connection, v);
+        vehiculoRepository.agregarVehiculo(v);
 
         connection.close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
 

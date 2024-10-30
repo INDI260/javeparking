@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
 
 public class SuscripcionViewController {
 
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
     VehiculoRepository vehiculoRepository = new VehiculoRepository();
     SuscripcionRepository suscripcionRepository = new SuscripcionRepository();
     @FXML
@@ -54,7 +53,7 @@ public class SuscripcionViewController {
             suscripcion.setFechaInicio(fechaInicioSuscripcion);
             suscripcion.setFechaFin(fechaFinSuscripcion);
             suscripcion.setVehiculo(new Vehiculo());
-            if(vehiculoRepository.buscarVehiculo(dbConnectionManager.getConnection(), placa, suscripcion.getVehiculo()) == null)
+            if(vehiculoRepository.buscarVehiculo(placa, suscripcion.getVehiculo()) == null)
                 showError("El vehiculo no está registrado");
 
             // Calcular el estado de la suscripción
@@ -74,7 +73,7 @@ public class SuscripcionViewController {
             suscripcion.setEstado(estadoSuscripcion);
 
             // Agregar suscripción a la base de datos
-            suscripcionRepository.agregarSuscripcion(connection, suscripcion);
+            suscripcionRepository.agregarSuscripcion(suscripcion);
 
             connection.close(); // Cerrar la conexión
             showSuccess("Suscripción agregada exitosamente");

@@ -5,7 +5,6 @@ import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
-import com.asesinosdesoftware.javeparking.services.JDBCService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -26,8 +25,6 @@ public class EliminarVehiculoViewController {
 
         Vehiculo V = new Vehiculo();
         VehiculoRepository VR = new VehiculoRepository();
-
-
         CR.buscarCliente(Sesion.getcedula(),dueno);
         VR.buscarVehiculo(IDPlaca.getText(),V);
 
