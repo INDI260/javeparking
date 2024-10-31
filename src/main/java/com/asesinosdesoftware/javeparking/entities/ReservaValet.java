@@ -11,7 +11,7 @@ public class ReservaValet {
     private String estado; // Estado de la reserva (Pendiente, Confirmada, Cancelada)
 
     /**
-     *
+     * constructor parametros de reserva del valet parking
      * @param cliente
      * @param vehiculo
      * @param fechaHoraReserva
