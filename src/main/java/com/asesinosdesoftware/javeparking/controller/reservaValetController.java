@@ -28,7 +28,7 @@ public class ReservaValetController {
     @FXML
     private TextField idClienteField;
     @FXML
-    private TextField idVehiculoField;
+    private TextField placaVehiculoField; // Campo definido
     @FXML
     private DatePicker fechaReservaPicker;
     @FXML
@@ -46,22 +46,35 @@ public class ReservaValetController {
     @FXML
     private void confirmarReserva() {
         try (Connection connection = dbConnectionManager.getConnection()) {
-            Cliente cliente = clienteRepository.buscarClientePorId(connection, Integer.parseInt(idClienteField.getText().trim()));
-            Vehiculo vehiculo = vehiculoRepository.buscarVehiculoPorId(connection, Integer.parseInt(idVehiculoField.getText().trim()));
-            LocalDateTime fechaHoraReserva = LocalDateTime.of(fechaReservaPicker.getValue(), LocalTime.parse(horaReservaField.getText()));
+            // Obtener y validar los datos directamente del formulario
+            String idCliente = idClienteField.getText().trim();
+            String placaVehiculo = placaVehiculoField.getText().trim();
+            LocalDateTime fechaHoraReserva = LocalDateTime.of(fechaReservaPicker.getValue(), LocalTime.parse(horaReservaField.getText().trim()));
             String metodoPago = metodoPagoComboBox.getValue();
 
-            if (cliente == null || vehiculo == null || metodoPago == null || fechaHoraReserva == null) {
+            if (idCliente.isEmpty() || placaVehiculo.isEmpty() || metodoPago == null || fechaHoraReserva == null) {
                 mostrarError("Todos los campos deben estar completos.");
                 return;
             }
 
+            // Obtener el cliente y el vehículo
+            Cliente cliente = clienteRepository.buscarClientePorId(connection, Integer.parseInt(idCliente));
+            Vehiculo vehiculo = vehiculoRepository.buscarVehiculoPorPlaca(connection, placaVehiculo);
+
+            if (cliente == null || vehiculo == null) {
+                mostrarError("Cliente o vehículo no encontrado.");
+                return;
+            }
+
+            // Crear y guardar la reserva de valet
             ReservaValet nuevaReserva = new ReservaValet(cliente, vehiculo, fechaHoraReserva, metodoPago, "Pendiente");
             reservaValetRepository.agregarReserva(connection, nuevaReserva);
             mostrarExito("Reserva de Valet confirmada exitosamente.");
 
         } catch (SQLException e) {
             mostrarError("Error al realizar la reserva de valet: " + e.getMessage());
+        } catch (Exception e) {
+            mostrarError("Error en los datos de entrada: " + e.getMessage());
         }
     }
 
