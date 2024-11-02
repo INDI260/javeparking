@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class DBConnectionManager implements IDBConnectionManager{
+public class MySQLDBConnectionManager implements IDBConnectionManager{
 
     private ResourceBundle reader = null;
     private static final String FILENAME = "dbconfig";
