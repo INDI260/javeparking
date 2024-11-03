@@ -24,18 +24,18 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReservaDueñoViewController {
+public class ReservaAdminViewController {
 
     IDBConnectionManager dbConnectionManager = new DBConnectionManager();
 
     @FXML
-    private TableView<Puesto> tablaReservas;
+    private TableView<Reserva> tablaReservas;
 
     @FXML
-    private TableColumn<Puesto, Integer> columnaID;
+    private TableColumn<Reserva, Integer> columnaID;
 
     @FXML
-    private TableColumn<Puesto, String> columnaTamano;
+    private TableColumn<Reserva, String> columnaTamano;
 
     @FXML
     public ComboBox<String> IDHoraEntrada;
@@ -56,27 +56,15 @@ public class ReservaDueñoViewController {
         columnaID.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnaTamano.setCellValueFactory(new PropertyValueFactory<>("tamano"));
 
-        IdTamano.setOnAction(event -> {
-            String tamanoSeleccionado = IdTamano.getValue();
-            if (tamanoSeleccionado != null) {
-                cargarPuestosFiltrados(tamanoSeleccionado.charAt(0));
-            }
-        });
+        IDHoraEntrada.getItems().addAll("06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
+                "13:00", "14:00", "15:00", "16:00", "17:00", "18:00");
+        IDHoraSalida.getItems().addAll("07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
+                "14:00", "15:00", "16:00", "17:00", "18:00", "19:00");
+
+        // Opciones para el Tamaño del Puesto
+        IdTamano.getItems().addAll("Pequeño", "Mediano", "Grande");
 
         cargarReservas();
-    }
-
-    private void cargarPuestosFiltrados(char tamanoSeleccionado) {
-        List<Puesto> puestos = new ArrayList<>();
-        try (Connection connection = dbConnectionManager.getConnection()) {
-            PuestoRepository puestoRepository = new PuestoRepository();
-            puestoRepository.listarPuestos(connection, puestos, false, tamanoSeleccionado);
-            tablaReservas.setItems(FXCollections.observableArrayList(puestos));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            showError("Error al cargar los puestos filtrados");
-        }
     }
 
     private void cargarReservas() {
@@ -112,12 +100,6 @@ public class ReservaDueñoViewController {
 
             Puesto puesto = new Puesto();
             PuestoRepository puestoRepository = new PuestoRepository();
-            puestoRepository.buscarPuesto(IdTamano.getValue(), false, connection, puesto);
-
-            if (vehiculo.getTamano() != IdTamano.getValue().charAt(0)) {
-                showError("El tamaño del vehículo no coincide con el tamaño del puesto");
-                return;
-            }
 
             reserva.setHoraEntrada(horaEntradaCompleta);
             reserva.setHoraSalida(horaSalidaCompleta);
@@ -190,7 +172,7 @@ public class ReservaDueñoViewController {
             try (FileWriter writer = new FileWriter(archivo)) {
                 writer.append("ID Reserva, Placa, Hora Entrada, Hora Salida\n");
                 for (Reserva reserva : reservasObservableList) {
-                    writer.append(reserva.getId()).append(", ")
+                    writer.append(String.valueOf(reserva.getId())).append(", ")
                             .append(reserva.getVehiculo().getPlaca()).append(", ")
                             .append(reserva.getHoraEntrada().toString()).append(", ")
                             .append(reserva.getHoraSalida().toString()).append("\n");
@@ -203,6 +185,7 @@ public class ReservaDueñoViewController {
             }
         }
     }
+
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

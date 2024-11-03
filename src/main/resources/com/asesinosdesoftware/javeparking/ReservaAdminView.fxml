@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.asesinosdesoftware.javeparking.controller.ReservaAdminViewController">
+    <children>
+        <Label text="Gestión de Reservas" style="-fx-font-size: 24; -fx-font-weight: bold;" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10"/>
+
+        <!-- TableView con espacio inferior ajustado -->
+        <TableView fx:id="tablaReservas" AnchorPane.topAnchor="50" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="240">
+            <columns>
+                <TableColumn fx:id="columnaID" text="ID Reserva" />
+                <TableColumn fx:id="columnaTamano" text="Tamaño" />
+            </columns>
+        </TableView>
+
+        <!-- Formulario en GridPane, reposicionado más abajo -->
+        <GridPane layoutX="10.0" layoutY="470.0" hgap="10" vgap="10" minWidth="780">
+            <!-- Primera columna, primera fila -->
+            <Label text="Placa del Vehículo:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="IDplaca" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="200"/>
+
+            <!-- Primera columna, segunda fila -->
+            <Label text="Hora de Entrada:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="IDHoraEntrada" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="200"/>
+
+            <!-- Primera columna, tercera fila -->
+            <Label text="Hora de Salida:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <ComboBox fx:id="IDHoraSalida" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="200"/>
+
+            <!-- Primera columna, cuarta fila -->
+            <Label text="Tamaño del Puesto:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <ComboBox fx:id="IdTamano" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="200"/>
+
+            <!-- Botones en la quinta fila -->
+            <Button text="Crear Reserva" onAction="#crearReserva" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <Button text="Editar Reserva" onAction="#editarReserva" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            <Button text="Eliminar Reserva" onAction="#eliminarReserva" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+            <Button text="Generar Reporte" onAction="#generarReporteReservas" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+        </GridPane>
+    </children>
+</AnchorPane>
+
+

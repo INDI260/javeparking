@@ -98,7 +98,7 @@ public class ReservaRepository {
      * @param reserva: Objeto tipo reserva con los nuevos parámetros
      * @throws SQLException
      */
-    public void actualizarReserva(Connection connection, Puesto reserva) throws SQLException {
+    public void actualizarReserva(Connection connection, Reserva reserva) throws SQLException {
         String sql = "UPDATE `javeparking`.`reserva` SET `horaEntrada` = ?, `horaSalida` = ?, `vehiculoID` = ?, `puestoID` = ? WHERE `id` = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setObject(1, reserva.getHoraEntrada());
@@ -115,7 +115,7 @@ public class ReservaRepository {
      * @param reserva: Objeto tipo reserva a eliminar
      * @throws SQLException
      */
-    public void eliminarReserva(Connection connection, Puesto reserva) throws SQLException {
+    public void eliminarReserva(Connection connection, Reserva reserva) throws SQLException {
         String sql = "DELETE FROM `javeparking`.`reserva` WHERE `id` = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, reserva.getId());
@@ -147,7 +147,6 @@ public class ReservaRepository {
             // Inicializa el objeto Puesto
             Puesto puesto = new Puesto();
             reserva.setPuesto(puestoRepository.buscarPuesto(rs.getInt("puestoID"), connection, puesto));
-
             reservas.add(reserva);
         }
 
