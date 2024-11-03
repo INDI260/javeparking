@@ -22,7 +22,6 @@ public class PagoService {
     Parqueadero parqueadero;
     ParqueaderoRepository parqueaderoRepository;
     PagoRepository pagoRepository = new PagoRepository();
-    IDBConnectionManager dbConnectionManager;
 
 
     /**
@@ -33,10 +32,10 @@ public class PagoService {
      * @throws SQLException
      */
     public void calcularPago(String placa, String idReserva, PagoReserva pagoReserva) throws SQLException {
-        vehiculoRepository.buscarVehiculo(dbConnectionManager.getConnection(), placa, vehiculo);
-        reservaRepository.buscarReservaPorId(dbConnectionManager.getConnection(), Integer.parseInt(idReserva), reserva);
-        puestoRepository.buscarPuesto(reserva.getPuesto().getId(), dbConnectionManager.getConnection(), puesto);
-        parqueaderoRepository.buscarParqueaderoPorId(dbConnectionManager.getConnection(), puesto.getParqueaderoID(), parqueadero);
+        vehiculoRepository.buscarVehiculo(placa, vehiculo);
+        reservaRepository.buscarReservaPorId(Integer.parseInt(idReserva), reserva);
+        puestoRepository.buscarPuesto(reserva.getPuesto().getId(), puesto);
+        parqueaderoRepository.buscarParqueaderoPorId(puesto.getParqueaderoID(), parqueadero);
 
         LocalDateTime fechaActual = LocalDateTime.now();
 
@@ -68,7 +67,7 @@ public class PagoService {
      * @throws SQLException
      */
     public void pagarReserva(PagoReserva pagoReserva) throws SQLException {
-        pagoRepository.agregarPagoReserva(dbConnectionManager.getConnection(), pagoReserva);
+        pagoRepository.agregarPagoReserva(pagoReserva);
     }
 
 
@@ -85,9 +84,8 @@ public class PagoService {
      * @param parqueadero
      * @param parqueaderoRepository
      * @param pagoReserva
-     * @param dbConnectionManager
      */
-    public PagoService(Vehiculo vehiculo, VehiculoRepository vehiculoRepository, Cliente cliente, ClienteRepository clienteRepository, Puesto puesto, PuestoRepository puestoRepository, Reserva reserva, ReservaRepository reservaRepository, Parqueadero parqueadero, ParqueaderoRepository parqueaderoRepository, PagoReserva pagoReserva, IDBConnectionManager dbConnectionManager) {
+    public PagoService(Vehiculo vehiculo, VehiculoRepository vehiculoRepository, Cliente cliente, ClienteRepository clienteRepository, Puesto puesto, PuestoRepository puestoRepository, Reserva reserva, ReservaRepository reservaRepository, Parqueadero parqueadero, ParqueaderoRepository parqueaderoRepository, PagoReserva pagoReserva) {
         this.vehiculo = vehiculo;
         this.vehiculoRepository = vehiculoRepository;
         this.cliente = cliente;
@@ -98,7 +96,6 @@ public class PagoService {
         this.reservaRepository = reservaRepository;
         this.parqueadero = parqueadero;
         this.parqueaderoRepository = parqueaderoRepository;
-        this.dbConnectionManager = dbConnectionManager;
     }
 
     /*Getters y Setters*/
@@ -183,11 +180,4 @@ public class PagoService {
     }
 
 
-    public IDBConnectionManager getDbConnectionManager() {
-        return dbConnectionManager;
-    }
-
-    public void setDbConnectionManager(IDBConnectionManager dbConnectionManager) {
-        this.dbConnectionManager = dbConnectionManager;
-    }
 }

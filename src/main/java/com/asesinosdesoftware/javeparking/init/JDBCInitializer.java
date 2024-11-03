@@ -206,13 +206,13 @@ public class JDBCInitializer {
                 "    ON UPDATE NO ACTION\n" +
                 ");");
 
-        administradorRepository.agregarAdministrador(dbConnectionManager.getConnection(),new Administrador("10", "Luis", "Ramos", PasswordService.hashPassword("1234")));
+        administradorRepository.agregarAdministrador(new Administrador("10", "Luis", "Ramos", PasswordService.hashPassword("1234")));
 
-        clienteRepository.agregarCliente(dbConnectionManager.getConnection(), new Cliente("30", "Emily", "Ramos" , 'n',PasswordService.hashPassword("1234")));
-        clienteRepository.agregarCliente(dbConnectionManager.getConnection(), new Cliente("40", "Tran", "Esposito", 'a', PasswordService.hashPassword("1234")));
-        clienteRepository.agregarCliente(dbConnectionManager.getConnection(), new Cliente("50", "Maria", "Menethil", 'e', PasswordService.hashPassword("1234")));
+        clienteRepository.agregarCliente(new Cliente("30", "Emily", "Ramos" , 'n',PasswordService.hashPassword("1234")));
+        clienteRepository.agregarCliente(new Cliente("40", "Tran", "Esposito", 'a', PasswordService.hashPassword("1234")));
+        clienteRepository.agregarCliente(new Cliente("50", "Maria", "Menethil", 'e', PasswordService.hashPassword("1234")));
 
-        empleadoRepository.agregarEmpleado(dbConnectionManager.getConnection(), new Empleado("20", "Simba", "Gonzales", PasswordService.hashPassword("1234")));
+        empleadoRepository.agregarEmpleado(new Empleado("20", "Simba", "Gonzales", PasswordService.hashPassword("1234")));
 
         stmt.execute("INSERT INTO `javeparking`.`parqueadero` (`TarifaPequeno`, `TarifaMediano`, `TarifaGrande`) VALUES (15.50, 18.7, 20.8 );\n");
 

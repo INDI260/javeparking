@@ -67,7 +67,7 @@ public class ReservaParqViewController {
             PuestoRepository PR = new PuestoRepository();
 
             // Llamar al método del repositorio para listar puestos
-            PR.listarPuestos(connection, puestos, false, tamanoSeleccionado);
+            PR.listarPuestos(puestos, false, tamanoSeleccionado);
 
             // Convertir la lista en una lista observable para actualizar la tabla
             ObservableList<Puesto> puestosObservable = FXCollections.observableArrayList(puestos);
@@ -96,12 +96,11 @@ public class ReservaParqViewController {
             }
             Vehiculo V = new Vehiculo();
             VehiculoRepository VR = new VehiculoRepository();
-            Connection connection = dbConnectionManager.getConnection();
-            VR.buscarVehiculo(connection,IDplaca.getText(),V);
+            VR.buscarVehiculo(IDplaca.getText(),V);
 
             Puesto P = new Puesto();
             PuestoRepository PR = new PuestoRepository();
-            PR.buscarPuesto(IdTamano.getValue(),false,connection,P);
+            PR.buscarPuesto(IdTamano.getValue(),false,P);
             if(V.getTamano()!=IdTamano.getValue().charAt(0)){
                 showError("Tamaño de reserva y de auto no coinciden");
                 return ;
@@ -115,10 +114,9 @@ public class ReservaParqViewController {
                // showError("Reserva ya existe");
                // return;
           //  }
-            RR.agregarReserva(connection,R);
+            RR.agregarReserva(R);
             P.setDisponibilidad(true);
-            PR.actualizarPuesto(connection,P);
-            connection.close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
+            PR.actualizarPuesto(P);
             showSuccess("Reserva de Parqueadero Exitosa");
 
         } catch (Exception e) {

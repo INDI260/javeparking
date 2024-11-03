@@ -18,7 +18,6 @@ import java.time.LocalDate;
 
 public class RegistroViewController {
 
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
     @FXML
     public TextField IdPassword;
     @FXML
@@ -42,12 +41,10 @@ public class RegistroViewController {
             C.setUniversidad(Iduniversity.getValue().charAt(0));
             C.setHash(PasswordService.hashPassword(IdPassword.getText()));
 
-            Connection connection = dbConnectionManager.getConnection();
             ClienteRepository repository = new ClienteRepository();
 
-            repository.agregarCliente(connection,C);
+            repository.agregarCliente(C);
 
-            connection.close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
             showSuccess("Registro de cliente exitoso");
 
         } catch (Exception e) {
