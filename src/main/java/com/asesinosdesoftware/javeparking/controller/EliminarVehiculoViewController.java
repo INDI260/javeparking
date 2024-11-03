@@ -3,7 +3,7 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
-import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
@@ -11,9 +11,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
+import java.sql.Connection;
+
 public class EliminarVehiculoViewController {
 
-    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
     @FXML
     public TextField IDPlaca;
 
@@ -26,13 +27,11 @@ public class EliminarVehiculoViewController {
 
         Vehiculo V = new Vehiculo();
         VehiculoRepository VR = new VehiculoRepository();
-
-
-        CR.buscarCliente(dbConnectionManager.getConnection(),Sesion.getcedula(),dueno);
-        VR.buscarVehiculo(dbConnectionManager.getConnection(),IDPlaca.getText(),V);
+        CR.buscarCliente(Sesion.getcedula(),dueno);
+        VR.buscarVehiculo(IDPlaca.getText(),V);
 
         if(dueno.getId()==V.getClienteid()){
-            VR.eliminarVehiculo(dbConnectionManager.getConnection(),V);
+            VR.eliminarVehiculo(V);
             showSuccess("Vehiculo eliminado correctamente");
         }
         else showError("El vehiculo no te pertenece");

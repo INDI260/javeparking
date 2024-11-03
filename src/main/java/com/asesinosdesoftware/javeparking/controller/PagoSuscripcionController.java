@@ -22,7 +22,6 @@ public class PagoSuscripcionController {
     PagoService pagoService;
     Suscripcion suscripcion;
     SuscripcionRepository suscripcionRepository;
-    IDBConnectionManager dbConnectionManager;
 
     @FXML
     private TextField IDPlaca;
@@ -40,7 +39,7 @@ public class PagoSuscripcionController {
     private void mostrarValor() {
 
         try {
-            suscripcion = suscripcionRepository.buscarSuscripcionPorVehiculo(dbConnectionManager.getConnection(),IDPlaca.getText().trim(), suscripcion);
+            suscripcion = suscripcionRepository.buscarSuscripcionPorVehiculo(IDPlaca.getText().trim(), suscripcion);
 
             if (suscripcion != null) {
                 calcularYMostrarValores(suscripcion);

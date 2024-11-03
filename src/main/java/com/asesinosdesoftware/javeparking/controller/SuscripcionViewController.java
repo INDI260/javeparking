@@ -4,7 +4,8 @@ import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Suscripcion;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
-import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
+import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
+import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
@@ -16,11 +17,11 @@ import javafx.scene.control.TextField;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class SuscripcionViewController {
 
-    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
     VehiculoRepository vehiculoRepository = new VehiculoRepository();
     SuscripcionRepository suscripcionRepository = new SuscripcionRepository();
     @FXML
@@ -43,8 +44,7 @@ public class SuscripcionViewController {
             ClienteRepository CR = new ClienteRepository();
 
             // Conectar a la base de datos
-            Connection connection = dbConnectionManager.getConnection();
-            CR.buscarCliente(connection,Sesion.getcedula(),cliente);
+            CR.buscarCliente(Sesion.getcedula(),cliente);
 
             // Crear objeto Suscripcion
             Suscripcion suscripcion = new Suscripcion();
@@ -52,7 +52,7 @@ public class SuscripcionViewController {
             suscripcion.setFechaInicio(fechaInicioSuscripcion);
             suscripcion.setFechaFin(fechaFinSuscripcion);
             suscripcion.setVehiculo(new Vehiculo());
-            if(vehiculoRepository.buscarVehiculo(dbConnectionManager.getConnection(), placa, suscripcion.getVehiculo()) == null)
+            if(vehiculoRepository.buscarVehiculo(placa, suscripcion.getVehiculo()) == null)
                 showError("El vehiculo no está registrado");
 
             // Calcular el estado de la suscripción
@@ -72,9 +72,8 @@ public class SuscripcionViewController {
             suscripcion.setEstado(estadoSuscripcion);
 
             // Agregar suscripción a la base de datos
-            suscripcionRepository.agregarSuscripcion(connection, suscripcion);
+            suscripcionRepository.agregarSuscripcion(suscripcion);
 
-            connection.close(); // Cerrar la conexión
             showSuccess("Suscripción agregada exitosamente");
 
         } catch (SQLException e) {
