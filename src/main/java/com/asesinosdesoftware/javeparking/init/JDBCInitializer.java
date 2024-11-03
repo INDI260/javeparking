@@ -48,7 +48,8 @@ public class JDBCInitializer {
      * Método que crea las tablas en la base de datos y las incializa con algunos datos para realizar pruebas
      * @throws SQLException
      */
-/*
+
+    /*
     public void inicializarTablas() throws SQLException, RepositoryException {
 
         Statement stmt = dbConnectionManager.getConnection().createStatement();
@@ -74,7 +75,7 @@ public class JDBCInitializer {
                 "  `apellido` VARCHAR(45) NULL,\n" +
                 "  `hash` VARCHAR(100) NOT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
-                "  UNIQUE INDEX `cedula_UNIQUE` (`cedula` ASC) VISIBLE)");
+                "  UNIQUE INDEX `cedula_admin_UNIQUE` (`cedula` ASC))");
 
 
 
@@ -86,7 +87,7 @@ public class JDBCInitializer {
                 "  `universidad` VARCHAR(1) NULL,\n" +
                 "  `hash` VARCHAR(100) NOT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
-                "  UNIQUE INDEX `cedula_UNIQUE` (`cedula` ASC) VISIBLE);");
+                "  UNIQUE INDEX `cedula_cliente_UNIQUE` (`cedula` ASC));");
 
 
 
@@ -97,7 +98,7 @@ public class JDBCInitializer {
                 "  `apellido` VARCHAR(45) NULL,\n" +
                 "  `hash` VARCHAR(100) NOT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
-                "  UNIQUE INDEX `cedula_UNIQUE` (`cedula` ASC) VISIBLE);\n");
+                "  UNIQUE INDEX `cedula_empleado_UNIQUE` (`cedula` ASC));\n");
 
 
 
@@ -117,7 +118,7 @@ public class JDBCInitializer {
                 "  `disponibilidad` BIT NULL,\n" +
                 "  `parqueaderoID` INT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
-                "  INDEX `parqueaderoID_idx` (`parqueaderoID` ASC) VISIBLE,\n" +
+                "  INDEX `parqueaderoID_idx` (`parqueaderoID` ASC)\n" +
                 "  CONSTRAINT `parqueaderoID`\n" +
                 "    FOREIGN KEY (`parqueaderoID`)\n" +
                 "    REFERENCES `javeparking`.`parqueadero` (`id`)\n" +
@@ -133,8 +134,8 @@ public class JDBCInitializer {
                 "  `tipo` VARCHAR(45) NULL,\n" +
                 "  `clienteID` INT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
-                "  UNIQUE INDEX `placa_UNIQUE` (`placa` ASC) VISIBLE,\n" +
-                "  INDEX `clienteID_idx` (`clienteID` ASC) VISIBLE,\n" +
+                "  UNIQUE INDEX `placa_UNIQUE` (`placa` ASC) \n" +
+                "  INDEX `clienteID_idx` (`clienteID` ASC) \n" +
                 "  CONSTRAINT `clienteID`\n" +
                 "    FOREIGN KEY (`clienteID`)\n" +
                 "    REFERENCES `javeparking`.`cliente` (`id`)\n" +
@@ -150,8 +151,8 @@ public class JDBCInitializer {
                 "  `vehiculoID` INT NULL,\n" +
                 "  `puestoID` INT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
-                "  INDEX `vehiculoID_idx` (`vehiculoID` ASC) VISIBLE,\n" +
-                "  INDEX `puestoId_idx` (`puestoID` ASC) VISIBLE,\n" +
+                "  INDEX `vehiculoID_idx` (`vehiculoID` ASC) \n" +
+                "  INDEX `puestoId_idx` (`puestoID` ASC) \n" +
                 "  CONSTRAINT `vehiculoID`\n" +
                 "    FOREIGN KEY (`vehiculoID`)\n" +
                 "    REFERENCES `javeparking`.`vehiculo` (`id`)\n" +
@@ -190,7 +191,7 @@ public class JDBCInitializer {
                 "  `fechaPago` DATETIME NOT NULL,\n" +
                 "  `metodoPago` VARCHAR(100) NOT NULL,\n" + // Nueva columna metodoPago
                 "  PRIMARY KEY (`id`),\n" +
-                "  INDEX `reservaID_idx` (`reservaID` ASC) VISIBLE,\n" +
+                "  INDEX `reservaID_idx` (`reservaID` ASC) \n" +
                 "  CONSTRAINT `reservaID`\n" +
                 "    FOREIGN KEY (`reservaID`)\n" +
                 "    REFERENCES `javeparking`.`reserva` (`id`)\n" +
@@ -207,7 +208,8 @@ public class JDBCInitializer {
                 "  `fechaPago` DATETIME NOT NULL,\n" +
                 "  `metodoPago` VARCHAR(50) NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
-                "  INDEX `suscripcionID_idx` (`suscripcionID` ASC) VISIBLE,\n" +
+                "  INDEX `suscripcionID_idx` (`suscripcionID` ASC) " +
+                "\n" +
                 "  CONSTRAINT `suscripcionID`\n" +
                 "    FOREIGN KEY (`suscripcionID`)\n" +
                 "    REFERENCES `javeparking`.`suscripcion` (`id`)\n" +
@@ -241,7 +243,9 @@ public class JDBCInitializer {
 
     }
 
- */
+     */
+
+
 
     public void inicializarTablas(){
         try (Connection conn = dbConnectionManager.getConnection();) {
@@ -251,6 +255,8 @@ public class JDBCInitializer {
             e.printStackTrace();
         }
     }
+
+
 
     public static void main(String[] args) throws SQLException, RepositoryException {
         new JDBCInitializer(new H2DBConnectionManager(), new AdministradorRepository(), new ClienteRepository(), new EmpleadoRepository()).inicializarTablas();

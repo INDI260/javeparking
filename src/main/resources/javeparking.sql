@@ -32,7 +32,7 @@ CREATE TABLE administrador (
   hash varchar(100) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY cedula_admin_UNIQUE (cedula)
-); --ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,59 +106,6 @@ INSERT INTO empleado VALUES (1,'20','Simba','Gonzales','$2a$10$AnfaTGHCE4RSXkUYd
 -- Table structure for table pagoreserva
 --
 
-DROP TABLE IF EXISTS pagoreserva;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE pagoreserva (
-  id int NOT NULL AUTO_INCREMENT,
-  valor decimal(10,0) DEFAULT NULL,
-  reservaID int DEFAULT NULL,
-  fechaPago TIMESTAMP NOT NULL,
-  metodoPago varchar(100) NOT NULL,
-  PRIMARY KEY (id),
-  KEY reservaID_idx (reservaID),
-  CONSTRAINT reservaID FOREIGN KEY (reservaID) REFERENCES reserva (id),
-  CONSTRAINT check_metodoPago CHECK ((metodoPago in (_utf8mb4'Online',_utf8mb4'Presencial')))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table pagoreserva
---
-
---LOCK TABLES pagoreserva WRITE;
-/*!40000 ALTER TABLE pagoreserva DISABLE KEYS */;
-/*!40000 ALTER TABLE pagoreserva ENABLE KEYS */;
---UNLOCK TABLES;
-
---
--- Table structure for table pagosuscripcion
---
-
-DROP TABLE IF EXISTS pagosuscripcion;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE pagosuscripcion (
-  id int NOT NULL AUTO_INCREMENT,
-  suscripcionID int NOT NULL,
-  valor decimal(10,2) NOT NULL,
-  fechaPago TIMESTAMP NOT NULL,
-  metodoPago varchar(50) DEFAULT NULL,
-  PRIMARY KEY (id),
-  KEY suscripcionID_idx (suscripcionID),
-  CONSTRAINT suscripcionID FOREIGN KEY (suscripcionID) REFERENCES suscripcion (id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table pagosuscripcion
---
-
---LOCK TABLES pagosuscripcion WRITE;
-/*!40000 ALTER TABLE pagosuscripcion DISABLE KEYS */;
-/*!40000 ALTER TABLE pagosuscripcion ENABLE KEYS */;
---UNLOCK TABLES;
-
 --
 -- Table structure for table parqueadero
 --
@@ -209,13 +156,39 @@ CREATE TABLE puesto (
 
 --LOCK TABLES puesto WRITE;
 /*!40000 ALTER TABLE puesto DISABLE KEYS */;
-INSERT INTO puesto VALUES (1,'g',_binary '\0',1),(2,'g',_binary '\0',1),(3,'g',_binary '\0',1),(4,'m',_binary '\0',1),(5,'m',_binary '\0',1),(6,'m',_binary '\0',1),(7,'p',_binary '\0',1),(8,'p',_binary '\0',1),(9,'p',_binary '\0',1);
+INSERT INTO puesto VALUES (1,'g','0',1),(2,'g','0',1),(3,'g','0',1),(4,'m','0',1),(5,'m','0',1),(6,'m','0',1),(7,'p','0',1),(8,'p','0',1),(9,'p','0',1);
 /*!40000 ALTER TABLE puesto ENABLE KEYS */;
 --UNLOCK TABLES;
 
 --
 -- Table structure for table reserva
 --
+
+DROP TABLE IF EXISTS vehiculo;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE vehiculo (
+                          id int NOT NULL AUTO_INCREMENT,
+                          placa varchar(10) DEFAULT NULL,
+                          tamano varchar(1) DEFAULT NULL,
+                          tipo varchar(45) DEFAULT NULL,
+                          clienteID int DEFAULT NULL,
+                          PRIMARY KEY (id),
+                          UNIQUE KEY placa_UNIQUE (placa),
+                          KEY clienteID_idx (clienteID),
+                          CONSTRAINT clienteID FOREIGN KEY (clienteID) REFERENCES cliente (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table vehiculo
+--
+
+--LOCK TABLES vehiculo WRITE;
+/*!40000 ALTER TABLE vehiculo DISABLE KEYS */;
+/*!40000 ALTER TABLE vehiculo ENABLE KEYS */;
+--UNLOCK TABLES;
+
 
 DROP TABLE IF EXISTS reserva;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -278,30 +251,61 @@ CREATE TABLE suscripcion (
 -- Table structure for table vehiculo
 --
 
-DROP TABLE IF EXISTS vehiculo;
+
+DROP TABLE IF EXISTS pagoreserva;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE vehiculo (
-  id int NOT NULL AUTO_INCREMENT,
-  placa varchar(10) DEFAULT NULL,
-  tamano varchar(1) DEFAULT NULL,
-  tipo varchar(45) DEFAULT NULL,
-  clienteID int DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY placa_UNIQUE (placa),
-  KEY clienteID_idx (clienteID),
-  CONSTRAINT clienteID FOREIGN KEY (clienteID) REFERENCES cliente (id)
+CREATE TABLE pagoreserva (
+                             id int NOT NULL AUTO_INCREMENT,
+                             valor decimal(10,0) DEFAULT NULL,
+                             reservaID int DEFAULT NULL,
+                             fechaPago TIMESTAMP NOT NULL,
+                             metodoPago varchar(100) NOT NULL,
+                             PRIMARY KEY (id),
+                             KEY reservaID_idx (reservaID),
+                             CONSTRAINT reservaID FOREIGN KEY (reservaID) REFERENCES reserva (id),
+                             CONSTRAINT check_metodoPago CHECK ((metodoPago in ('Online','Presencial')))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table vehiculo
+-- Dumping data for table pagoreserva
 --
 
---LOCK TABLES vehiculo WRITE;
-/*!40000 ALTER TABLE vehiculo DISABLE KEYS */;
-/*!40000 ALTER TABLE vehiculo ENABLE KEYS */;
+--LOCK TABLES pagoreserva WRITE;
+/*!40000 ALTER TABLE pagoreserva DISABLE KEYS */;
+/*!40000 ALTER TABLE pagoreserva ENABLE KEYS */;
 --UNLOCK TABLES;
+
+--
+-- Table structure for table pagosuscripcion
+--
+
+DROP TABLE IF EXISTS pagosuscripcion;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE pagosuscripcion (
+                                 id int NOT NULL AUTO_INCREMENT,
+                                 suscripcionID int NOT NULL,
+                                 valor decimal(10,2) NOT NULL,
+                                 fechaPago TIMESTAMP NOT NULL,
+                                 metodoPago varchar(50) DEFAULT NULL,
+                                 PRIMARY KEY (id),
+                                 KEY suscripcionID_idx (suscripcionID),
+                                 CONSTRAINT suscripcionID FOREIGN KEY (suscripcionID) REFERENCES suscripcion (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table pagosuscripcion
+--
+
+--LOCK TABLES pagosuscripcion WRITE;
+/*!40000 ALTER TABLE pagosuscripcion DISABLE KEYS */;
+/*!40000 ALTER TABLE pagosuscripcion ENABLE KEYS */;
+--UNLOCK TABLES;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
