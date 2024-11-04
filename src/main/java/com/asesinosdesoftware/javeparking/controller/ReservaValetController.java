@@ -1,11 +1,7 @@
 package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.ReservaValet;
-import com.asesinosdesoftware.javeparking.entities.Cliente;
-import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 import com.asesinosdesoftware.javeparking.repository.ReservaValetRepository;
-import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
-import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -18,16 +14,15 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class reservaValetController {
+public class ReservaValetController {
+
     private final IDBConnectionManager dbConnectionManager;
     private final ReservaValetRepository reservaValetRepository;
-    private final ClienteRepository clienteRepository;
-    private final VehiculoRepository vehiculoRepository;
 
     @FXML
     private TextField idClienteField;
     @FXML
-    private TextField placaVehiculoField; // Campo definido
+    private TextField placaVehiculoField;
     @FXML
     private DatePicker fechaReservaPicker;
     @FXML
@@ -35,15 +30,9 @@ public class reservaValetController {
     @FXML
     private ComboBox<String> metodoPagoComboBox;
 
-    /**
-     *
-     * @param dbConnectionManager
-     */
-    public reservaValetController(IDBConnectionManager dbConnectionManager) {
+    public ReservaValetController(IDBConnectionManager dbConnectionManager) {
         this.dbConnectionManager = dbConnectionManager;
         this.reservaValetRepository = new ReservaValetRepository();
-        this.clienteRepository = new ClienteRepository();
-        this.vehiculoRepository = new VehiculoRepository();
     }
 
     @FXML
@@ -60,17 +49,15 @@ public class reservaValetController {
                 return;
             }
 
-            // Obtener el cliente y el vehículo
-            Cliente cliente = clienteRepository.buscarClientePorId(connection, Integer.parseInt(idCliente));
-            Vehiculo vehiculo = vehiculoRepository.buscarVehiculoPorPlaca(connection, placaVehiculo);
+            // Crea una nueva reserva usando los datos obtenidos
+            ReservaValet nuevaReserva = new ReservaValet(
+                    Integer.parseInt(idCliente), // Asignamos directamente el ID de cliente
+                    placaVehiculo,               // Asignamos directamente la placa del vehículo
+                    fechaHoraReserva,
+                    metodoPago,
+                    "Pendiente"
+            );
 
-            if (cliente == null || vehiculo == null) {
-                mostrarError("Cliente o vehículo no encontrado.");
-                return;
-            }
-
-            // Crear y guardar la reserva de valet
-            ReservaValet nuevaReserva = new ReservaValet(cliente, vehiculo, fechaHoraReserva, metodoPago, "Pendiente");
             reservaValetRepository.agregarReserva(connection, nuevaReserva);
             mostrarExito("Reserva de Valet confirmada exitosamente.");
 
