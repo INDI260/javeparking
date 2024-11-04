@@ -3,52 +3,37 @@ package com.asesinosdesoftware.javeparking.entities;
 import java.time.LocalDateTime;
 
 public class ReservaValet {
-    private int id; // Identificador único de la reserva
-    private Cliente cliente; // Cliente que realiza la reserva
-    private Vehiculo vehiculo; // Vehículo a ser estacionado
-    private LocalDateTime fechaHoraReserva; // Fecha y hora de la reserva
-    private String metodoPago; // Método de pago seleccionado (Tarjeta, PayPal, etc.)
-    private String estado; // Estado de la reserva (Pendiente, Confirmada, Cancelada)
 
-    /**
-     * constructor parametros de reserva del valet parking
-     * @param cliente
-     * @param vehiculo
-     * @param fechaHoraReserva
-     * @param metodoPago
-     * @param estado
-     */
-    public ReservaValet(Cliente cliente, Vehiculo vehiculo, LocalDateTime fechaHoraReserva, String metodoPago, String estado) {
-        this.cliente = cliente;
-        this.vehiculo = vehiculo;
+    private int idCliente;
+    private String placaVehiculo;
+    private LocalDateTime fechaHoraReserva;
+    private String metodoPago;
+    private String estado;
+
+    public ReservaValet(int idCliente, String placaVehiculo, LocalDateTime fechaHoraReserva, String metodoPago, String estado) {
+        this.idCliente = idCliente;
+        this.placaVehiculo = placaVehiculo;
         this.fechaHoraReserva = fechaHoraReserva;
         this.metodoPago = metodoPago;
         this.estado = estado;
     }
 
     // Getters y Setters
-    public int getId() {
-        return id;
+
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public String getPlacaVehiculo() {
+        return placaVehiculo;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Vehiculo getVehiculo() {
-        return vehiculo;
-    }
-
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
+    public void setPlacaVehiculo(String placaVehiculo) {
+        this.placaVehiculo = placaVehiculo;
     }
 
     public LocalDateTime getFechaHoraReserva() {

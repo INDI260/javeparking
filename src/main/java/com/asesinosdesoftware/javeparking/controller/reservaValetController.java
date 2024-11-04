@@ -18,8 +18,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class ReservaValetController {
-
+public class reservaValetController {
     private final IDBConnectionManager dbConnectionManager;
     private final ReservaValetRepository reservaValetRepository;
     private final ClienteRepository clienteRepository;
@@ -36,7 +35,11 @@ public class ReservaValetController {
     @FXML
     private ComboBox<String> metodoPagoComboBox;
 
-    public ReservaValetController(IDBConnectionManager dbConnectionManager) {
+    /**
+     *
+     * @param dbConnectionManager
+     */
+    public reservaValetController(IDBConnectionManager dbConnectionManager) {
         this.dbConnectionManager = dbConnectionManager;
         this.reservaValetRepository = new ReservaValetRepository();
         this.clienteRepository = new ClienteRepository();
