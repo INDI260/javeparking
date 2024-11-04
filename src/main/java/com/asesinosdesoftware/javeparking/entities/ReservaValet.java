@@ -10,6 +10,14 @@ public class ReservaValet {
     private String metodoPago;
     private String estado;
 
+    /**
+     * Parametros del constructor de reservaValet
+     * @param idCliente
+     * @param placaVehiculo
+     * @param fechaHoraReserva
+     * @param metodoPago
+     * @param estado
+     */
     public ReservaValet(int idCliente, String placaVehiculo, LocalDateTime fechaHoraReserva, String metodoPago, String estado) {
         this.idCliente = idCliente;
         this.placaVehiculo = placaVehiculo;
