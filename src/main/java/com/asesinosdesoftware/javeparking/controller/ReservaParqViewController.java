@@ -64,7 +64,7 @@ public class ReservaParqViewController {
             PuestoRepository PR = new PuestoRepository();
 
             // Llamar al método del repositorio para listar puestos
-            PR.listarPuestos(connection, puestos, false, tamanoSeleccionado);
+            PR.listarPuestos(puestos, false, tamanoSeleccionado);
 
             // Convertir la lista en una lista observable para actualizar la tabla
             ObservableList<Puesto> puestosObservable = FXCollections.observableArrayList(puestos);
@@ -80,6 +80,7 @@ public class ReservaParqViewController {
     @FXML
     private void CrearReserva() throws SQLException{
         try {
+
 
             if(R==null){
                 R = new Reserva();

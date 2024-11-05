@@ -18,7 +18,7 @@ public class PagoService {
     ReservaRepository reservaRepository = new ReservaRepository();
     ParqueaderoRepository parqueaderoRepository= new ParqueaderoRepository();
     PagoRepository pagoRepository = new PagoRepository();
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+
 
 
     /**
@@ -29,6 +29,7 @@ public class PagoService {
      * @throws SQLException
      */
     public void calcularPago(String placa, String idReserva, PagoReserva pagoReserva) throws SQLException {
+      
        Reserva reserva = new Reserva();
        Vehiculo vehiculo = new Vehiculo();
        Puesto puesto = new Puesto();
@@ -38,6 +39,7 @@ public class PagoService {
         reservaRepository.buscarReservaPorId(connection, Integer.parseInt(idReserva), reserva);
         puestoRepository.buscarPuesto(reserva.getPuesto().getId(), connection, puesto);
         parqueaderoRepository.buscarParqueaderoPorId(connection, puesto.getParqueaderoID(), parqueadero);
+       
 
         LocalDateTime fechaActual = LocalDateTime.now();
 
@@ -71,7 +73,7 @@ public class PagoService {
      * @throws SQLException
      */
     public void pagarReserva(PagoReserva pagoReserva) throws SQLException {
-        pagoRepository.agregarPagoReserva(dbConnectionManager.getConnection(), pagoReserva);
+        pagoRepository.agregarPagoReserva(pagoReserva);
     }
 
 }

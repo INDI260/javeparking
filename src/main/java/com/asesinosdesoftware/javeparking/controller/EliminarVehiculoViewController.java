@@ -15,7 +15,6 @@ import java.sql.Connection;
 
 public class EliminarVehiculoViewController {
 
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
     @FXML
     public TextField IDPlaca;
 
@@ -28,13 +27,11 @@ public class EliminarVehiculoViewController {
 
         Vehiculo V = new Vehiculo();
         VehiculoRepository VR = new VehiculoRepository();
-
-
-        CR.buscarCliente(dbConnectionManager.getConnection(),Sesion.getcedula(),dueno);
-        VR.buscarVehiculo(dbConnectionManager.getConnection(),IDPlaca.getText(),V);
+        CR.buscarCliente(Sesion.getcedula(),dueno);
+        VR.buscarVehiculo(IDPlaca.getText(),V);
 
         if(dueno.getId()==V.getClienteid()){
-            VR.eliminarVehiculo(dbConnectionManager.getConnection(),V);
+            VR.eliminarVehiculo(V);
             showSuccess("Vehiculo eliminado correctamente");
         }
         else showError("El vehiculo no te pertenece");
