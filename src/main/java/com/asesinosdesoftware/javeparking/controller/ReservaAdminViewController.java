@@ -62,7 +62,7 @@ public class ReservaAdminViewController {
                 "14:00", "15:00", "16:00", "17:00", "18:00", "19:00");
 
         // Opciones para el Tamaño del Puesto
-        IdTamano.getItems().addAll("Pequeño", "Mediano", "Grande");
+        IdTamano.getItems().addAll("p", "m", "g");
 
         cargarReservas();
     }
@@ -82,7 +82,9 @@ public class ReservaAdminViewController {
     @FXML
     private void crearReserva() {
         try (Connection connection = dbConnectionManager.getConnection()) {
+
             Reserva reserva = new Reserva();
+
             LocalDate fechaActual = LocalDate.now();
             LocalTime horaEntrada = LocalTime.parse(IDHoraEntrada.getValue());
             LocalDateTime horaEntradaCompleta = LocalDateTime.of(fechaActual, horaEntrada);
@@ -100,6 +102,12 @@ public class ReservaAdminViewController {
 
             Puesto puesto = new Puesto();
             PuestoRepository puestoRepository = new PuestoRepository();
+            puestoRepository.buscarPuesto(IdTamano.getValue(),false,connection,puesto);
+
+            if(vehiculo.getTamano()!=IdTamano.getValue().charAt(0)){
+                showError("Tamaño de reserva y de auto no coinciden");
+                return ;
+            }
 
             reserva.setHoraEntrada(horaEntradaCompleta);
             reserva.setHoraSalida(horaSalidaCompleta);
@@ -126,9 +134,43 @@ public class ReservaAdminViewController {
         // Lógica para editar la reserva seleccionada
         Reserva reservaSeleccionada = tablaReservas.getSelectionModel().getSelectedItem();
         if (reservaSeleccionada != null) {
+
             try (Connection connection = dbConnectionManager.getConnection()) {
                 // Actualizar datos de reserva aquí
+
                 ReservaRepository reservaRepository = new ReservaRepository();
+
+                LocalDate fechaActual = LocalDate.now();
+                LocalTime horaEntrada = LocalTime.parse(IDHoraEntrada.getValue());
+                LocalDateTime horaEntradaCompleta = LocalDateTime.of(fechaActual, horaEntrada);
+                LocalTime horaSalida = LocalTime.parse(IDHoraSalida.getValue());
+                LocalDateTime horaSalidaCompleta = LocalDateTime.of(fechaActual, horaSalida);
+
+                if (horaSalidaCompleta.isBefore(horaEntradaCompleta) || horaSalidaCompleta.isEqual(horaEntradaCompleta)) {
+                    showError("La hora de salida debe ser posterior a la hora de entrada");
+                    return;
+                }
+
+                Vehiculo vehiculo = new Vehiculo();
+                VehiculoRepository vehiculoRepository = new VehiculoRepository();
+                vehiculoRepository.buscarVehiculo(connection, IDplaca.getText(), vehiculo);
+
+                if(reservaSeleccionada.getPuesto().getTamano()!=IdTamano.getValue().charAt(0)){
+                    Puesto puesto = new Puesto();
+                    PuestoRepository puestoRepository = new PuestoRepository();
+                    puestoRepository.buscarPuesto(IdTamano.getValue(),false,connection,puesto);
+                    reservaSeleccionada.setPuesto(puesto);
+                }
+
+
+                if(vehiculo.getTamano()!=IdTamano.getValue().charAt(0)){
+                    showError("Tamaño de reserva y de auto no coinciden");
+                    return ;
+                }
+
+                reservaSeleccionada.setHoraEntrada(horaEntradaCompleta);
+                reservaSeleccionada.setHoraSalida(horaSalidaCompleta);
+                reservaSeleccionada.setVehiculo(vehiculo);
                 reservaRepository.actualizarReserva(connection, reservaSeleccionada);
                 cargarReservas();
                 showSuccess("Reserva actualizada exitosamente");
