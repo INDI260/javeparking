@@ -8,6 +8,6 @@ public class ReservaCException extends Exception {
         detalle = a;
     }
     public String toString(){
-        return "Excepción de Repositorio["  + detalle + "]";
+        return "Excepción de ReservaC["  + detalle + "]";
     }
 }

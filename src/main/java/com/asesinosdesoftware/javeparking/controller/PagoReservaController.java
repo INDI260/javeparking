@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class PagoReservaController {
 
     PagoService pagoService = new PagoService();
-    PagoReserva pagoReserva = new PagoReserva();
+    PagoReserva pagoReserva;
 
     @FXML
     public TextField IDPlaca;
@@ -29,6 +29,7 @@ public class PagoReservaController {
     private void pagoReservas() throws SQLException {
 
         if(pagoReserva == null) {
+            pagoReserva = new PagoReserva();
             pagoService.calcularPago(IDPlaca.getText(),IDReserva.getText(), pagoReserva);
         }
         pagoService.pagarReserva(pagoReserva);

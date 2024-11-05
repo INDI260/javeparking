@@ -3,12 +3,14 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
+import com.asesinosdesoftware.javeparking.exceptions.ReservaCException;
 import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
 import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
 import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
+import com.asesinosdesoftware.javeparking.services.ReservaCService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -23,7 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservaParqViewController {
-
+    Reserva R;
+    ReservaCService RC = new ReservaCService();
     IDBConnectionManager dbConnectionManager = new DBConnectionManager();
     @FXML
     private TableView<Puesto> tablaReservas;
@@ -81,51 +85,23 @@ public class ReservaParqViewController {
     }
 
     @FXML
-    private void CrearReserva() {
-        try {
-            Reserva R = new Reserva();
+    private void CrearReserva() throws SQLException{
+    try {
 
-            LocalDate D = LocalDate.now();
-            LocalTime TE = LocalTime.parse(IDHoraEntrada.getValue());
-            LocalDateTime HoradeEntrada = LocalDateTime.of(D, TE);
-            LocalTime TS = LocalTime.parse(IDHoraSalida.getValue());
-            LocalDateTime HoradeSalida = LocalDateTime.of(D, TS);
-            if (HoradeSalida.isBefore(HoradeEntrada)||HoradeSalida.isEqual(HoradeEntrada)) {
-                showError("Hora de entrada y salida mal definida");
-                return ;
-            }
-            Vehiculo V = new Vehiculo();
-            VehiculoRepository VR = new VehiculoRepository();
-            Connection connection = dbConnectionManager.getConnection();
-            VR.buscarVehiculo(connection,IDplaca.getText(),V);
-
-            Puesto P = new Puesto();
-            PuestoRepository PR = new PuestoRepository();
-            PR.buscarPuesto(IdTamano.getValue(),false,connection,P);
-            if(V.getTamano()!=IdTamano.getValue().charAt(0)){
-                showError("Tamaño de reserva y de auto no coinciden");
-                return ;
-            }
-            R.setHoraEntrada(HoradeEntrada);
-            R.setHoraSalida(HoradeSalida);
-            R.setVehiculo(V);
-            R.setPuesto(P);
-            ReservaRepository RR = new ReservaRepository();
-           // if(buscarReservaVehiculo(connection,R)!=null){
-               // showError("Reserva ya existe");
-               // return;
-          //  }
-            RR.agregarReserva(connection,R);
-            P.setDisponibilidad(true);
-            PR.actualizarPuesto(connection,P);
-            connection.close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
-            showSuccess("Reserva de Parqueadero Exitosa");
-
-        } catch (Exception e) {
-            showError("Error al crear Reserva");
-            e.printStackTrace();
-
+        if(R==null){
+            R = new Reserva();
+            RC.CrearReserva(IDHoraEntrada.getValue(),IDHoraSalida.getValue(),IDplaca.getText(),IdTamano.getValue(),R);
+            System.out.println("Hola");
         }
+        R = null;
+        showSuccess("Reserva Creada con exito");
+    } catch (ReservaCException e){
+        showError(e.toString());
+
+    }
+
+
+
     }
 
     private void showError(String message) {

@@ -9,6 +9,7 @@ import com.asesinosdesoftware.javeparking.repository.*;
 import javafx.fxml.FXML;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -21,9 +22,8 @@ public class ReservaCService {
     IDBConnectionManager dbConnectionManager= new DBConnectionManager();
 
 
-    public void CrearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano) throws ReservaCException {
-        try {
-            Reserva R = new Reserva();
+    public void CrearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva R) throws ReservaCException, SQLException {
+
 
             LocalDate D = LocalDate.now();
             LocalTime TE = LocalTime.parse(IDHoraEntrada);
@@ -54,11 +54,10 @@ public class ReservaCService {
             RR.agregarReserva(dbConnectionManager.getConnection(),R);
             P.setDisponibilidad(true);
             PR.actualizarPuesto(dbConnectionManager.getConnection(),P);
+        System.out.println("Hola");
             dbConnectionManager.getConnection().close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
 
-        } catch (Exception e) {
-            e.printStackTrace();
 
-        }
     }
+
 }
