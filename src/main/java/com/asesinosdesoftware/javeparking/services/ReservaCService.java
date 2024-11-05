@@ -1,14 +1,11 @@
 package com.asesinosdesoftware.javeparking.services;
 
 import com.asesinosdesoftware.javeparking.entities.*;
-import com.asesinosdesoftware.javeparking.exceptions.InicioDeSesionException;
-import com.asesinosdesoftware.javeparking.exceptions.ReservaCException;
+import com.asesinosdesoftware.javeparking.exceptions.ReservasException;
 import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.*;
-import javafx.fxml.FXML;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,7 +19,7 @@ public class ReservaCService {
     IDBConnectionManager dbConnectionManager= new DBConnectionManager();
 
 
-    public void CrearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva R) throws ReservaCException, SQLException {
+    public void CrearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva R) throws ReservasException, SQLException {
 
 
             LocalDate D = LocalDate.now();
@@ -31,7 +28,7 @@ public class ReservaCService {
             LocalTime TS = LocalTime.parse(IDHoraSalida);
             LocalDateTime HoradeSalida = LocalDateTime.of(D, TS);
             if (HoradeSalida.isBefore(HoradeEntrada)||HoradeSalida.isEqual(HoradeEntrada)) {
-                throw new ReservaCException("Hora de entrada y salida mal definida");
+                throw new ReservasException("Hora de entrada y salida mal definida");
 
             }
             Vehiculo V = new Vehiculo();
@@ -41,7 +38,7 @@ public class ReservaCService {
 
             PR.buscarPuesto(IdTamano,false,dbConnectionManager.getConnection(),P);
             if(V.getTamano()!=IdTamano.charAt(0)){
-                throw new ReservaCException("Tamaño de reserva y de auto no coinciden");
+                throw new ReservasException("Tamaño de reserva y de auto no coinciden");
             }
             R.setHoraEntrada(HoradeEntrada);
             R.setHoraSalida(HoradeSalida);

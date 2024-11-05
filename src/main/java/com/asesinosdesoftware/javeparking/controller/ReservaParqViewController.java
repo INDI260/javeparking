@@ -2,14 +2,10 @@ package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
-import com.asesinosdesoftware.javeparking.entities.Vehiculo;
-import com.asesinosdesoftware.javeparking.exceptions.ReservaCException;
+import com.asesinosdesoftware.javeparking.exceptions.ReservasException;
 import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
-import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
-import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
-import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
 import com.asesinosdesoftware.javeparking.services.ReservaCService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,9 +15,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,22 +79,18 @@ public class ReservaParqViewController {
 
     @FXML
     private void CrearReserva() throws SQLException{
-    try {
+        try {
 
-        if(R==null){
-            R = new Reserva();
-            RC.CrearReserva(IDHoraEntrada.getValue(),IDHoraSalida.getValue(),IDplaca.getText(),IdTamano.getValue(),R);
-            System.out.println("Hola");
-        }
-        R = null;
-        showSuccess("Reserva Creada con exito");
-    } catch (ReservaCException e){
-        showError(e.toString());
+            if(R==null){
+                R = new Reserva();
+                RC.CrearReserva(IDHoraEntrada.getValue(),IDHoraSalida.getValue(),IDplaca.getText(),IdTamano.getValue(),R);
 
-    }
-
-
-
+            }
+            R = null;
+            showSuccess("Reserva Creada con exito");
+        } catch (ReservasException e){
+            showError(e.toString());
+            }
     }
 
     private void showError(String message) {

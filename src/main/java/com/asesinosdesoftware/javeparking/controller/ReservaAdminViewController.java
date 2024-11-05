@@ -3,11 +3,13 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
+import com.asesinosdesoftware.javeparking.exceptions.ReservasException;
 import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
 import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
+import com.asesinosdesoftware.javeparking.services.ReservaAdService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +20,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -25,7 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservaAdminViewController {
-
+    Reserva R;
+    ReservaAdService RAd = new ReservaAdService();
     IDBConnectionManager dbConnectionManager = new DBConnectionManager();
 
     @FXML
@@ -80,104 +84,36 @@ public class ReservaAdminViewController {
     }
 
     @FXML
-    private void crearReserva() {
-        try (Connection connection = dbConnectionManager.getConnection()) {
+    private void crearReserva() throws SQLException {
+        try{
+            if(R==null){
+            R = new Reserva();
+            RAd.crearReserva(IDHoraEntrada.getValue(),IDHoraSalida.getValue(),IDplaca.getText(),IdTamano.getValue(),R);
 
-            Reserva reserva = new Reserva();
-
-            LocalDate fechaActual = LocalDate.now();
-            LocalTime horaEntrada = LocalTime.parse(IDHoraEntrada.getValue());
-            LocalDateTime horaEntradaCompleta = LocalDateTime.of(fechaActual, horaEntrada);
-            LocalTime horaSalida = LocalTime.parse(IDHoraSalida.getValue());
-            LocalDateTime horaSalidaCompleta = LocalDateTime.of(fechaActual, horaSalida);
-
-            if (horaSalidaCompleta.isBefore(horaEntradaCompleta) || horaSalidaCompleta.isEqual(horaEntradaCompleta)) {
-                showError("La hora de salida debe ser posterior a la hora de entrada");
-                return;
-            }
-
-            Vehiculo vehiculo = new Vehiculo();
-            VehiculoRepository vehiculoRepository = new VehiculoRepository();
-            vehiculoRepository.buscarVehiculo(connection, IDplaca.getText(), vehiculo);
-
-            Puesto puesto = new Puesto();
-            PuestoRepository puestoRepository = new PuestoRepository();
-            puestoRepository.buscarPuesto(IdTamano.getValue(),false,connection,puesto);
-
-            if(vehiculo.getTamano()!=IdTamano.getValue().charAt(0)){
-                showError("Tamaño de reserva y de auto no coinciden");
-                return ;
-            }
-
-            reserva.setHoraEntrada(horaEntradaCompleta);
-            reserva.setHoraSalida(horaSalidaCompleta);
-            reserva.setVehiculo(vehiculo);
-            reserva.setPuesto(puesto);
-
-            ReservaRepository reservaRepository = new ReservaRepository();
-            reservaRepository.agregarReserva(connection, reserva);
-
-            puesto.setDisponibilidad(true);
-            puestoRepository.actualizarPuesto(connection, puesto);
-
+        }
+            R = null;
+            showSuccess("Reserva Creada con exito");
             cargarReservas();
-            showSuccess("Reserva creada exitosamente");
-
-        } catch (Exception e) {
-            showError("Error al crear la reserva");
-            e.printStackTrace();
+        } catch (ReservasException e){
+            showError(e.toString());
         }
     }
 
     @FXML
-    private void editarReserva() {
+    private void editarReserva() throws SQLException{
         // Lógica para editar la reserva seleccionada
         Reserva reservaSeleccionada = tablaReservas.getSelectionModel().getSelectedItem();
         if (reservaSeleccionada != null) {
 
-            try (Connection connection = dbConnectionManager.getConnection()) {
+            try {
                 // Actualizar datos de reserva aquí
 
-                ReservaRepository reservaRepository = new ReservaRepository();
-
-                LocalDate fechaActual = LocalDate.now();
-                LocalTime horaEntrada = LocalTime.parse(IDHoraEntrada.getValue());
-                LocalDateTime horaEntradaCompleta = LocalDateTime.of(fechaActual, horaEntrada);
-                LocalTime horaSalida = LocalTime.parse(IDHoraSalida.getValue());
-                LocalDateTime horaSalidaCompleta = LocalDateTime.of(fechaActual, horaSalida);
-
-                if (horaSalidaCompleta.isBefore(horaEntradaCompleta) || horaSalidaCompleta.isEqual(horaEntradaCompleta)) {
-                    showError("La hora de salida debe ser posterior a la hora de entrada");
-                    return;
-                }
-
-                Vehiculo vehiculo = new Vehiculo();
-                VehiculoRepository vehiculoRepository = new VehiculoRepository();
-                vehiculoRepository.buscarVehiculo(connection, IDplaca.getText(), vehiculo);
-
-                if(reservaSeleccionada.getPuesto().getTamano()!=IdTamano.getValue().charAt(0)){
-                    Puesto puesto = new Puesto();
-                    PuestoRepository puestoRepository = new PuestoRepository();
-                    puestoRepository.buscarPuesto(IdTamano.getValue(),false,connection,puesto);
-                    reservaSeleccionada.setPuesto(puesto);
-                }
-
-
-                if(vehiculo.getTamano()!=IdTamano.getValue().charAt(0)){
-                    showError("Tamaño de reserva y de auto no coinciden");
-                    return ;
-                }
-
-                reservaSeleccionada.setHoraEntrada(horaEntradaCompleta);
-                reservaSeleccionada.setHoraSalida(horaSalidaCompleta);
-                reservaSeleccionada.setVehiculo(vehiculo);
-                reservaRepository.actualizarReserva(connection, reservaSeleccionada);
+                RAd.editarReserva(IDHoraEntrada.getValue(),IDHoraSalida.getValue(),IDplaca.getText(),IdTamano.getValue(),reservaSeleccionada);
+                showSuccess("Reserva editada con exito");
                 cargarReservas();
-                showSuccess("Reserva actualizada exitosamente");
 
-            } catch (Exception e) {
-                showError("Error al actualizar la reserva");
-                e.printStackTrace();
+            } catch (ReservasException e) {
+                showError(e.toString());
             }
         } else {
             showError("Seleccione una reserva para editar");
@@ -188,11 +124,11 @@ public class ReservaAdminViewController {
     private void eliminarReserva() {
         Reserva reservaSeleccionada = tablaReservas.getSelectionModel().getSelectedItem();
         if (reservaSeleccionada != null) {
-            try (Connection connection = dbConnectionManager.getConnection()) {
-                ReservaRepository reservaRepository = new ReservaRepository();
-                reservaRepository.eliminarReserva(connection, reservaSeleccionada);
+            try  {
+
+                RAd.eliminarReserva(reservaSeleccionada);
+                showSuccess("Reserva editada con exito");
                 cargarReservas();
-                showSuccess("Reserva eliminada exitosamente");
 
             } catch (Exception e) {
                 showError("Error al eliminar la reserva");
