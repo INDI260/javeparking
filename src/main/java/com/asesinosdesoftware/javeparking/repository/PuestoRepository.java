@@ -58,6 +58,7 @@ public class PuestoRepository {
                 puesto.setId(rs.getInt("id"));
                 puesto.setTamano(rs.getString("tamano").charAt(0));
                 puesto.setDisponibilidad(rs.getBoolean("disponibilidad"));
+                puesto.setParqueaderoID(rs.getInt("parqueaderoID"));
                 return puesto;
             }
         }

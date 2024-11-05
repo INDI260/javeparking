@@ -1,11 +1,11 @@
 package com.asesinosdesoftware.javeparking;
 
+import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
 import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
-import com.asesinosdesoftware.javeparking.repository.AdministradorRepository;
-import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
-import com.asesinosdesoftware.javeparking.repository.EmpleadoRepository;
+import com.asesinosdesoftware.javeparking.repository.*;
+import com.asesinosdesoftware.javeparking.services.PagoService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,6 +34,12 @@ public class HelloApplication extends Application {
             AdministradorRepository administradorRepository = new AdministradorRepository();
             ClienteRepository clienteRepository = new ClienteRepository();
             EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+            VehiculoRepository vehiculoRepository = new VehiculoRepository();
+            PuestoRepository puestoRepository = new PuestoRepository();
+            ParqueaderoRepository parqueaderoRepository = new ParqueaderoRepository();
+            PagoRepository pagoRepository = new PagoRepository();
+            ReservaRepository reservaRepository = new ReservaRepository();
+
             JDBCInitializer initializer = new JDBCInitializer(dbConnectionManager,administradorRepository,clienteRepository,empleadoRepository);
             //initializer.inicializarTablas();
 

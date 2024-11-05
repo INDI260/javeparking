@@ -3,6 +3,7 @@ package com.asesinosdesoftware.javeparking.services;
 import com.asesinosdesoftware.javeparking.entities.*;
 import com.asesinosdesoftware.javeparking.exceptions.InicioDeSesionException;
 import com.asesinosdesoftware.javeparking.exceptions.ReservaCException;
+import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.*;
 import javafx.fxml.FXML;
@@ -14,12 +15,12 @@ import java.time.LocalTime;
 
 public class ReservaCService {
 
-    VehiculoRepository VR;
-    PuestoRepository PR;
-    ReservaRepository RR;
-    IDBConnectionManager dbConnectionManager;
+    VehiculoRepository VR = new VehiculoRepository();
+    PuestoRepository PR = new PuestoRepository();
+    ReservaRepository RR= new ReservaRepository();
+    IDBConnectionManager dbConnectionManager= new DBConnectionManager();
 
-    @FXML
+
     public void CrearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano) throws ReservaCException {
         try {
             Reserva R = new Reserva();
