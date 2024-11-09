@@ -1,7 +1,7 @@
 package com.asesinosdesoftware.javeparking;
 
 import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.AdministradorRepository;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
@@ -12,9 +12,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.ClientInfoStatus;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public class HelloApplication extends Application {
 
@@ -30,7 +27,7 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
 
         try {
-            IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+            IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
             AdministradorRepository administradorRepository = new AdministradorRepository();
             ClienteRepository clienteRepository = new ClienteRepository();
             EmpleadoRepository empleadoRepository = new EmpleadoRepository();

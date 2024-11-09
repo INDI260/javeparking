@@ -3,12 +3,11 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
 import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
-import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,7 +23,7 @@ import java.util.List;
 
 public class ReservaParqViewController {
 
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
     @FXML
     private TableView<Puesto> tablaReservas;
 

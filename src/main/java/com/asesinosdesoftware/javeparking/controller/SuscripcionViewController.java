@@ -4,9 +4,6 @@ import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Suscripcion;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
-import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
-import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
@@ -15,9 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class SuscripcionViewController {

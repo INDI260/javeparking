@@ -2,7 +2,7 @@ package com.asesinosdesoftware.javeparking.repository;
 
 import com.asesinosdesoftware.javeparking.entities.Empleado;
 import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class EmpleadoRepository {
 
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
     /**
      * Método que busca un Empleado en la base de datos a partir de su cedula
      * @param cedula: Dato a partir del cual se hace la busqueda

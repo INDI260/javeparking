@@ -1,7 +1,7 @@
 package com.asesinosdesoftware.javeparking.repository;
 
 import com.asesinosdesoftware.javeparking.entities.Puesto;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 
 import java.sql.Connection;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PuestoRepository {
 
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
 
     /**
      * Método que busca un puesto en la base de datos dependiendo de los parametros que se necesitan

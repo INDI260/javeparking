@@ -2,7 +2,7 @@ package com.asesinosdesoftware.javeparking.repository;
 
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 
 import java.sql.Connection;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class VehiculoRepository {
 
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
 
     /**
      * Método que busca un vehiculo en la base de datos a partir de su placa

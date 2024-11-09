@@ -1,7 +1,7 @@
 package com.asesinosdesoftware.javeparking.repository;
 
 import com.asesinosdesoftware.javeparking.entities.PagoReserva;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class PagoRepository {
 
-    IDBConnectionManager dbconnectionManager = new DBConnectionManager();
+    IDBConnectionManager dbconnectionManager = new H2DBConnectionManager();
     /**
      * Método para registrar un pago de reserva datos
      * @param pagoReserva: Objeto PagoReserva que contiene los detalles del pago a registrar
