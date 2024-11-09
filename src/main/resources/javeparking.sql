@@ -21,7 +21,26 @@
 -- Table structure for table administrador
 --
 
+
+DROP TABLE IF EXISTS pagoreserva;
+DROP TABLE IF EXISTS pagosuscripcion;
 DROP TABLE IF EXISTS administrador;
+DROP TABLE IF EXISTS reserva;
+DROP TABLE IF EXISTS empleado;
+DROP TABLE IF EXISTS puesto;
+DROP TABLE IF EXISTS parqueadero;
+DROP TABLE IF EXISTS suscripcion;
+DROP TABLE IF EXISTS vehiculo;
+DROP TABLE IF EXISTS cliente;
+
+
+
+
+
+
+
+
+
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE administrador (
@@ -49,7 +68,6 @@ INSERT INTO administrador VALUES (1,'10','Luis','Ramos','$2a$10$Pqa7UsfTJ6OymjVK
 -- Table structure for table cliente
 --
 
-DROP TABLE IF EXISTS cliente;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE cliente (
@@ -78,7 +96,6 @@ INSERT INTO cliente VALUES (1,'30','Emily','Ramos','n','$2a$10$TLbzW5kwgc354wlTo
 -- Table structure for table empleado
 --
 
-DROP TABLE IF EXISTS empleado;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE empleado (
@@ -110,7 +127,6 @@ INSERT INTO empleado VALUES (1,'20','Simba','Gonzales','$2a$10$AnfaTGHCE4RSXkUYd
 -- Table structure for table parqueadero
 --
 
-DROP TABLE IF EXISTS parqueadero;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE parqueadero (
@@ -136,7 +152,6 @@ INSERT INTO parqueadero VALUES (1,16,19,21);
 -- Table structure for table puesto
 --
 
-DROP TABLE IF EXISTS puesto;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE puesto (
@@ -164,7 +179,6 @@ INSERT INTO puesto VALUES (1,'g','0',1),(2,'g','0',1),(3,'g','0',1),(4,'m','0',1
 -- Table structure for table reserva
 --
 
-DROP TABLE IF EXISTS vehiculo;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE vehiculo (
@@ -190,7 +204,6 @@ CREATE TABLE vehiculo (
 --UNLOCK TABLES;
 
 
-DROP TABLE IF EXISTS reserva;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE reserva (
@@ -220,7 +233,6 @@ CREATE TABLE reserva (
 -- Table structure for table suscripcion
 --
 
-DROP TABLE IF EXISTS suscripcion;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE suscripcion (
@@ -252,7 +264,6 @@ CREATE TABLE suscripcion (
 --
 
 
-DROP TABLE IF EXISTS pagoreserva;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE pagoreserva (
@@ -281,7 +292,6 @@ CREATE TABLE pagoreserva (
 -- Table structure for table pagosuscripcion
 --
 
-DROP TABLE IF EXISTS pagosuscripcion;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE pagosuscripcion (

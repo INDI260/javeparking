@@ -13,6 +13,6 @@ public class H2DBConnectionManager implements IDBConnectionManager{
     @Override
     public Connection getConnection() throws SQLException {
         reader = ResourceBundle.getBundle(FILENAME);
-        return DriverManager.getConnection("jdbc:h2:mem:~/javeparking;MODE=MySQL","sa","");
+        return DriverManager.getConnection("jdbc:h2:file:./javeparking;MODE=MySQL","sa","");
     }
 }
