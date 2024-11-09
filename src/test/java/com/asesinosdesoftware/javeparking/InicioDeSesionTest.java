@@ -1,3 +1,5 @@
+package com.asesinosdesoftware.javeparking;
+
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.exceptions.InicioDeSesionException;
 import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
