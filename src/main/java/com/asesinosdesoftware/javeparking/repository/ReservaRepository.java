@@ -24,7 +24,7 @@ public class ReservaRepository {
      * @throws SQLException
      */
     public void agregarReserva(Reserva reserva) throws SQLException {
-        String sql = "INSERT INTO `javeparking`.`reserva` (`horaEntrada`, `horaSalida`, `vehiculoID`, `puestoID`) VALUES ( ?, ?, ?, ?)";
+        String sql = "INSERT INTO reserva (`horaEntrada`, `horaSalida`, `vehiculoID`, `puestoID`) VALUES ( ?, ?, ?, ?)";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setObject(1,reserva.getHoraEntrada());
         ps.setObject(2,reserva.getHoraSalida());

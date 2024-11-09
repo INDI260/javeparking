@@ -75,7 +75,7 @@ public class VehiculoRepository {
     public void agregarVehiculo(Vehiculo vehiculo) throws SQLException, RepositoryException {
 
         if(buscarVehiculo(vehiculo.getPlaca(), new Vehiculo()) == null) {
-            String sql = "INSERT INTO `javeparking`.`vehiculo` (`placa`, `tamano`, `tipo`,`clienteid`) VALUES ( ?, ?, ?,?);";
+            String sql = "INSERT INTO vehiculo (`placa`, `tamano`, `tipo`,`clienteid`) VALUES ( ?, ?, ?,?);";
             PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
             ps.setString(1, vehiculo.getPlaca());
             ps.setString(2, Character.toString(vehiculo.getTamano()));
@@ -96,7 +96,7 @@ public class VehiculoRepository {
     public void eliminarVehiculo(Vehiculo vehiculo) throws SQLException, RepositoryException {
 
         if (vehiculo != null) {
-            String sql = "DELETE FROM `javeparking`.`vehiculo` WHERE `placa` = ?;";
+            String sql = "DELETE FROM vehiculo WHERE `placa` = ?;";
             PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
             ps.setString(1, vehiculo.getPlaca());
             ps.executeUpdate();

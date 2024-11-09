@@ -47,7 +47,7 @@ public class EmpleadoRepository {
     public void agregarEmpleado(Empleado empleado) throws SQLException, RepositoryException {
 
         if(buscarEmpleado(empleado.getCedula(), new Empleado()) == null) {
-            String sql = "INSERT INTO `javeparking`.`empleado` (`cedula`, `nombre`, `apellido`, `hash`) VALUES ( ?, ?, ?, ?);";
+            String sql = "INSERT INTO empleado (`cedula`, `nombre`, `apellido`, `hash`) VALUES ( ?, ?, ?, ?);";
             PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
             ps.setString(1, empleado.getCedula());
             ps.setString(2, empleado.getNombre());
