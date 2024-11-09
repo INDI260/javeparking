@@ -2,7 +2,7 @@ package com.asesinosdesoftware.javeparking.repository;
 
 import com.asesinosdesoftware.javeparking.entities.Administrador;
 import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 
 import java.sql.Connection;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class AdministradorRepository {
 
 
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
     /**
      * Método que busca un Administrador en la base de datos a partir de su cedula
      * @param cedula: Dato a partir del cual se hace la busqueda

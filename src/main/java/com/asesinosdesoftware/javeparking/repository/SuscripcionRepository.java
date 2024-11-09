@@ -4,7 +4,7 @@ import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.entities.Suscripcion;
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 
 import java.sql.*;
@@ -15,7 +15,7 @@ public class SuscripcionRepository {
 
     VehiculoRepository vehiculoRepository = new VehiculoRepository();
     ClienteRepository clienteRepository = new ClienteRepository();
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
 
     /**
      * Método para registrar una suscripción

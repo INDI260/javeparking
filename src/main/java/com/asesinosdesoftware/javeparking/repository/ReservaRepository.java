@@ -3,7 +3,7 @@ package com.asesinosdesoftware.javeparking.repository;
 import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 
 import java.sql.Connection;
@@ -18,7 +18,7 @@ public class ReservaRepository {
 
     VehiculoRepository vehiculoRepository = new VehiculoRepository();
     PuestoRepository puestoRepository = new PuestoRepository();
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
 
     /**
 

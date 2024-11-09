@@ -1,7 +1,7 @@
 package com.asesinosdesoftware.javeparking.repository;
 
 import com.asesinosdesoftware.javeparking.entities.Parqueadero;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 
 import java.sql.Connection;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 
 public class ParqueaderoRepository {
 
-    IDBConnectionManager dbconnectionManager = new DBConnectionManager();
+    IDBConnectionManager dbconnectionManager = new H2DBConnectionManager();
 
     /**
      * Método que busca un Parqueadero por su ID

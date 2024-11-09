@@ -1,7 +1,6 @@
 package com.asesinosdesoftware.javeparking.services;
 
 import com.asesinosdesoftware.javeparking.entities.*;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.*;
 
@@ -34,11 +33,10 @@ public class PagoService {
        Vehiculo vehiculo = new Vehiculo();
        Puesto puesto = new Puesto();
        Parqueadero parqueadero = new Parqueadero();
-        Connection connection = dbConnectionManager.getConnection();
-        vehiculoRepository.buscarVehiculo(connection, placa, vehiculo);
-        reservaRepository.buscarReservaPorId(connection, Integer.parseInt(idReserva), reserva);
-        puestoRepository.buscarPuesto(reserva.getPuesto().getId(), connection, puesto);
-        parqueaderoRepository.buscarParqueaderoPorId(connection, puesto.getParqueaderoID(), parqueadero);
+        vehiculoRepository.buscarVehiculo(placa, vehiculo);
+        reservaRepository.buscarReservaPorId(Integer.parseInt(idReserva), reserva);
+        puestoRepository.buscarPuesto(reserva.getPuesto().getId(),puesto);
+        parqueaderoRepository.buscarParqueaderoPorId(puesto.getParqueaderoID(), parqueadero);
        
 
         LocalDateTime fechaActual = LocalDateTime.now();
