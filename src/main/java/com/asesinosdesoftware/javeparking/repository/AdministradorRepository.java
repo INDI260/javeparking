@@ -2,6 +2,8 @@ package com.asesinosdesoftware.javeparking.repository;
 
 import com.asesinosdesoftware.javeparking.entities.Administrador;
 import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,17 +12,18 @@ import java.sql.SQLException;
 
 public class AdministradorRepository {
 
+
+    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
     /**
      * Método que busca un Administrador en la base de datos a partir de su cedula
-     * @param connection: Conexión a la base de datos
      * @param cedula: Dato a partir del cual se hace la busqueda
      * @return Si se encuentra retorna un objero tipo administrador con los parametros encontrados en la base de datos o de lo contrario retorna null
      * @throws SQLException
      */
-    public static Administrador buscarAdministrador(Connection connection, String cedula, Administrador administrador) throws SQLException {
+    public Administrador buscarAdministrador(String cedula, Administrador administrador) throws SQLException {
 
         String sql = "select * from administrador where cedula = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
+        PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setString(1, cedula);
         ResultSet resultSet = ps.executeQuery();
 
@@ -39,16 +42,15 @@ public class AdministradorRepository {
 
     /**
      * Método que agrega un administrador a la base de datos a partir de un objeto tipo Administrador
-     * @param connection: Conexión a la base de datos
      * @param administrador: Objeto tipo administrador a partir del cual se crea la fila en la base de datos
      * @throws SQLException
      * @throws RepositoryException
      */
-    public static void agregarAdministrador(Connection connection, Administrador administrador) throws SQLException, RepositoryException {
+    public void agregarAdministrador(Administrador administrador) throws SQLException, RepositoryException {
 
-        if(buscarAdministrador(connection, administrador.getCedula(), new Administrador()) == null) {
+        if(buscarAdministrador(administrador.getCedula(), new Administrador()) == null) {
             String sql = "INSERT INTO `javeparking`.`administrador` (`cedula`, `nombre`, `apellido`, `hash`) VALUES ( ?, ?, ?, ?);";
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
             ps.setString(1, administrador.getCedula());
             ps.setString(2, administrador.getNombre());
             ps.setString(3, administrador.getApellido());

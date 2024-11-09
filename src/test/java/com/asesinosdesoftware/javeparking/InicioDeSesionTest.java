@@ -3,7 +3,7 @@ package com.asesinosdesoftware.javeparking;
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.exceptions.InicioDeSesionException;
 import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.AdministradorRepository;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
@@ -19,9 +19,10 @@ import java.sql.SQLException;
 public class InicioDeSesionTest {
 
     InicioDeSesionService inicioDeSesionService;
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
 
     @BeforeEach
+
     void setUp() {
         try {
             JDBCInitializer jdbcInitializer = new JDBCInitializer(dbConnectionManager, new AdministradorRepository(), new ClienteRepository(), new EmpleadoRepository());
@@ -32,6 +33,7 @@ public class InicioDeSesionTest {
         catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     @Test

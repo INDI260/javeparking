@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class DBConnectionManager implements IDBConnectionManager{
+public class H2DBConnectionManager implements IDBConnectionManager{
 
     private ResourceBundle reader = null;
     private static final String FILENAME = "dbconfig";
@@ -13,6 +13,6 @@ public class DBConnectionManager implements IDBConnectionManager{
     @Override
     public Connection getConnection() throws SQLException {
         reader = ResourceBundle.getBundle(FILENAME);
-        return DriverManager.getConnection(reader.getString("db.url"),reader.getString("db.username"),reader.getString("db.password"));
+        return DriverManager.getConnection("jdbc:h2:file:./javeparking;MODE=MySQL","sa","");
     }
 }

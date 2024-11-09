@@ -3,11 +3,11 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
 import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
-import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservaParqViewController {
+
+    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
     @FXML
     private TableView<Puesto> tablaReservas;
 
@@ -60,12 +62,11 @@ public class ReservaParqViewController {
         List<Puesto> puestos = new ArrayList<>();
         try {
             // Obtener la conexión (ajusta con tu configuración)
-            DBConnectionManager dbConnectionManager = new DBConnectionManager();
             Connection connection = dbConnectionManager.getConnection();
             PuestoRepository PR = new PuestoRepository();
 
             // Llamar al método del repositorio para listar puestos
-            PR.listarPuestos(connection, puestos, false, tamanoSeleccionado);
+            PR.listarPuestos(puestos, false, tamanoSeleccionado);
 
             // Convertir la lista en una lista observable para actualizar la tabla
             ObservableList<Puesto> puestosObservable = FXCollections.observableArrayList(puestos);
@@ -94,13 +95,11 @@ public class ReservaParqViewController {
             }
             Vehiculo V = new Vehiculo();
             VehiculoRepository VR = new VehiculoRepository();
-            DBConnectionManager dbConnectionManager = new DBConnectionManager();
-            Connection connection = dbConnectionManager.getConnection();
-            VR.buscarVehiculo(connection,IDplaca.getText(),V);
+            VR.buscarVehiculo(IDplaca.getText(),V);
 
             Puesto P = new Puesto();
             PuestoRepository PR = new PuestoRepository();
-            PR.buscarPuesto(IdTamano.getValue(),false,connection,P);
+            PR.buscarPuesto(IdTamano.getValue(),false,P);
             if(V.getTamano()!=IdTamano.getValue().charAt(0)){
                 showError("Tamaño de reserva y de auto no coinciden");
                 return ;
@@ -114,10 +113,9 @@ public class ReservaParqViewController {
                // showError("Reserva ya existe");
                // return;
           //  }
-            RR.agregarReserva(connection,R);
+            RR.agregarReserva(R);
             P.setDisponibilidad(true);
-            PR.actualizarPuesto(connection,P);
-            connection.close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
+            PR.actualizarPuesto(P);
             showSuccess("Reserva de Parqueadero Exitosa");
 
         } catch (Exception e) {

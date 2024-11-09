@@ -3,44 +3,47 @@ package com.asesinosdesoftware.javeparking.controller;
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
+import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-public class ReVehiculoviewController {
+import java.sql.Connection;
+
+public class EliminarVehiculoViewController {
+
     @FXML
-    public ComboBox <String> IdTamano;
+    public TextField IDPlaca;
+
     @FXML
-    public TextField IdTipo;
-    @FXML
-    public TextField IdPlaca;
-    @FXML
-    private void registrovehiculo(){
+    private void   EliminarVehiculo(){
     try {
-        Cliente Dueno = new Cliente();
-        Vehiculo v = new Vehiculo();
 
-        v.setTamano(IdTamano.getValue().charAt(0));
-        v.setTipo(IdTipo.getText().charAt(0));
-        v.setPlaca(IdPlaca.getText());
+        Cliente dueno = new Cliente();
+        ClienteRepository CR = new ClienteRepository();
 
-        VehiculoRepository vehiculoRepository = new VehiculoRepository();
-        ClienteRepository clienterepository = new ClienteRepository();
+        Vehiculo V = new Vehiculo();
+        VehiculoRepository VR = new VehiculoRepository();
+        CR.buscarCliente(Sesion.getcedula(),dueno);
+        VR.buscarVehiculo(IDPlaca.getText(),V);
 
-        clienterepository.buscarCliente(Sesion.getcedula(),Dueno);
-        v.setClienteid(Dueno.getId());
-        vehiculoRepository.agregarVehiculo(v);
+        if(dueno.getId()==V.getClienteid()){
+            VR.eliminarVehiculo(V);
+            showSuccess("Vehiculo eliminado correctamente");
+        }
+        else showError("El vehiculo no te pertenece");
 
-        showSuccess("Registro de Vehiculo Exitoso");
-    } catch (Exception e){
+
+    }catch (Exception e) {
+        showError("Error eliminar el Vehiculo");
         e.printStackTrace();
-        showError("Error al agregar vehiculo");
-    }
+
+        }
 
     }
+
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -57,4 +60,5 @@ public class ReVehiculoviewController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }
