@@ -49,7 +49,7 @@ public class AdministradorRepository {
     public void agregarAdministrador(Administrador administrador) throws SQLException, RepositoryException {
 
         if(buscarAdministrador(administrador.getCedula(), new Administrador()) == null) {
-            String sql = "INSERT INTO `javeparking`.`administrador` (`cedula`, `nombre`, `apellido`, `hash`) VALUES ( ?, ?, ?, ?);";
+            String sql = "INSERT INTO administrador (`cedula`, `nombre`, `apellido`, `hash`) VALUES ( ?, ?, ?, ?);";
             PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
             ps.setString(1, administrador.getCedula());
             ps.setString(2, administrador.getNombre());

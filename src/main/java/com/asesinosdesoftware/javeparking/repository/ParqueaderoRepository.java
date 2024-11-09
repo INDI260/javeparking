@@ -21,7 +21,7 @@ public class ParqueaderoRepository {
      * @throws SQLException
      */
     public Parqueadero buscarParqueaderoPorId(int id, Parqueadero parqueadero) throws SQLException {
-        String sql = "SELECT * FROM `javeparking`.`parqueadero` WHERE `id` = ?";
+        String sql = "SELECT * FROM parqueadero WHERE `id` = ?";
         PreparedStatement ps = dbconnectionManager.getConnection().prepareStatement(sql);
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
