@@ -4,7 +4,6 @@ import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 import com.asesinosdesoftware.javeparking.exceptions.ReservasException;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
 import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
@@ -30,7 +29,6 @@ import java.util.List;
 public class ReservaAdminViewController {
     Reserva R;
     ReservaAdService RAd = new ReservaAdService();
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
 
     @FXML
     private TableView<Reserva> tablaReservas;
@@ -72,9 +70,9 @@ public class ReservaAdminViewController {
     }
 
     private void cargarReservas() {
-        try (Connection connection = dbConnectionManager.getConnection()) {
+        try {
             ReservaRepository reservaRepository = new ReservaRepository();
-            reservasObservableList.setAll(reservaRepository.obtenerTodasReservas(connection));
+            reservasObservableList.setAll(reservaRepository.obtenerTodasReservas());
             tablaReservas.setItems(reservasObservableList);
 
         } catch (Exception e) {

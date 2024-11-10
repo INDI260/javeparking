@@ -19,7 +19,7 @@ import java.time.temporal.ChronoUnit;
 
 public class PagoSuscripcionController {
 
-    PagoService pagoService;
+
     Suscripcion suscripcion;
     SuscripcionRepository suscripcionRepository;
 

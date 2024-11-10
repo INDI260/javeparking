@@ -2,8 +2,6 @@ package com.asesinosdesoftware.javeparking.services;
 
 import com.asesinosdesoftware.javeparking.entities.*;
 import com.asesinosdesoftware.javeparking.exceptions.ReservasException;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
-import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.*;
 
 import java.sql.SQLException;
@@ -16,7 +14,6 @@ public class ReservaCService {
     VehiculoRepository VR = new VehiculoRepository();
     PuestoRepository PR = new PuestoRepository();
     ReservaRepository RR= new ReservaRepository();
-    IDBConnectionManager dbConnectionManager= new DBConnectionManager();
 
 
     public void CrearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva R) throws ReservasException, SQLException {
@@ -32,11 +29,11 @@ public class ReservaCService {
 
             }
             Vehiculo V = new Vehiculo();
-            VR.buscarVehiculo(dbConnectionManager.getConnection(),IDplaca,V);
+            VR.buscarVehiculo(IDplaca,V);
 
             Puesto P = new Puesto();
 
-            PR.buscarPuesto(IdTamano,false,dbConnectionManager.getConnection(),P);
+            PR.buscarPuesto(IdTamano,false,P);
             if(V.getTamano()!=IdTamano.charAt(0)){
                 throw new ReservasException("Tamaño de reserva y de auto no coinciden");
             }
@@ -48,11 +45,11 @@ public class ReservaCService {
             // showError("Reserva ya existe");
             // return;
             //  }
-            RR.agregarReserva(dbConnectionManager.getConnection(),R);
+            RR.agregarReserva(R);
             P.setDisponibilidad(true);
-            PR.actualizarPuesto(dbConnectionManager.getConnection(),P);
+            PR.actualizarPuesto(P);
         System.out.println("Hola");
-            dbConnectionManager.getConnection().close();//No olvidar siempre cerrar la conexión una vez esta se termine de usar
+
 
 
     }

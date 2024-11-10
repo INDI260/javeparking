@@ -23,7 +23,6 @@ public class ReservaRepository {
     /**
 
      * Método que agrega una reserva a la base de datos de acuerdo a los parámetros dados
-     * @param connection: Conexión con la base de datos
      * @param reserva: Objeto tipo reserva con los parámetros deseados
      * @throws SQLException
      */
@@ -98,13 +97,12 @@ public class ReservaRepository {
 
     /**
      * Método que actualiza una reserva en la base de datos
-     * @param connection: Conexión a la base de datos
      * @param reserva: Objeto tipo reserva con los nuevos parámetros
      * @throws SQLException
      */
-    public void actualizarReserva(Connection connection, Reserva reserva) throws SQLException {
+    public void actualizarReserva(Reserva reserva) throws SQLException {
         String sql = "UPDATE `javeparking`.`reserva` SET `horaEntrada` = ?, `horaSalida` = ?, `vehiculoID` = ?, `puestoID` = ? WHERE `id` = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
+        PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setObject(1, reserva.getHoraEntrada());
         ps.setObject(2, reserva.getHoraSalida());
         ps.setInt(3, reserva.getVehiculo().getId());
@@ -115,27 +113,25 @@ public class ReservaRepository {
 
     /**
      * Método que elimina una reserva de la base de datos
-     * @param connection: Conexión a la base de datos
      * @param reserva: Objeto tipo reserva a eliminar
      * @throws SQLException
      */
-    public void eliminarReserva(Connection connection, Reserva reserva) throws SQLException {
+    public void eliminarReserva(Reserva reserva) throws SQLException {
         String sql = "DELETE FROM `javeparking`.`reserva` WHERE `id` = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
+        PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setInt(1, reserva.getId());
         ps.executeUpdate();
     }
 
     /**
      * Método que obtiene todas las reservas de la base de datos
-     * @param connection: Conexión a la base de datos
      * @return Lista de objetos Reserva
      * @throws SQLException
      */
-    public List<Reserva> obtenerTodasReservas(Connection connection) throws SQLException {
+    public List<Reserva> obtenerTodasReservas() throws SQLException {
         List<Reserva> reservas = new ArrayList<>();
         String sql = "SELECT * FROM `javeparking`.`reserva`";
-        PreparedStatement ps = connection.prepareStatement(sql);
+        PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
@@ -146,11 +142,11 @@ public class ReservaRepository {
 
             // Inicializa el objeto Vehiculo
             Vehiculo vehiculo = new Vehiculo();
-            reserva.setVehiculo(vehiculoRepository.buscarVehiculo(connection, rs.getInt("vehiculoID"), vehiculo));
+            reserva.setVehiculo(vehiculoRepository.buscarVehiculo(rs.getInt("vehiculoID"), vehiculo));
 
             // Inicializa el objeto Puesto
             Puesto puesto = new Puesto();
-            reserva.setPuesto(puestoRepository.buscarPuesto(rs.getInt("puestoID"), connection, puesto));
+            reserva.setPuesto(puestoRepository.buscarPuesto(rs.getInt("puestoID"),puesto));
             reservas.add(reserva);
         }
 

@@ -4,8 +4,6 @@ import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 import com.asesinosdesoftware.javeparking.exceptions.ReservasException;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
-import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.*;
 import javafx.stage.FileChooser;
 
@@ -26,7 +24,6 @@ public class ReservaAdService {
     VehiculoRepository vehiculoRepository= new VehiculoRepository();
     PuestoRepository puestoRepository = new PuestoRepository();
     ReservaRepository reservaRepository = new ReservaRepository();
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
 
 
     public void crearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva reserva) throws SQLException,ReservasException {
@@ -43,10 +40,10 @@ public class ReservaAdService {
         }
 
         Vehiculo vehiculo = new Vehiculo();
-        vehiculoRepository.buscarVehiculo(dbConnectionManager.getConnection(), IDplaca, vehiculo);
+        vehiculoRepository.buscarVehiculo(IDplaca, vehiculo);
 
         Puesto puesto = new Puesto();
-        puestoRepository.buscarPuesto(IdTamano,false,dbConnectionManager.getConnection(),puesto);
+        puestoRepository.buscarPuesto(IdTamano,false,puesto);
 
         if(vehiculo.getTamano()!=IdTamano.charAt(0)){
             throw new ReservasException("Tamaño de reserva y de auto no coinciden");
@@ -59,9 +56,9 @@ public class ReservaAdService {
         reserva.setPuesto(puesto);
 
 
-        reservaRepository.agregarReserva(dbConnectionManager.getConnection(), reserva);
+        reservaRepository.agregarReserva(reserva);
         puesto.setDisponibilidad(true);
-        puestoRepository.actualizarPuesto(dbConnectionManager.getConnection(), puesto);
+        puestoRepository.actualizarPuesto(puesto);
 
     }
 
@@ -83,14 +80,14 @@ public class ReservaAdService {
 
                 Vehiculo vehiculo = new Vehiculo();
                 VehiculoRepository vehiculoRepository = new VehiculoRepository();
-                vehiculoRepository.buscarVehiculo(dbConnectionManager.getConnection(), IDplaca, vehiculo);
+                vehiculoRepository.buscarVehiculo(IDplaca, vehiculo);
 
                 if(reservaSeleccionada.getPuesto().getTamano()!=IdTamano.charAt(0)){
                     Puesto puestoviejo = new Puesto();
-                    puestoRepository.buscarPuesto(reservaSeleccionada.getPuesto().getId(), dbConnectionManager.getConnection(),puestoviejo);
+                    puestoRepository.buscarPuesto(reservaSeleccionada.getPuesto().getId(),puestoviejo);
                     puestoviejo.setDisponibilidad(false);
-                    puestoRepository.actualizarPuesto(dbConnectionManager.getConnection(), puestoviejo);
-                    puestoRepository.buscarPuesto(IdTamano,false,dbConnectionManager.getConnection(),puesto);
+                    puestoRepository.actualizarPuesto(puestoviejo);
+                    puestoRepository.buscarPuesto(IdTamano,false,puesto);
                     reservaSeleccionada.setPuesto(puesto);
                 }
 
@@ -104,18 +101,18 @@ public class ReservaAdService {
                 reservaSeleccionada.setHoraSalida(horaSalidaCompleta);
                 reservaSeleccionada.setVehiculo(vehiculo);
                 puesto.setDisponibilidad(true);
-                puestoRepository.actualizarPuesto(dbConnectionManager.getConnection(),puesto);
-                reservaRepository.actualizarReserva(dbConnectionManager.getConnection(), reservaSeleccionada);
+                puestoRepository.actualizarPuesto(puesto);
+                reservaRepository.actualizarReserva(reservaSeleccionada);
     }
 
     public void eliminarReserva(Reserva reservaSeleccionada) throws SQLException {
 
                 ReservaRepository reservaRepository = new ReservaRepository();
-                reservaRepository.eliminarReserva(dbConnectionManager.getConnection(), reservaSeleccionada);
+                reservaRepository.eliminarReserva(reservaSeleccionada);
                 Puesto puesto = new Puesto();
-                puestoRepository.buscarPuesto(reservaSeleccionada.getPuesto().getId(), dbConnectionManager.getConnection(),puesto);
+                puestoRepository.buscarPuesto(reservaSeleccionada.getPuesto().getId(),puesto);
                 puesto.setDisponibilidad(false);
-                puestoRepository.actualizarPuesto(dbConnectionManager.getConnection(), puesto);
+                puestoRepository.actualizarPuesto(puesto);
 
 
     }

@@ -23,7 +23,6 @@ import java.util.List;
 
 public class ReservaParqViewController {
 
-    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
     @FXML
     private TableView<Puesto> tablaReservas;
 
@@ -62,7 +61,6 @@ public class ReservaParqViewController {
         List<Puesto> puestos = new ArrayList<>();
         try {
             // Obtener la conexión (ajusta con tu configuración)
-            Connection connection = dbConnectionManager.getConnection();
             PuestoRepository PR = new PuestoRepository();
 
             // Llamar al método del repositorio para listar puestos
@@ -72,7 +70,6 @@ public class ReservaParqViewController {
             ObservableList<Puesto> puestosObservable = FXCollections.observableArrayList(puestos);
             tablaReservas.setItems(puestosObservable);
 
-            connection.close();  // Cerrar conexión
 
         } catch (Exception e) {
             e.printStackTrace();
