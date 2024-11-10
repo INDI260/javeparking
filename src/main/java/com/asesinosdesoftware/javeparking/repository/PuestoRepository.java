@@ -74,7 +74,7 @@ public class PuestoRepository {
      */
     public void agregarPuesto(Puesto puesto) throws SQLException {
 
-        String sql = "INSERT INTO `javeparking`.`puesto` (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES (?, ?, b'1');";
+        String sql = "INSERT INTO puesto (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES (?, ?, b'1');";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setString(1, Character.toString(puesto.getTamano()));
         ps.setBoolean(2, puesto.isDisponibilidad());
@@ -88,7 +88,7 @@ public class PuestoRepository {
      */
     public void actualizarPuesto(Puesto puesto) throws SQLException {
 
-        String sql = "UPDATE `javeparking`.`puesto` SET `disponibilidad` = ? WHERE `id` = ?";
+        String sql = "UPDATE puesto SET `disponibilidad` = ? WHERE `id` = ?";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setBoolean(1, puesto.isDisponibilidad());
         ps.setInt(2, puesto.getId());
@@ -104,7 +104,7 @@ public class PuestoRepository {
      */
     public void listarPuestos(List<Puesto> puestos, boolean disponibilidad, char tamano) throws SQLException {
 
-        String sql = "SELECT * FROM `javeparking`.`puesto` WHERE `disponibilidad` = ? and tamano = ?";
+        String sql = "SELECT * FROM puesto WHERE `disponibilidad` = ? and tamano = ?";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setBoolean(1, disponibilidad);
         ps.setString(2, Character.toString(tamano));
