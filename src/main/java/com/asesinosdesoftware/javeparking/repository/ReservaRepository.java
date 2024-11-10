@@ -21,8 +21,7 @@ public class ReservaRepository {
     IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
 
     /**
-
-     * Método que agrega una reserva a la base de datos de acuerdo a los parámetros dados
+     * Método que agrega una reserva a la base de datos de acuerdo a los parametros dados
      * @param reserva: Objeto tipo reserva con los parámetros deseados
      * @throws SQLException
      */
@@ -35,10 +34,10 @@ public class ReservaRepository {
         ps.setInt(3, reserva.getVehiculo().getId());
         ps.setInt(4, reserva.getPuesto().getId());
         ps.executeUpdate();
+
     }
 
     /**
-
      * Método que busca una reserva en la base de datos a partir del id de su vehiculo
      * @param reserva: Objeto tipo reserva con los parámetros a buscar
      * @return Un objeto tipo reserva si se encuentra o retorna null si no se encuentra

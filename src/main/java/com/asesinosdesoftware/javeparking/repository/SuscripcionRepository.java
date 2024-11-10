@@ -55,7 +55,7 @@ public class SuscripcionRepository {
      */
     public Suscripcion buscarSuscripcionPorVehiculo(String placa, Suscripcion suscripcion) throws SQLException {
         suscripcion.setVehiculo(vehiculoRepository.buscarVehiculo(placa, suscripcion.getVehiculo()));
-        String sql = "SELECT * FROM `javeparking`.`suscripcion` WHERE vehiculoID = ?";
+        String sql = "SELECT * FROM suscripcion WHERE vehiculoID = ?";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setInt(1,suscripcion.getVehiculo().getId());
         ResultSet rs = ps.executeQuery();
