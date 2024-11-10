@@ -154,29 +154,12 @@ public class ReservaAdminViewController {
         }
     }
 
+    /**
+     * Metodo que usa el servicio ReservaAdService para la creacion del informe por parte del Administrador
+     */
     @FXML
     private void generarReporteReservas() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Guardar Reporte de Reservas");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo CSV", "*.csv"));
-        File archivo = fileChooser.showSaveDialog(null);
-
-        if (archivo != null) {
-            try (FileWriter writer = new FileWriter(archivo)) {
-                writer.append("ID Reserva, Placa, Hora Entrada, Hora Salida\n");
-                for (Reserva reserva : reservasObservableList) {
-                    writer.append(String.valueOf(reserva.getId())).append(", ")
-                            .append(reserva.getVehiculo().getPlaca()).append(", ")
-                            .append(reserva.getHoraEntrada().toString()).append(", ")
-                            .append(reserva.getHoraSalida().toString()).append("\n");
-                }
-                showSuccess("Reporte generado exitosamente");
-
-            } catch (IOException e) {
-                showError("Error al generar el reporte");
-                e.printStackTrace();
-            }
-        }
+        RAd.generarReporteReservas(reservasObservableList);
     }
 
 

@@ -10,11 +10,15 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -146,24 +150,40 @@ public class ReservaAdService {
      * @param reservasObservableList
      */
     public void generarReporteReservas(List<Reserva> reservasObservableList) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Guardar Reporte de Reservas");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo CSV", "*.csv"));
-        File archivo = fileChooser.showSaveDialog(null);
+        // Define la carpeta de destino dentro de com.asesinosdesoftware.javeparking
+        String carpetaReportes = "src/main/java/com/asesinosdesoftware/javeparking/reportes";
+        Path pathCarpeta = Paths.get(carpetaReportes);
 
-        if (archivo != null) {
-            try (FileWriter writer = new FileWriter(archivo)) {
-                writer.append("ID Reserva, Placa, Hora Entrada, Hora Salida\n");
-                for (Reserva reserva : reservasObservableList) {
-                    writer.append(String.valueOf(reserva.getId())).append(", ")
-                            .append(reserva.getVehiculo().getPlaca()).append(", ")
-                            .append(reserva.getHoraEntrada().toString()).append(", ")
-                            .append(reserva.getHoraSalida().toString()).append("\n");
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
+        // Crea la carpeta "reportes" si no existe
+        try {
+            if (!Files.exists(pathCarpeta)) {
+                Files.createDirectories(pathCarpeta);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return; // Salir del método si falla la creación de la carpeta
+        }
+
+        // Genera una marca de tiempo para el nombre del archivo usando LocalDateTime
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+        String timestamp = LocalDateTime.now().format(formatter);
+
+        // Define el archivo con la ruta completa y el nombre con fecha y hora
+        String nombreArchivo = "reporte_reservas_" + timestamp + ".csv";
+        File archivo = new File(pathCarpeta.toFile(), nombreArchivo);
+
+        // Escribe el archivo CSV
+        try (FileWriter writer = new FileWriter(archivo)) {
+            writer.append("ID Reserva, Placa, Hora Entrada, Hora Salida\n");
+            for (Reserva reserva : reservasObservableList) {
+                writer.append(String.valueOf(reserva.getId())).append(", ")
+                        .append(reserva.getVehiculo().getPlaca()).append(", ")
+                        .append(reserva.getHoraEntrada() != null ? reserva.getHoraEntrada().format(formatter) : "N/A").append(", ")
+                        .append(reserva.getHoraSalida() != null ? reserva.getHoraSalida().format(formatter) : "N/A").append("\n");
+            }
+            System.out.println("Reporte generado en: " + archivo.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
