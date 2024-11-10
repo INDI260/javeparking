@@ -26,8 +26,17 @@ public class ReservaAdService {
     ReservaRepository reservaRepository = new ReservaRepository();
 
 
+    /**
+     * Metodo para que el administrador pueda crear una reserva individual
+     * @param IDHoraEntrada
+     * @param IDHoraSalida
+     * @param IDplaca
+     * @param IdTamano
+     * @param reserva
+     * @throws SQLException
+     * @throws ReservasException
+     */
     public void crearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva reserva) throws SQLException,ReservasException {
-
 
         LocalDate fechaActual = LocalDate.now();
         LocalTime horaEntrada = LocalTime.parse(IDHoraEntrada);
@@ -62,6 +71,16 @@ public class ReservaAdService {
 
     }
 
+    /**
+     * Metodo por el cual el administrador puede editar los datos de una reserva
+     * @param IDHoraEntrada
+     * @param IDHoraSalida
+     * @param IDplaca
+     * @param IdTamano
+     * @param reservaSeleccionada
+     * @throws SQLException
+     * @throws ReservasException
+     */
     public void editarReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva reservaSeleccionada) throws SQLException,ReservasException {
              // Actualizar datos de reserva aquí
                 Puesto puesto = new Puesto();
@@ -105,6 +124,11 @@ public class ReservaAdService {
                 reservaRepository.actualizarReserva(reservaSeleccionada);
     }
 
+    /**
+     * Metodo por el cual el administrador puede eliminar por completo una reserva individual
+     * @param reservaSeleccionada
+     * @throws SQLException
+     */
     public void eliminarReserva(Reserva reservaSeleccionada) throws SQLException {
 
                 ReservaRepository reservaRepository = new ReservaRepository();
@@ -117,6 +141,10 @@ public class ReservaAdService {
 
     }
 
+    /**
+     * Metodo por el cual el administrador puede crear un reporte sobre las reservas de su parqueadero
+     * @param reservasObservableList
+     */
     public void generarReporteReservas(List<Reserva> reservasObservableList) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Guardar Reporte de Reservas");

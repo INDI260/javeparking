@@ -15,9 +15,17 @@ public class ReservaCService {
     PuestoRepository PR = new PuestoRepository();
     ReservaRepository RR= new ReservaRepository();
 
-
+    /**
+     * Metodo por el cual el Cliente/Usuario puede crear la reserva para su vehiculo
+     * @param IDHoraEntrada
+     * @param IDHoraSalida
+     * @param IDplaca
+     * @param IdTamano
+     * @param R
+     * @throws ReservasException
+     * @throws SQLException
+     */
     public void CrearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva R) throws ReservasException, SQLException {
-
 
             LocalDate D = LocalDate.now();
             LocalTime TE = LocalTime.parse(IDHoraEntrada);

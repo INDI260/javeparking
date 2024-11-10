@@ -53,6 +53,9 @@ public class ReservaAdminViewController {
 
     private ObservableList<Reserva> reservasObservableList = FXCollections.observableArrayList();
 
+    /**
+     * Metodo para inicializar los elementos mostrados en pantalla
+     */
     @FXML
     public void initialize() {
         columnaID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -69,6 +72,9 @@ public class ReservaAdminViewController {
         cargarReservas();
     }
 
+    /**
+     * Metodo para cargar las reservas existentes para poder mostrarlas en la pantalla
+     */
     private void cargarReservas() {
         try {
             ReservaRepository reservaRepository = new ReservaRepository();
@@ -81,6 +87,10 @@ public class ReservaAdminViewController {
         }
     }
 
+    /**
+     * Metodo que usa el servicio ReservaAdService para la creacion de la reserva por parte del Administrador
+     * @throws SQLException
+     */
     @FXML
     private void crearReserva() throws SQLException {
         try{
@@ -97,6 +107,10 @@ public class ReservaAdminViewController {
         }
     }
 
+    /**
+     * Metodo que usa el servicio ReservaAdService para edicion de la reserva por parte del Administrador
+     * @throws SQLException
+     */
     @FXML
     private void editarReserva() throws SQLException{
         // Lógica para editar la reserva seleccionada
@@ -118,6 +132,9 @@ public class ReservaAdminViewController {
         }
     }
 
+    /**
+     * Metodo que usa el servicio ReservaAdService para la eliminacion de la reserva por parte del Administrador
+     */
     @FXML
     private void eliminarReserva() {
         Reserva reservaSeleccionada = tablaReservas.getSelectionModel().getSelectedItem();
