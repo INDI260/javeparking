@@ -6,11 +6,10 @@ import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReservaRepository {
 
@@ -25,6 +24,7 @@ public class ReservaRepository {
      */
     public void agregarReserva(Reserva reserva) throws SQLException {
         String sql = "INSERT INTO reserva (`horaEntrada`, `horaSalida`, `vehiculoID`, `puestoID`) VALUES ( ?, ?, ?, ?)";
+
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setObject(1,reserva.getHoraEntrada());
         ps.setObject(2,reserva.getHoraSalida());
@@ -41,12 +41,12 @@ public class ReservaRepository {
      * @throws SQLException
      */
     public Reserva buscarReservaVehiculo(Reserva reserva) throws SQLException {
-        String sql = "SELECT * FROM `javeparking`.`reserva` WHERE vehiculoID = ?";
+        String sql = "SELECT * FROM reserva WHERE vehiculoID = ?";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setInt(1,reserva.getVehiculo().getId());
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
-            if(rs.getInt("vehiculoID") == reserva.getVehiculo().getId()) {
+        while (rs.next()) {
+            if (rs.getInt("vehiculoID") == reserva.getVehiculo().getId()) {
                 reserva.setId(rs.getInt("id"));
                 reserva.setVehiculo(vehiculoRepository.buscarVehiculo(rs.getInt("vehiculoID"), reserva.getVehiculo()));
                 reserva.setHoraEntrada((LocalDateTime) rs.getObject("horaEntrada"));
@@ -66,7 +66,7 @@ public class ReservaRepository {
      * @throws SQLException
      */
     public Reserva buscarReservaPorId(int reservaId, Reserva reserva) throws SQLException {
-        String sql = "SELECT * FROM `javeparking`.`reserva` WHERE `id` = ?";
+        String sql = "SELECT * FROM reserva WHERE `id` = ?";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setInt(1, reservaId);
         ResultSet rs = ps.executeQuery();
@@ -91,4 +91,68 @@ public class ReservaRepository {
         return null; // Si no se encuentra la reserva
     }
 
+    /**
+     * Método que actualiza una reserva en la base de datos
+     * @param reserva: Objeto tipo reserva con los nuevos parámetros
+     * @throws SQLException
+     */
+    public void actualizarReserva(Reserva reserva) throws SQLException {
+        String sql = "UPDATE reserva SET `horaEntrada` = ?, `horaSalida` = ?, `vehiculoID` = ?, `puestoID` = ? WHERE `id` = ?";
+        PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
+        ps.setObject(1, reserva.getHoraEntrada());
+        ps.setObject(2, reserva.getHoraSalida());
+        ps.setInt(3, reserva.getVehiculo().getId());
+        ps.setInt(4, reserva.getPuesto().getId());
+        ps.setInt(5, reserva.getId());
+        ps.executeUpdate();
+    }
+
+    /**
+     * Método que elimina una reserva de la base de datos
+     * @param reserva: Objeto tipo reserva a eliminar
+     * @throws SQLException
+     */
+    public void eliminarReserva(Reserva reserva) throws SQLException {
+        String sql = "DELETE FROM reserva WHERE `id` = ?";
+        PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
+        ps.setInt(1, reserva.getId());
+        ps.executeUpdate();
+    }
+
+    /**
+     * Método que obtiene todas las reservas de la base de datos
+     * @return Lista de objetos Reserva
+     * @throws SQLException
+     */
+    public List<Reserva> obtenerTodasReservas() throws SQLException {
+        List<Reserva> reservas = new ArrayList<>();
+        String sql = "SELECT * FROM reserva";
+        PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Reserva reserva = new Reserva();
+            reserva.setId(rs.getInt("id"));
+
+            // Convierte el Timestamp a LocalDateTime
+            Timestamp horaEntradaTimestamp = rs.getTimestamp("horaEntrada");
+            reserva.setHoraEntrada(horaEntradaTimestamp != null ? horaEntradaTimestamp.toLocalDateTime() : null);
+
+            Timestamp horaSalidaTimestamp = rs.getTimestamp("horaSalida");
+            reserva.setHoraSalida(horaSalidaTimestamp != null ? horaSalidaTimestamp.toLocalDateTime() : null);
+
+            // Inicializa el objeto Vehiculo
+            Vehiculo vehiculo = new Vehiculo();
+            reserva.setVehiculo(vehiculoRepository.buscarVehiculo(rs.getInt("vehiculoID"), vehiculo));
+
+            // Inicializa el objeto Puesto
+            Puesto puesto = new Puesto();
+            reserva.setPuesto(puestoRepository.buscarPuesto(rs.getInt("puestoID"), puesto));
+
+            reservas.add(reserva);
+        }
+
+        return reservas;
+    }
 }
+

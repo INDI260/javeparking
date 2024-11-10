@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 
 public class PagoReservaController {
 
-    PagoService pagoService;
-    PagoReserva pagoReserva = new PagoReserva();
+    PagoService pagoService = new PagoService();
+    PagoReserva pagoReserva;
 
     @FXML
     public TextField IDPlaca;
@@ -29,16 +29,20 @@ public class PagoReservaController {
     private void pagoReservas() throws SQLException {
 
         if(pagoReserva == null) {
+            pagoReserva = new PagoReserva();
             pagoService.calcularPago(IDPlaca.getText(),IDReserva.getText(), pagoReserva);
         }
         pagoService.pagarReserva(pagoReserva);
         pagoReserva = null;
+        showSuccess("Pago realizado con éxito.");
     }
 
     @FXML
     private void mostrarPrecio(){
+
         try {
             pagoService.calcularPago(IDPlaca.getText(), IDReserva.getText(), pagoReserva);
+            showSuccess("Su factura es de un valor de: "+ pagoReserva.getValor());
         }
         catch (SQLException e) {
             showError("Error en el pago de reservas: " + e.getMessage());

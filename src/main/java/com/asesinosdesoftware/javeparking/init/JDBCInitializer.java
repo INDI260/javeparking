@@ -2,6 +2,8 @@ package com.asesinosdesoftware.javeparking.init;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -248,11 +250,19 @@ public class JDBCInitializer {
 
 
     public void inicializarTablas(){
-        try (Connection conn = dbConnectionManager.getConnection();) {
-            String sqlFile = this.getClass().getResource("/javeparking.sql").getFile();
-            RunScript.execute(conn, new FileReader(sqlFile));
+        try (Connection conn = dbConnectionManager.getConnection();
+             InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream("/javeparking.sql"))) {
+
+            if (reader == null) {
+                throw new FileNotFoundException("Archivo javeparking.sql no encontrado en el classpath");
+            }
+
+            RunScript.execute(conn, reader);
+
         } catch (SQLException | FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
