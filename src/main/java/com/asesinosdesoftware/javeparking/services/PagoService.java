@@ -41,6 +41,7 @@ public class PagoService {
 
         LocalDateTime fechaActual = LocalDateTime.now();
 
+        pagoReserva = new PagoReserva();
         pagoReserva.setFecha(fechaActual);
         pagoReserva.setReserva(reserva);
         pagoReserva.setMetodoPago("Online");

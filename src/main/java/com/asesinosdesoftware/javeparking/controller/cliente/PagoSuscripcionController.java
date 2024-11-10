@@ -1,19 +1,14 @@
-package com.asesinosdesoftware.javeparking.controller;
+package com.asesinosdesoftware.javeparking.controller.cliente;
 
 import com.asesinosdesoftware.javeparking.entities.Suscripcion;
-import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
-import com.asesinosdesoftware.javeparking.services.InicioDeSesionService;
-import com.asesinosdesoftware.javeparking.services.PagoService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 

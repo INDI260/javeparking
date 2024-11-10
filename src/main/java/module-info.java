@@ -19,4 +19,7 @@ module com.asesinosdesoftware.javeparking {
     exports com.asesinosdesoftware.javeparking.repository;
     exports com.asesinosdesoftware.javeparking.services;
     exports com.asesinosdesoftware.javeparking.exceptions;
+    opens com.asesinosdesoftware.javeparking.controller.menu to javafx.fxml;
+    opens com.asesinosdesoftware.javeparking.controller.cliente to javafx.fxml;
+    opens com.asesinosdesoftware.javeparking.controller.admin to javafx.fxml;
 }

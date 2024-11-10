@@ -1,10 +1,5 @@
-package com.asesinosdesoftware.javeparking.controller;
+package com.asesinosdesoftware.javeparking.controller.menu;
 
-import com.asesinosdesoftware.javeparking.entities.*;
-import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
-import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
-import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
-import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
