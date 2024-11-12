@@ -134,6 +134,10 @@ CREATE TABLE parqueadero (
   TarifaPequeno decimal(10,0) NOT NULL,
   TarifaMediano decimal(10,0) NOT NULL,
   TarifaGrande decimal(10,0) NOT NULL,
+  SuscripcionPequeno decimal(10,0) NOT NULL,
+  SuscripcionMediano decimal(10,0) NOT NULL,
+  SuscripcionGrande decimal(10,0) NOT NULL,
+  DescuentoJaveriano decimal(10,4) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -144,7 +148,7 @@ CREATE TABLE parqueadero (
 
 --LOCK TABLES parqueadero WRITE;
 /*!40000 ALTER TABLE parqueadero DISABLE KEYS */;
-INSERT INTO parqueadero VALUES (1,16,19,21);
+INSERT INTO parqueadero VALUES (1,16,19,21,14,16,18,0.5);
 /*!40000 ALTER TABLE parqueadero ENABLE KEYS */;
 --UNLOCK TABLES;
 
