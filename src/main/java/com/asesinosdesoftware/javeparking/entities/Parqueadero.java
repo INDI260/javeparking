@@ -10,6 +10,10 @@ public class Parqueadero {
     private BigDecimal TarifaPequeno; //Tarifa cobrada por hora para un puesto pequeño
     private BigDecimal TarifaMediano; //Tarifa cobrada por hora para un puesto mediano
     private BigDecimal TarifaGrande; //Tarifa cobrada por hora para un puesto grande
+    private BigDecimal SuscripcionPequeno;
+    private BigDecimal SuscripcionMediano;
+    private BigDecimal SuscripcionGrande;
+    private BigDecimal DescuentoJaveriano;
 
     /*Getters y setters*/
     public int getId() {
@@ -50,5 +54,37 @@ public class Parqueadero {
 
     public void setTarifaGrande(BigDecimal tarifaGrande) {
         TarifaGrande = tarifaGrande;
+    }
+
+    public BigDecimal getDescuentoJaveriano() {
+        return DescuentoJaveriano;
+    }
+
+    public void setDescuentoJaveriano(BigDecimal descuentoJaveriano) {
+        DescuentoJaveriano = descuentoJaveriano;
+    }
+
+    public BigDecimal getSuscripcionGrande() {
+        return SuscripcionGrande;
+    }
+
+    public void setSuscripcionGrande(BigDecimal suscripcionGrande) {
+        SuscripcionGrande = suscripcionGrande;
+    }
+
+    public BigDecimal getSuscripcionMediano() {
+        return SuscripcionMediano;
+    }
+
+    public void setSuscripcionMediano(BigDecimal suscripcionMediano) {
+        SuscripcionMediano = suscripcionMediano;
+    }
+
+    public BigDecimal getSuscripcionPequeno() {
+        return SuscripcionPequeno;
+    }
+
+    public void setSuscripcionPequeno(BigDecimal suscripcionPequeno) {
+        SuscripcionPequeno = suscripcionPequeno;
     }
 }

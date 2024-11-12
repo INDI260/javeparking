@@ -30,7 +30,6 @@ public class PagoSuscripcionController {
     private Button pagarButton;
 
     @FXML
-
     private void mostrarValor() {
 
         try {
