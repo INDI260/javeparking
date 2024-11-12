@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="378.0" prefWidth="634.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.asesinosdesoftware.javeparking.controller.ReservaAdminViewController">
+<AnchorPane prefHeight="378.0" prefWidth="634.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.asesinosdesoftware.javeparking.controller.admin.ReservaAdminViewController">
     <children>
         <Label style="-fx-font-size: 24; -fx-font-weight: bold;" text="Gestión de Reservas" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" />
 

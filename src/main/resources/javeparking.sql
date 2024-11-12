@@ -88,7 +88,9 @@ CREATE TABLE cliente (
 
 --LOCK TABLES cliente WRITE;
 /*!40000 ALTER TABLE cliente DISABLE KEYS */;
-INSERT INTO cliente VALUES (1,'30','Emily','Ramos','n','$2a$10$TLbzW5kwgc354wlTo6XWAuLknBx4EqMAOzKzzAU1HUtg7BiEBbjJS'),(2,'40','Tran','Esposito','a','$2a$10$/AwbCPDoJ5aTjW87X7XwQuyRlxY09fPgPjxKDZeNCCbxpzgDXD/96'),(3,'50','Maria','Menethil','e','$2a$10$fPRqtz8UTVuiVDkgOIdVzOYIkrsn3tBNSvvaVB7bjchuHRRdd8H.m');
+INSERT INTO cliente VALUES (1,'30','Emily','Ramos','n','$2a$10$TLbzW5kwgc354wlTo6XWAuLknBx4EqMAOzKzzAU1HUtg7BiEBbjJS'),
+                           (2,'40','Tran','Esposito','a','$2a$10$/AwbCPDoJ5aTjW87X7XwQuyRlxY09fPgPjxKDZeNCCbxpzgDXD/96'),
+                           (3,'50','Maria','Menethil','e','$2a$10$fPRqtz8UTVuiVDkgOIdVzOYIkrsn3tBNSvvaVB7bjchuHRRdd8H.m');
 /*!40000 ALTER TABLE cliente ENABLE KEYS */;
 --UNLOCK TABLES;
 
@@ -148,7 +150,7 @@ CREATE TABLE parqueadero (
 
 --LOCK TABLES parqueadero WRITE;
 /*!40000 ALTER TABLE parqueadero DISABLE KEYS */;
-INSERT INTO parqueadero VALUES (1,16,19,21,14,16,18,0.5);
+INSERT INTO parqueadero VALUES (1,16,19,21,14,16,19,0.5);
 /*!40000 ALTER TABLE parqueadero ENABLE KEYS */;
 --UNLOCK TABLES;
 

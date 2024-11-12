@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.Scene?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.asesinosdesoftware.javeparking.controller.PagoSuscripcionController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.asesinosdesoftware.javeparking.controller.cliente.PagoSuscripcionController">
         <children>
                 <Label text="Ingrese la placa del vehículo:" layoutX="20" layoutY="20" />
                 <TextField fx:id="IDPlaca" layoutX="20" layoutY="50" />

@@ -1,19 +1,12 @@
-package com.asesinosdesoftware.javeparking.controller;
+package com.asesinosdesoftware.javeparking.controller.cliente;
 
 import com.asesinosdesoftware.javeparking.entities.*;
-import com.asesinosdesoftware.javeparking.repository.*;
 import com.asesinosdesoftware.javeparking.services.PagoService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
-import java.math.BigDecimal;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class PagoReservaController {
 
@@ -29,7 +22,6 @@ public class PagoReservaController {
     private void pagoReservas() throws SQLException {
 
         if(pagoReserva == null) {
-            pagoReserva = new PagoReserva();
             pagoService.calcularPago(IDPlaca.getText(),IDReserva.getText(), pagoReserva);
         }
         pagoService.pagarReserva(pagoReserva);

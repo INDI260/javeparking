@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class PagoService {
 
@@ -17,6 +18,7 @@ public class PagoService {
     ReservaRepository reservaRepository = new ReservaRepository();
     ParqueaderoRepository parqueaderoRepository= new ParqueaderoRepository();
     PagoRepository pagoRepository = new PagoRepository();
+    SuscripcionRepository suscripcionRepository= new SuscripcionRepository();
 
 
 
@@ -41,6 +43,7 @@ public class PagoService {
 
         LocalDateTime fechaActual = LocalDateTime.now();
 
+        pagoReserva = new PagoReserva();
         pagoReserva.setFecha(fechaActual);
         pagoReserva.setReserva(reserva);
         pagoReserva.setMetodoPago("Online");
@@ -73,5 +76,6 @@ public class PagoService {
     public void pagarReserva(PagoReserva pagoReserva) throws SQLException {
         pagoRepository.agregarPagoReserva(pagoReserva);
     }
+
 
 }
