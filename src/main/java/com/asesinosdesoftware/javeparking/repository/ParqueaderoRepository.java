@@ -32,6 +32,10 @@ public class ParqueaderoRepository {
             parqueadero.setTarifaPequeno(rs.getBigDecimal("TarifaPequeno"));
             parqueadero.setTarifaMediano(rs.getBigDecimal("TarifaMediano"));
             parqueadero.setTarifaGrande(rs.getBigDecimal("TarifaGrande"));
+            parqueadero.setSuscripcionPequeno(rs.getBigDecimal("SuscripcionPequeno"));
+            parqueadero.setSuscripcionMediano(rs.getBigDecimal("SuscripcionMediano"));
+            parqueadero.setSuscripcionGrande(rs.getBigDecimal("SuscripcionGrande"));
+            parqueadero.setDescuentoJaveriano(rs.getBigDecimal("DescuentoJaveriano"));
             return parqueadero;
         }
 
