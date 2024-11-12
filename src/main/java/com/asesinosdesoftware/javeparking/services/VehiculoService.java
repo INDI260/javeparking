@@ -15,11 +15,20 @@ public class VehiculoService {
     VehiculoRepository vehiculoRepository = new VehiculoRepository();
     ClienteRepository clienterepository = new ClienteRepository();
 
+    /**
+     * metodo que permite al cliente aosicar un vehiculo a su usuario
+     * @param IdTamano
+     * @param IdTipo
+     * @param IdPlaca
+     * @param vehiculo
+     * @throws SQLException
+     * @throws RepositoryException
+     */
+
     public void registroVehiculo(String IdTamano, String IdTipo, String IdPlaca,Vehiculo vehiculo) throws SQLException, RepositoryException {
 
         Cliente Dueno = new Cliente();
 
-        vehiculo = new Vehiculo();
         vehiculo.setTamano(IdTamano.charAt(0));
         vehiculo.setTipo(IdTipo.charAt(0));
         vehiculo.setPlaca(IdPlaca);
@@ -29,6 +38,16 @@ public class VehiculoService {
         vehiculoRepository.agregarVehiculo(vehiculo);
 
     }
+
+    /**
+     * Metodo que permite al cliente eliminar un vehiculo asociado a su Usuario
+     * @param IDPlaca
+     * @param vehiculo
+     * @param dueno
+     * @throws SQLException
+     * @throws ServiceException
+     * @throws RepositoryException
+     */
 
     public void EliminarVehiculo(String IDPlaca, Vehiculo vehiculo,Cliente dueno) throws SQLException, ServiceException, RepositoryException {
 

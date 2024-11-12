@@ -20,6 +20,16 @@ public class SuscripcionService {
     VehiculoRepository vehiculoRepository = new VehiculoRepository();
     SuscripcionRepository suscripcionRepository = new SuscripcionRepository();
 
+    /**
+     * Metodo que permite al cliente crear una suscripcion por dias aosiciada a su Usuario
+     * @param fechaInicioSuscripcion
+     * @param fechaFinSuscripcion
+     * @param placa
+     * @param suscripcion
+     * @throws SQLException
+     * @throws ServiceException
+     */
+
     public void agregarSuscripcion(LocalDateTime fechaInicioSuscripcion,LocalDateTime fechaFinSuscripcion, String placa,Suscripcion suscripcion) throws SQLException, ServiceException {
 
             // Crear objeto Cliente
