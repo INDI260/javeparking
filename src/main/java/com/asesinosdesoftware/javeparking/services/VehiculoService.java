@@ -27,6 +27,7 @@ public class VehiculoService {
 
     public void registroVehiculo(String IdTamano, String IdTipo, String IdPlaca,Vehiculo vehiculo) throws SQLException, RepositoryException {
 
+        vehiculo = new Vehiculo();
         Cliente Dueno = new Cliente();
 
         vehiculo.setTamano(IdTamano.charAt(0));
