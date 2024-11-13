@@ -1,4 +1,4 @@
-package com.asesinosdesoftware.javeparking.controller;
+package com.asesinosdesoftware.javeparking.controller.menu;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

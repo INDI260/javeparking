@@ -3,9 +3,8 @@ package com.asesinosdesoftware.javeparking.services;
 import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
-import com.asesinosdesoftware.javeparking.exceptions.ReservasException;
+import com.asesinosdesoftware.javeparking.exceptions.ServiceException;
 import com.asesinosdesoftware.javeparking.repository.*;
-import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,9 +36,9 @@ public class ReservaAdService {
      * @param IdTamano
      * @param reserva
      * @throws SQLException
-     * @throws ReservasException
+     * @throws ServiceException
      */
-    public void crearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva reserva) throws SQLException,ReservasException {
+    public void crearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva reserva) throws SQLException, ServiceException {
 
         LocalDate fechaActual = LocalDate.now();
         LocalTime horaEntrada = LocalTime.parse(IDHoraEntrada);
@@ -49,7 +47,7 @@ public class ReservaAdService {
         LocalDateTime horaSalidaCompleta = LocalDateTime.of(fechaActual, horaSalida);
 
         if (horaSalidaCompleta.isBefore(horaEntradaCompleta) || horaSalidaCompleta.isEqual(horaEntradaCompleta)) {
-            throw new ReservasException("Hora de entrada y salida mal definida");
+            throw new ServiceException("Hora de entrada y salida mal definida");
         }
 
         Vehiculo vehiculo = new Vehiculo();
@@ -59,10 +57,10 @@ public class ReservaAdService {
         puestoRepository.buscarPuesto(IdTamano,false,puesto);
 
         if(vehiculo.getTamano()!=IdTamano.charAt(0)){
-            throw new ReservasException("Tamaño de reserva y de auto no coinciden");
+            throw new ServiceException("Tamaño de reserva y de auto no coinciden");
 
         }
-
+        reserva = new Reserva();
         reserva.setHoraEntrada(horaEntradaCompleta);
         reserva.setHoraSalida(horaSalidaCompleta);
         reserva.setVehiculo(vehiculo);
@@ -83,9 +81,9 @@ public class ReservaAdService {
      * @param IdTamano
      * @param reservaSeleccionada
      * @throws SQLException
-     * @throws ReservasException
+     * @throws ServiceException
      */
-    public void editarReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva reservaSeleccionada) throws SQLException,ReservasException {
+    public void editarReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva reservaSeleccionada) throws SQLException, ServiceException {
              // Actualizar datos de reserva aquí
                 Puesto puesto = new Puesto();
                 ReservaRepository reservaRepository = new ReservaRepository();
@@ -97,7 +95,7 @@ public class ReservaAdService {
                 LocalDateTime horaSalidaCompleta = LocalDateTime.of(fechaActual, horaSalida);
 
                 if (horaSalidaCompleta.isBefore(horaEntradaCompleta) || horaSalidaCompleta.isEqual(horaEntradaCompleta)) {
-                    throw new ReservasException("Hora de entrada y salida mal definida");
+                    throw new ServiceException("Hora de entrada y salida mal definida");
 
                 }
 
@@ -116,7 +114,7 @@ public class ReservaAdService {
 
 
                 if(vehiculo.getTamano()!=IdTamano.charAt(0)){
-                    throw new ReservasException("Tamaño de reserva y de auto no coinciden");
+                    throw new ServiceException("Tamaño de reserva y de auto no coinciden");
 
                 }
 
