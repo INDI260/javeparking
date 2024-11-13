@@ -44,7 +44,7 @@ public class ReservaValetService {
 
         // Buscar un puesto disponible para valet parking (sin tener en cuenta tamaño)
         Puesto puesto = new Puesto();
-        puestoRepository.buscarPuesto(IdTamano,false,puesto);
+        puestoRepository.buscarPuesto("", false, puesto); // Aquí se pasa una cadena vacía para buscar cualquier puesto disponible
 
         if (puesto == null) {
             throw new ReservasException("No hay puestos disponibles para valet parking.");
@@ -99,7 +99,7 @@ public class ReservaValetService {
 
         // Buscar un nuevo puesto disponible para valet parking
         Puesto nuevoPuesto = new Puesto();
-        puestoRepository.buscarPuesto(IdTamano,false,puesto);
+        puestoRepository.buscarPuesto("", false, nuevoPuesto); // Pasamos una cadena vacía para buscar cualquier puesto disponible
 
         if (nuevoPuesto == null) {
             throw new ReservasException("No hay puestos disponibles para valet parking.");
