@@ -20,7 +20,6 @@ public class ParqueaderoService {
         BigDecimal bdSuGrande = new BigDecimal(suGrande);
         BigDecimal bdJaveriana = new BigDecimal(idjave);
 
-        parqueadero = new Parqueadero();
         parqueadero.setTarifaPequeno(bdParqPequeno);
         parqueadero.setTarifaMediano(bdParqMediano);
         parqueadero.setTarifaGrande(bdParqGrande);

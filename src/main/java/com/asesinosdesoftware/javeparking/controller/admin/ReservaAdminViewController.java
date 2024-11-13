@@ -81,6 +81,7 @@ public class ReservaAdminViewController {
     private void crearReserva() throws SQLException {
         try{
             if(R==null){
+                R = new Reserva();
             RAd.crearReserva(IDHoraEntrada.getValue(),IDHoraSalida.getValue(),IDplaca.getText(),IdTamano.getValue(),R);
 
         }
@@ -88,6 +89,7 @@ public class ReservaAdminViewController {
             showSuccess("Reserva Creada con exito");
             cargarReservas();
         } catch (ServiceException e){
+            R = null;
             showError(e.toString());
         }
     }

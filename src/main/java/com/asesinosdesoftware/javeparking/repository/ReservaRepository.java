@@ -77,9 +77,10 @@ public class ReservaRepository {
             // Inicializa el objeto Vehiculo
             Vehiculo vehiculo = new Vehiculo();
             reserva.setVehiculo(vehiculoRepository.buscarVehiculo(rs.getInt("vehiculoID"), vehiculo));
-
-            reserva.setHoraEntrada((LocalDateTime) rs.getObject("horaEntrada"));
-            reserva.setHoraSalida((LocalDateTime) rs.getObject("horaSalida"));
+            Timestamp timestampInicio = rs.getTimestamp("horaEntrada");
+            reserva.setHoraEntrada(timestampInicio.toLocalDateTime());
+            Timestamp timestampFin = rs.getTimestamp("horaSalida");
+            reserva.setHoraSalida(timestampFin.toLocalDateTime());
 
             // Inicializa el objeto Puesto
             Puesto puesto = new Puesto();

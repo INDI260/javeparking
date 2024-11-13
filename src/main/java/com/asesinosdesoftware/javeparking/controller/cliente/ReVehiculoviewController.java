@@ -27,12 +27,14 @@ public class ReVehiculoviewController {
     try {
 
         if(vehiculo==null) {
+            vehiculo = new Vehiculo();
             vehiculoService.registroVehiculo(IdTamano.getValue(),IdTipo.getText(),IdPlaca.getText(),vehiculo);
         }
         vehiculo=null;
         showSuccess("Vehiculo registrado con exito");
 
     } catch (Exception e){
+        vehiculo=null;
         showError(e.toString());
 
     }

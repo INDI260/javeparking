@@ -45,7 +45,7 @@ public class ReservaCService {
             if(V.getTamano()!=IdTamano.charAt(0)){
                 throw new ServiceException("Tamaño de reserva y de auto no coinciden");
             }
-            R = new Reserva();
+
             R.setHoraEntrada(HoradeEntrada);
             R.setHoraSalida(HoradeSalida);
             R.setVehiculo(V);

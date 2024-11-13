@@ -60,7 +60,6 @@ public class ReservaAdService {
             throw new ServiceException("Tamaño de reserva y de auto no coinciden");
 
         }
-        reserva = new Reserva();
         reserva.setHoraEntrada(horaEntradaCompleta);
         reserva.setHoraSalida(horaSalidaCompleta);
         reserva.setVehiculo(vehiculo);

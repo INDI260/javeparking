@@ -43,4 +43,30 @@ public class ParqueaderoRepository {
         return null;
     }
 
+    public void agregarParqueadero(Parqueadero parqueadero) throws SQLException {
+        String sql = "INSERT INTO parqueadero (TarifaPequeno, TarifaMediano, TarifaGrande, "
+                + "SuscripcionPequeno, SuscripcionMediano, SuscripcionGrande, DescuentoJaveriano) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        PreparedStatement ps = dbconnectionManager.getConnection().prepareStatement(sql);
+        ps.setBigDecimal(1, parqueadero.getTarifaPequeno());
+        ps.setBigDecimal(2, parqueadero.getTarifaMediano());
+        ps.setBigDecimal(3, parqueadero.getTarifaGrande());
+        ps.setBigDecimal(4, parqueadero.getSuscripcionPequeno());
+        ps.setBigDecimal(5, parqueadero.getSuscripcionMediano());
+        ps.setBigDecimal(6, parqueadero.getSuscripcionGrande());
+        ps.setBigDecimal(7, parqueadero.getDescuentoJaveriano());
+
+        // Ejecutar la inserción
+        int rowsAffected = ps.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Parqueadero agregado exitosamente.");
+        } else {
+            System.out.println("Error al agregar el parqueadero.");
+        }
+
+        // Cerrar el PreparedStatement
+        ps.close();
+    }
+
 }

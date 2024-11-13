@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 
 public class SuscripcionViewController {
 
+
     Suscripcion suscripcion;
     SuscripcionService suscripcionService = new SuscripcionService();
 
@@ -25,16 +26,20 @@ public class SuscripcionViewController {
     private DatePicker fechaFinPicker; // Campo para ingresar la fecha de fin
     @FXML
     private TextField placaTextField;
-
+    @FXML
+    private TextField idparq;
     @FXML
     private void agregarSuscripcion() {
+        int idParq = Integer.parseInt(idparq.getText());
         try{
             if(suscripcion==null){
-                suscripcionService.agregarSuscripcion(fechaInicioPicker.getValue().atStartOfDay(),fechaFinPicker.getValue().atStartOfDay(),placaTextField.getText(),suscripcion);
+                suscripcion = new Suscripcion();
+                suscripcionService.agregarSuscripcion(fechaInicioPicker.getValue().atStartOfDay(),fechaFinPicker.getValue().atStartOfDay(),placaTextField.getText(),idParq,suscripcion);
             }
             suscripcion = null;
             showSuccess("Suscripcion Creada con exito");
         } catch (ServiceException | SQLException e){
+            suscripcion = null;
             showError(e.toString());
         }
     }

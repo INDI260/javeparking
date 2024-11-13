@@ -18,17 +18,25 @@ public class PagoSuscripcionController {
 
     @FXML
     private void pagoSuscripcion() throws SQLException {
-        if (pagoSuscripcion == null) {
-            pagoService.calcularPagoSuscripcion(IDPlaca.getText(), pagoSuscripcion);
+        try {
+            if (pagoSuscripcion == null) {
+                pagoSuscripcion = new PagoSuscripcion();
+                pagoService.calcularPagoSuscripcion(IDPlaca.getText(), pagoSuscripcion);
+            }
+            pagoService.pagarSuscripcion(pagoSuscripcion);
+            pagoSuscripcion = null;
+            showSuccess("Pago de suscripción realizado con éxito.");
+        }catch (SQLException e){
+            pagoSuscripcion = null;
+            e.printStackTrace();
         }
-        pagoService.pagarSuscripcion(pagoSuscripcion);
-        pagoSuscripcion = null;
-        showSuccess("Pago de suscripción realizado con éxito.");
     }
 
     @FXML
     private void mostrarPrecioSuscripcion() {
         try {
+
+            pagoSuscripcion = new PagoSuscripcion();
             pagoService.calcularPagoSuscripcion(IDPlaca.getText(), pagoSuscripcion);
             showSuccess("Su factura de suscripción es de un valor de: " + pagoSuscripcion.getValor());
         } catch (SQLException e) {

@@ -10,16 +10,7 @@ public class Suscripcion {
     private LocalDateTime fechaInicio; // Fecha de inicio
     private LocalDateTime fechaFin; // Fecha de finalización
     private String estado; // Activa o inactiva
-    private Parqueadero parqueadero; // Se agrega el campo parqueadero
-
-    // Métodos getter y setter
-    public Parqueadero getParqueadero() {
-        return parqueadero;
-    }
-
-    public void setParqueadero(Parqueadero parqueadero) {
-        this.parqueadero = parqueadero;
-    }
+    private int idparq; // Se agrega el campo parqueadero
 
     /**
      * Método constructor por parámetros
@@ -89,6 +80,14 @@ public class Suscripcion {
 
     public void setEstado(String estado) {
         this.estado = estado; // Se puede establecer el estado desde el controlador
+    }
+
+    public int getIdparq() {
+        return idparq;
+    }
+
+    public void setIdparq(int idparq) {
+        this.idparq = idparq;
     }
 
     @Override

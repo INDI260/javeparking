@@ -42,7 +42,6 @@ public class PagoService {
 
         LocalDateTime fechaActual = LocalDateTime.now();
 
-        pagoReserva = new PagoReserva();
         pagoReserva.setFecha(fechaActual);
         pagoReserva.setReserva(reserva);
         pagoReserva.setMetodoPago("Online");
@@ -83,15 +82,15 @@ public class PagoService {
             throw new SQLException("Vehículo no encontrado para la placa: " + placa);
         }
 
-        suscripcionRepository.buscarSuscripcionPorVehiculo(placa, suscripcion);
+        suscripcionRepository.buscarSuscripcionPorVehiculo(vehiculo, suscripcion);
         if (suscripcion.getId() == 0) {
             throw new SQLException("Suscripción no encontrada para el vehículo con placa: " + placa);
         }
 
         // Obtener el parqueadero asociado a la suscripción
-        parqueaderoRepository.buscarParqueaderoPorId(suscripcion.getParqueadero().getId(), parqueadero);
-        if (parqueadero.getId() == 0) {
-            throw new SQLException("Parqueadero no encontrado para la suscripción");
+        parqueaderoRepository.buscarParqueaderoPorId(suscripcion.getIdparq(), parqueadero);
+        if (parqueadero.getId() <= 0) {
+            throw new SQLException("Parqueadero no encontrado para la suscripción"+suscripcion.getIdparq());
         }
 
         // Calcular el total de días de suscripción

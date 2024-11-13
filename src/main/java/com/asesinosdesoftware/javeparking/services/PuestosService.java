@@ -21,7 +21,6 @@ public class PuestosService {
             throw new ServiceException("No se encontro el parqueadero solicitado");
         }
 
-        puesto = new Puesto();
         for (int i=0; i<cantP; i++){
             puesto.setTamano('p');
             puesto.setDisponibilidad(false);
