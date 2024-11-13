@@ -3,69 +3,63 @@ package com.asesinosdesoftware.javeparking.controller.cliente;
 import com.asesinosdesoftware.javeparking.entities.PagoSuscripcion;
 import com.asesinosdesoftware.javeparking.services.PagoService;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import javafx.scene.control.TextField;
+
+import java.sql.SQLException;
 
 public class PagoSuscripcionController {
 
-    @FXML
-    private TextField placaField;
+    PagoService pagoService = new PagoService();
+    PagoSuscripcion pagoSuscripcion;
 
     @FXML
-    private ComboBox<String> metodoPagoCombo;
+    public TextField IDPlaca;
 
     @FXML
-    private DatePicker fechaPagoPicker;
-
-    @FXML
-    private TextField valorField;
-
-    private PagoService pagoService = new PagoService();
-
-    @FXML
-    private void procesarPago() {
-        String placa = placaField.getText();
-        String metodoPago = metodoPagoCombo.getValue();
-        LocalDateTime fechaPago = LocalDateTime.of(fechaPagoPicker.getValue(), java.time.LocalTime.now());
-
-        // Validación de entrada
-        if (placa.isEmpty() || metodoPago == null || fechaPagoPicker.getValue() == null) {
-            mostrarAlerta("Error", "Por favor complete todos los campos.");
-            return;
+    private void pagoSuscripcion() throws SQLException {
+        if (pagoSuscripcion == null) {
+            pagoService.calcularPagoSuscripcion(IDPlaca.getText(), pagoSuscripcion);
         }
+        pagoService.pagarSuscripcion(pagoSuscripcion);
+        pagoSuscripcion = null;
+        showSuccess("Pago de suscripción realizado con éxito.");
+    }
 
-        PagoSuscripcion pagoSuscripcion = new PagoSuscripcion(null, BigDecimal.ZERO, fechaPago, metodoPago);
-
+    @FXML
+    private void mostrarPrecioSuscripcion() {
         try {
-            // Llamada al servicio para calcular el pago
-            pagoService.calcularPagoSuscripcion(placa, pagoSuscripcion);
-            valorField.setText(pagoSuscripcion.getValor().toString());
-
-            // Llamada al servicio para registrar el pago
-            pagoService.pagarSuscripcion(pagoSuscripcion);
-
-            mostrarAlerta("Éxito", "El pago ha sido procesado exitosamente.");
-        } catch (Exception e) {
-            mostrarAlerta("Error", "Ocurrió un error al procesar el pago: " + e.getMessage());
+            pagoService.calcularPagoSuscripcion(IDPlaca.getText(), pagoSuscripcion);
+            showSuccess("Su factura de suscripción es de un valor de: " + pagoSuscripcion.getValor());
+        } catch (SQLException e) {
+            showError("Error en el cálculo de suscripción: " + e.getMessage());
         }
     }
 
-    /**
-     * Muestra una alerta con el mensaje proporcionado
-     * @param titulo El título de la alerta
-     * @param mensaje El mensaje de la alerta
-     */
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(titulo);
+    // Método para mostrar un mensaje de error
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
         alert.setHeaderText(null);
-        alert.setContentText(mensaje);
+        alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    // Método para mostrar un mensaje de éxito
+    private void showSuccess(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Éxito");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public PagoService getPagoService() {
+        return pagoService;
+    }
+
+    public void setPagoService(PagoService pagoService) {
+        this.pagoService = pagoService;
     }
 }
 

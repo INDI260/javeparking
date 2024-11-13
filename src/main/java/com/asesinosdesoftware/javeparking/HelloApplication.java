@@ -40,8 +40,6 @@ public class HelloApplication extends Application {
             JDBCInitializer initializer = new JDBCInitializer(dbConnectionManager,administradorRepository,clienteRepository,empleadoRepository);
             initializer.inicializarTablas();
 
-
-
         } catch (Exception e) {
             System.out.println("Ocurrio un error: " + e);
         }
