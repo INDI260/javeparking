@@ -73,7 +73,7 @@ public class InicioDeSesionTest {
             fail(e.getMessage());
         }
 
-    }
+    }                           
 
     @Test
     void inicioDeSesionConSesionYaAbierta() {
