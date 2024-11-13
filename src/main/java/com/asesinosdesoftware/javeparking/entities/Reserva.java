@@ -78,4 +78,8 @@ public class Reserva {
     public void setPuesto(Puesto puesto) {
         this.puesto = puesto;
     }
+
+    public char getTamano() {
+        return vehiculo != null ? vehiculo.getTamano() : ' '; // Retorna un espacio si el vehículo es nulo
+    }
 }

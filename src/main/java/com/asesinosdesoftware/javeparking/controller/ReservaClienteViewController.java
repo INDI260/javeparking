@@ -12,6 +12,9 @@ public class ReservaClienteViewController {
     @FXML
     private AnchorPane contenedor;
 
+    /**
+     * Metodo que usa el servicio ReservaAdService para la creacion de la reserva por parte del Cliente
+     */
     @FXML
     private void ReservaIndividual() {
         try {

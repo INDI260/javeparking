@@ -1,10 +1,9 @@
 package com.asesinosdesoftware.javeparking;
 
 import com.asesinosdesoftware.javeparking.entities.Sesion;
-import com.asesinosdesoftware.javeparking.persistencia.DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.services.InicioDeSesionService;
-import com.asesinosdesoftware.javeparking.init.JDBCInitializer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -13,12 +12,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.Objects;
 
 public class HelloController {
 
-    IDBConnectionManager dbConnectionManager = new DBConnectionManager();
+    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
     @FXML
     private BorderPane contenedor;
 

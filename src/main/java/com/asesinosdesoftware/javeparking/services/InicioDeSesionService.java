@@ -35,7 +35,7 @@ public class InicioDeSesionService {
         if(Sesion.getTipo() != 'n'){
             throw new InicioDeSesionException("Ya hay una sesión iniciada. Por favor cierre la sesión antes de comenzar otra.");
         }
-        else if ((administrador = administradorRepository.buscarAdministrador(connection,cedula,administrador)) != null){
+        else if ((administrador = administradorRepository.buscarAdministrador(cedula,administrador)) != null){
             if(PasswordService.checkPassword(password,administrador.getHash())){
                 Sesion.setcedula(cedula);
                 Sesion.setTipo('a');
@@ -45,7 +45,7 @@ public class InicioDeSesionService {
                 throw new InicioDeSesionException("Contraseña incorrecta");
             }
         }
-        else if((cliente = this.clienteRepository.buscarCliente(connection, cedula, cliente)) != null){
+        else if((cliente = this.clienteRepository.buscarCliente(cedula, cliente)) != null){
             if(PasswordService.checkPassword(password, cliente.getHash())){
                 Sesion.setcedula(cedula);
                 Sesion.setTipo('c');
@@ -54,7 +54,7 @@ public class InicioDeSesionService {
             else
                 throw new InicioDeSesionException("Contraseña incorrecta");
         }
-        else if((empleado = empleadoRepository.buscarEmpleado(connection,cedula,empleado)) != null){
+        else if((empleado = empleadoRepository.buscarEmpleado(cedula,empleado)) != null){
             if(PasswordService.checkPassword(password, empleado.getHash())){
                 Sesion.setcedula(cedula);
                 Sesion.setTipo('e');
