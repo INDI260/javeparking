@@ -1,107 +1,75 @@
 package com.asesinosdesoftware.javeparking.controller.cliente;
 
-import com.asesinosdesoftware.javeparking.entities.Suscripcion;
-import com.asesinosdesoftware.javeparking.repository.SuscripcionRepository;
+import com.asesinosdesoftware.javeparking.entities.PagoSuscripcion;
+import com.asesinosdesoftware.javeparking.services.PagoService;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-
-import java.sql.SQLException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 public class PagoSuscripcionController {
 
-
-    Suscripcion suscripcion;
-    SuscripcionRepository suscripcionRepository;
+    @FXML
+    private TextField placaField;
 
     @FXML
-    private TextField IDPlaca;
-    @FXML
-    private Label pagoMensualLabel;
-    @FXML
-    private Label pagoTotalLabel;
-    @FXML
-    private Button mostrarValorButton;
-    @FXML
-    private Button pagarButton;
+    private ComboBox<String> metodoPagoCombo;
 
     @FXML
-    private void mostrarValor() {
+    private DatePicker fechaPagoPicker;
 
-        try {
-            suscripcion = suscripcionRepository.buscarSuscripcionPorVehiculo(IDPlaca.getText().trim(), suscripcion);
+    @FXML
+    private TextField valorField;
 
-            if (suscripcion != null) {
-                calcularYMostrarValores(suscripcion);
-            } else {
-                mostrarError("No se encontró ninguna suscripción para la placa ingresada.");
-            }
-        } catch (SQLException e) {
-            mostrarError("Error al verificar el precio: " + e.getMessage());
-        }
-    }
+    private PagoService pagoService = new PagoService();
 
+    @FXML
+    private void procesarPago() {
+        String placa = placaField.getText();
+        String metodoPago = metodoPagoCombo.getValue();
+        LocalDateTime fechaPago = LocalDateTime.of(fechaPagoPicker.getValue(), java.time.LocalTime.now());
 
-    private void calcularYMostrarValores(Suscripcion suscripcion) {
-        LocalDateTime fechaInicio = suscripcion.getFechaInicio();
-        LocalDateTime fechaFin = suscripcion.getFechaFin();
-
-        // Validar que las fechas no sean null
-        if (fechaInicio == null || fechaFin == null) {
-            pagoTotalLabel.setText("Fechas no válidas");
-            pagoMensualLabel.setText("Fechas no válidas");
+        // Validación de entrada
+        if (placa.isEmpty() || metodoPago == null || fechaPagoPicker.getValue() == null) {
+            mostrarAlerta("Error", "Por favor complete todos los campos.");
             return;
         }
 
-        long diasSuscripcion = ChronoUnit.DAYS.between(fechaInicio, fechaFin) + 1;
-        char tamanoVehiculo = suscripcion.getVehiculo().getTamano();
-        double precioDiario = calcularPrecioSuscripcion(tamanoVehiculo);
-        double valorSuscripcionTotal = precioDiario * diasSuscripcion;
-        double valorSuscripcionMensual = precioDiario * 30;
+        PagoSuscripcion pagoSuscripcion = new PagoSuscripcion(null, BigDecimal.ZERO, fechaPago, metodoPago);
 
-        // Mostrar los valores en las etiquetas
-        pagoTotalLabel.setText("$" + String.format("%.2f", valorSuscripcionTotal));
-        pagoMensualLabel.setText(diasSuscripcion > 30 ? "$" + String.format("%.2f", valorSuscripcionMensual) : "No aplica");
-    }
+        try {
+            // Llamada al servicio para calcular el pago
+            pagoService.calcularPagoSuscripcion(placa, pagoSuscripcion);
+            valorField.setText(pagoSuscripcion.getValor().toString());
 
-    private double calcularPrecioSuscripcion(char tamano) {
-        switch (tamano) {
-            case 'p': return 5000; // Pequeño
-            case 'm': return 7500; // Mediano
-            case 'g': return 10000; // Grande
-            default:
-                return 0;
+            // Llamada al servicio para registrar el pago
+            pagoService.pagarSuscripcion(pagoSuscripcion);
+
+            mostrarAlerta("Éxito", "El pago ha sido procesado exitosamente.");
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Ocurrió un error al procesar el pago: " + e.getMessage());
         }
     }
 
-    @FXML
-    private void realizarPago() {
-        // Aquí se puede llamar al servicio para hacer el pago
-
-
-
-    }
-
-    private void mostrarError(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
-
-    private void mostrarExito(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Éxito");
+    /**
+     * Muestra una alerta con el mensaje proporcionado
+     * @param titulo El título de la alerta
+     * @param mensaje El mensaje de la alerta
+     */
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
 }
+
+
 
 
 

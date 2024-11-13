@@ -42,5 +42,4 @@ public class ParqueaderoRepository {
         // Si no se encuentra el parqueadero
         return null;
     }
-
 }

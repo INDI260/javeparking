@@ -9,5 +9,4 @@ public abstract class Pago {
     private BigDecimal valor; // El valor monetario que debe recibirse en el pago
     private LocalDateTime fecha;//Este atributo guarda la fecha y la hora de entrada del vehículo en la reserva.
     private String metodoPago;
-
 }
