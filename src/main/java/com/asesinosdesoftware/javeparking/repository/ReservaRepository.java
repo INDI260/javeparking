@@ -48,7 +48,7 @@ public class ReservaRepository {
         while (rs.next()) {
             if (rs.getInt("vehiculoID") == reserva.getVehiculo().getId()) {
                 reserva.setId(rs.getInt("id"));
-                reserva.setVehiculo(vehiculoRepository.buscarVehiculo(rs.getInt("vehiculoID"), reserva.getVehiculo()));
+                reserva.setVehiculo(vehiculoRepository.buscarVehiculoID(rs.getInt("vehiculoID"), reserva.getVehiculo()));
                 reserva.setHoraEntrada((LocalDateTime) rs.getObject("horaEntrada"));
                 reserva.setHoraSalida((LocalDateTime) rs.getObject("horaSalida"));
                 reserva.setPuesto(puestoRepository.buscarPuesto(rs.getInt("puestoID"), reserva.getPuesto()));
@@ -76,7 +76,7 @@ public class ReservaRepository {
 
             // Inicializa el objeto Vehiculo
             Vehiculo vehiculo = new Vehiculo();
-            reserva.setVehiculo(vehiculoRepository.buscarVehiculo(rs.getInt("vehiculoID"), vehiculo));
+            reserva.setVehiculo(vehiculoRepository.buscarVehiculoID(rs.getInt("vehiculoID"), vehiculo));
 
             reserva.setHoraEntrada((LocalDateTime) rs.getObject("horaEntrada"));
             reserva.setHoraSalida((LocalDateTime) rs.getObject("horaSalida"));
@@ -143,7 +143,7 @@ public class ReservaRepository {
 
             // Inicializa el objeto Vehiculo
             Vehiculo vehiculo = new Vehiculo();
-            reserva.setVehiculo(vehiculoRepository.buscarVehiculo(rs.getInt("vehiculoID"), vehiculo));
+            reserva.setVehiculo(vehiculoRepository.buscarVehiculoID(rs.getInt("vehiculoID"), vehiculo));
 
             // Inicializa el objeto Puesto
             Puesto puesto = new Puesto();

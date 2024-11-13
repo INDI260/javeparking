@@ -47,7 +47,7 @@ public class SuscripcionViewController {
             suscripcion.setFechaInicio(fechaInicioSuscripcion);
             suscripcion.setFechaFin(fechaFinSuscripcion);
             suscripcion.setVehiculo(new Vehiculo());
-            if(vehiculoRepository.buscarVehiculo(placa, suscripcion.getVehiculo()) == null)
+            if(vehiculoRepository.buscarVehiculoPlaca(placa, suscripcion.getVehiculo()) == null)
                 showError("El vehiculo no está registrado");
 
             // Calcular el estado de la suscripción

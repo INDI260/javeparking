@@ -3,7 +3,6 @@ package com.asesinosdesoftware.javeparking.repository;
 import com.asesinosdesoftware.javeparking.entities.PagoSuscripcion;
 import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

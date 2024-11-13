@@ -20,7 +20,7 @@ public class VehiculoRepository {
      * @return Si se encuentra retorna un objeto tipo Vehículo con los parámetros encontrados en la base de datos o de lo contrario retorna null
      * @throws SQLException
      */
-    public Vehiculo buscarVehiculo(String placa, Vehiculo vehiculo) throws SQLException {
+    public Vehiculo buscarVehiculoPlaca(String placa, Vehiculo vehiculo) throws SQLException{
 
         String sql = "SELECT * FROM vehiculo WHERE placa = ?";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
@@ -46,7 +46,7 @@ public class VehiculoRepository {
      * @return Si se encuentra retorna un objeto tipo Vehículo con los parámetros encontrados en la base de datos o de lo contrario retorna null
      * @throws SQLException
      */
-    public Vehiculo buscarVehiculo(int id, Vehiculo vehiculo) throws SQLException {
+    public Vehiculo buscarVehiculoID(int id, Vehiculo vehiculo) throws SQLException {
 
         String sql = "SELECT * FROM vehiculo WHERE id = ?";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
@@ -74,7 +74,7 @@ public class VehiculoRepository {
      */
     public void agregarVehiculo(Vehiculo vehiculo) throws SQLException, RepositoryException {
 
-        if(buscarVehiculo(vehiculo.getPlaca(), new Vehiculo()) == null) {
+        if(buscarVehiculoPlaca(vehiculo.getPlaca(), new Vehiculo()) == null) {
             String sql = "INSERT INTO vehiculo (`placa`, `tamano`, `tipo`,`clienteid`) VALUES ( ?, ?, ?,?);";
             PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
             ps.setString(1, vehiculo.getPlaca());

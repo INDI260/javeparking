@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+<?import java.lang.String?>
+
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.RegistroOpController"
+      spacing="15" padding="20" alignment="CENTER">
+
+    <children>
+        <!-- Campo para ingresar la placa del vehículo -->
+        <TextField fx:id="txtPlaca" promptText="Placa del Vehículo" />
+
+        <!-- ComboBox para seleccionar el tamaño del vehículo -->
+        <ComboBox fx:id="cmbTamano" promptText="Selecciona el tamaño">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String>Grande</String>
+                    <String>Mediano</String>
+                    <String>Pequeño</String>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <!-- Campo para ingresar el tipo de vehículo -->
+        <TextField fx:id="txtTipo" promptText="Escribe el tipo de vehículo" />
+
+        <!-- Botón para registrar el vehículo -->
+        <Button text="Registrar Vehículo" onAction="#agregarVehiculo" />
+    </children>
+
+</VBox>
+
+
+

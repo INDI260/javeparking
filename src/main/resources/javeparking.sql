@@ -24,6 +24,7 @@
 
 DROP TABLE IF EXISTS pagoreserva;
 DROP TABLE IF EXISTS pagosuscripcion;
+DROP TABLE IF EXISTS pagoop;
 DROP TABLE IF EXISTS administrador;
 DROP TABLE IF EXISTS reserva;
 DROP TABLE IF EXISTS empleado;
@@ -32,12 +33,6 @@ DROP TABLE IF EXISTS parqueadero;
 DROP TABLE IF EXISTS suscripcion;
 DROP TABLE IF EXISTS vehiculo;
 DROP TABLE IF EXISTS cliente;
-
-
-
-
-
-
 
 
 
@@ -119,9 +114,6 @@ INSERT INTO empleado VALUES (1,'20','Simba','Gonzales','$2a$10$AnfaTGHCE4RSXkUYd
 /*!40000 ALTER TABLE empleado ENABLE KEYS */;
 --UNLOCK TABLES;
 
---
--- Table structure for table pagoreserva
---
 
 --
 -- Table structure for table parqueadero
@@ -176,7 +168,7 @@ INSERT INTO puesto VALUES (1,'g','0',1),(2,'g','0',1),(3,'g','0',1),(4,'m','0',1
 --UNLOCK TABLES;
 
 --
--- Table structure for table reserva
+-- Table structure for table Vehiculo
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -260,9 +252,8 @@ CREATE TABLE suscripcion (
 --UNLOCK TABLES;
 
 --
--- Table structure for table vehiculo
+-- Table structure for table pagoreserva
 --
-
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -314,6 +305,33 @@ CREATE TABLE pagosuscripcion (
 --LOCK TABLES pagosuscripcion WRITE;
 /*!40000 ALTER TABLE pagosuscripcion DISABLE KEYS */;
 /*!40000 ALTER TABLE pagosuscripcion ENABLE KEYS */;
+--UNLOCK TABLES;
+
+--
+-- Table structure for table pagoop
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE pagoop (
+                                id INT NOT NULL AUTO_INCREMENT,
+                                valor DECIMAL(10, 2) NOT NULL,
+                                fechaPago TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                metodoPago VARCHAR(50) DEFAULT NULL,
+                                placa VARCHAR(10) NOT NULL,
+                                PRIMARY KEY (id),
+                                CONSTRAINT fk_vehiculo_placa FOREIGN KEY (placa) REFERENCES vehiculo (placa) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table pagoop
+--
+
+--LOCK TABLES pagoop WRITE;
+/*!40000 ALTER TABLE pagoop DISABLE KEYS */;
+/*!40000 ALTER TABLE pagoop ENABLE KEYS */;
 --UNLOCK TABLES;
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

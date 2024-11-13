@@ -88,8 +88,6 @@ public class PagoSuscripcionController {
     private void realizarPago() {
         // Aquí se puede llamar al servicio para hacer el pago
 
-
-
     }
 
     private void mostrarError(String mensaje) {

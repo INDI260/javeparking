@@ -24,7 +24,7 @@ public class SuscripcionRepository {
      */
     public void agregarSuscripcion(Suscripcion suscripcion) throws SQLException {
         // Primero obtenemos el vehiculoID basado en la placa del vehículo
-        vehiculoRepository.buscarVehiculo(suscripcion.getVehiculo().getPlaca(), suscripcion.getVehiculo());
+        vehiculoRepository.buscarVehiculoPlaca(suscripcion.getVehiculo().getPlaca(), suscripcion.getVehiculo());
 
         // Modificamos la consulta para incluir el vehiculoID
         String sql = "INSERT INTO Suscripcion (clienteID, vehiculoID, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?, ?)";
@@ -54,7 +54,7 @@ public class SuscripcionRepository {
      * @throws SQLException
      */
     public Suscripcion buscarSuscripcionPorVehiculo(String placa, Suscripcion suscripcion) throws SQLException {
-        suscripcion.setVehiculo(vehiculoRepository.buscarVehiculo(placa, suscripcion.getVehiculo()));
+        suscripcion.setVehiculo(vehiculoRepository.buscarVehiculoPlaca(placa, suscripcion.getVehiculo()));
         String sql = "SELECT * FROM suscripcion WHERE vehiculoID = ?";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setInt(1,suscripcion.getVehiculo().getId());
@@ -62,7 +62,7 @@ public class SuscripcionRepository {
         while(rs.next()){
             if(rs.getInt("vehiculoID") == suscripcion.getVehiculo().getId()) {
                 suscripcion.setId(rs.getInt("id"));
-                suscripcion.setVehiculo(vehiculoRepository.buscarVehiculo(rs.getInt("vehiculoID"), suscripcion.getVehiculo()));
+                suscripcion.setVehiculo(vehiculoRepository.buscarVehiculoID(rs.getInt("vehiculoID"), suscripcion.getVehiculo()));
                 suscripcion.setCliente(clienteRepository.buscarCliente(rs.getInt("clienteID"), suscripcion.getCliente()));
                 suscripcion.setFechaInicio((LocalDateTime) rs.getObject("fecha_inicio"));
                 suscripcion.setFechaFin((LocalDateTime) rs.getObject("fecha_fin"));

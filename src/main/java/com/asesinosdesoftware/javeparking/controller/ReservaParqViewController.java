@@ -92,7 +92,7 @@ public class ReservaParqViewController {
             }
             Vehiculo V = new Vehiculo();
             VehiculoRepository VR = new VehiculoRepository();
-            VR.buscarVehiculo(IDplaca.getText(),V);
+            VR.buscarVehiculoPlaca(IDplaca.getText(),V);
 
             Puesto P = new Puesto();
             PuestoRepository PR = new PuestoRepository();

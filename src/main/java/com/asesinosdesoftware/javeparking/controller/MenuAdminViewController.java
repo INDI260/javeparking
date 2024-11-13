@@ -12,7 +12,6 @@ import javafx.scene.control.Alert;
 
 public class MenuAdminViewController {
     @FXML
-
     public AnchorPane contenedor;
 
     @FXML

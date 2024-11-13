@@ -30,7 +30,7 @@ public class PagoReservaController {
 
         if(pagoReserva == null) {
             pagoReserva = new PagoReserva();
-            pagoService.calcularPago(IDPlaca.getText(),IDReserva.getText(), pagoReserva);
+            pagoService.calcularPagoReserva(IDPlaca.getText(),IDReserva.getText(), pagoReserva);
         }
         pagoService.pagarReserva(pagoReserva);
         pagoReserva = null;
@@ -41,7 +41,7 @@ public class PagoReservaController {
     private void mostrarPrecio(){
 
         try {
-            pagoService.calcularPago(IDPlaca.getText(), IDReserva.getText(), pagoReserva);
+            pagoService.calcularPagoReserva(IDPlaca.getText(), IDReserva.getText(), pagoReserva);
             showSuccess("Su factura es de un valor de: "+ pagoReserva.getValor());
         }
         catch (SQLException e) {

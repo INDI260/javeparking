@@ -37,7 +37,7 @@ public class ReservaCService {
 
             }
             Vehiculo V = new Vehiculo();
-            VR.buscarVehiculo(IDplaca,V);
+            VR.buscarVehiculoPlaca(IDplaca,V);
 
             Puesto P = new Puesto();
 
@@ -57,9 +57,6 @@ public class ReservaCService {
             P.setDisponibilidad(true);
             PR.actualizarPuesto(P);
         System.out.println("Hola");
-
-
-
     }
 
 }

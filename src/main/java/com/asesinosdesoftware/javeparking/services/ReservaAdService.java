@@ -53,7 +53,7 @@ public class ReservaAdService {
         }
 
         Vehiculo vehiculo = new Vehiculo();
-        vehiculoRepository.buscarVehiculo(IDplaca, vehiculo);
+        vehiculoRepository.buscarVehiculoPlaca(IDplaca, vehiculo);
 
         Puesto puesto = new Puesto();
         puestoRepository.buscarPuesto(IdTamano,false,puesto);
@@ -103,7 +103,7 @@ public class ReservaAdService {
 
                 Vehiculo vehiculo = new Vehiculo();
                 VehiculoRepository vehiculoRepository = new VehiculoRepository();
-                vehiculoRepository.buscarVehiculo(IDplaca, vehiculo);
+                vehiculoRepository.buscarVehiculoPlaca(IDplaca, vehiculo);
 
                 if(reservaSeleccionada.getPuesto().getTamano()!=IdTamano.charAt(0)){
                     Puesto puestoviejo = new Puesto();

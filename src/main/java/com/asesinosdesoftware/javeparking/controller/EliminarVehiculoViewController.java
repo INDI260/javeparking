@@ -27,7 +27,7 @@ public class EliminarVehiculoViewController {
         Vehiculo V = new Vehiculo();
         VehiculoRepository VR = new VehiculoRepository();
         CR.buscarCliente(Sesion.getcedula(),dueno);
-        VR.buscarVehiculo(IDPlaca.getText(),V);
+        VR.buscarVehiculoPlaca(IDPlaca.getText(),V);
 
         if(dueno.getId()==V.getClienteid()){
             VR.eliminarVehiculo(V);
