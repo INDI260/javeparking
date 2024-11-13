@@ -10,6 +10,16 @@ public class Suscripcion {
     private LocalDateTime fechaInicio; // Fecha de inicio
     private LocalDateTime fechaFin; // Fecha de finalización
     private String estado; // Activa o inactiva
+    private Parqueadero parqueadero; // Se agrega el campo parqueadero
+
+    // Métodos getter y setter
+    public Parqueadero getParqueadero() {
+        return parqueadero;
+    }
+
+    public void setParqueadero(Parqueadero parqueadero) {
+        this.parqueadero = parqueadero;
+    }
 
     /**
      * Método constructor por parámetros
