@@ -74,10 +74,11 @@ public class PuestoRepository {
      */
     public void agregarPuesto(Puesto puesto) throws SQLException {
 
-        String sql = "INSERT INTO puesto (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES (?, ?, b'1');";
+        String sql = "INSERT INTO puesto (`tamano`, `disponibilidad`, `parqueaderoID`) VALUES (?, ?, ?);";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
         ps.setString(1, Character.toString(puesto.getTamano()));
         ps.setBoolean(2, puesto.isDisponibilidad());
+        ps.setInt(3, puesto.getParqueaderoID());
         ps.executeUpdate();
     }
 
