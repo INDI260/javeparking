@@ -10,7 +10,7 @@
             <font>
                 <Font size="14.0" />
             </font></Button>
-        <Button layoutX="208.0" layoutY="143.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="184.0" text="Gestion de Parqueaderos">
+        <Button layoutX="208.0" layoutY="143.0" mnemonicParsing="false" onAction="#gestionarParq" prefHeight="29.0" prefWidth="184.0" text="Gestion de Parqueaderos">
             <font>
                 <Font size="14.0" />
             </font></Button>

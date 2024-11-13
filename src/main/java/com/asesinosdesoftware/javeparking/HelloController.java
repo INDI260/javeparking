@@ -38,7 +38,7 @@ public class HelloController {
         try {
             // Carga la vista desde el archivo FXML
             BorderPane pane = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
-            // Establece la vista cargada en el centro del contenedor principal
+            // Establece la vista cargada en el top del contenedor principal
             contenedor.setTop(pane);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,21 +1,21 @@
 package com.asesinosdesoftware.javeparking.controller.menu;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.AnchorPane;
 
-public class MenuAdminViewController {
+public class MenuGestParqViewController {
+
     @FXML
-
     public AnchorPane contenedor;
 
     @FXML
-    private void gestionarReservas(ActionEvent event) {
+    private void crearParq(ActionEvent event) {
         try {
             // Cargar la vista desde el archivo FXML
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("/com/asesinosdesoftware/javeparking/ReservaAdminView.fxml"));
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("/com/asesinosdesoftware/javeparking/CrearParqView.fxml"));
             // Limpiar los hijos actuales del contenedor principal
             contenedor.getChildren().clear();
             // Ajustar las propiedades de posicionamiento de AnchorPane para que ocupe todo el espacio
@@ -27,15 +27,15 @@ public class MenuAdminViewController {
             contenedor.getChildren().add(pane);
         } catch (Exception e) {
             e.printStackTrace();
-            mostrarMensajeError("Error al cargar la vista de reservas. Por favor, inténtelo de nuevo más tarde.");
+            showError("Error al cargar la vista de crear parqueadero. Por favor, inténtelo de nuevo más tarde.");
         }
     }
 
     @FXML
-    private void gestionarParq(ActionEvent event) {
+    private void anadirpuestos(ActionEvent event) {
         try {
             // Cargar la vista desde el archivo FXML
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("/com/asesinosdesoftware/javeparking/MenuGestParqView.fxml"));
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("/com/asesinosdesoftware/javeparking/AgregarPuestosView.fxml"));
             // Limpiar los hijos actuales del contenedor principal
             contenedor.getChildren().clear();
             // Ajustar las propiedades de posicionamiento de AnchorPane para que ocupe todo el espacio
@@ -47,18 +47,15 @@ public class MenuAdminViewController {
             contenedor.getChildren().add(pane);
         } catch (Exception e) {
             e.printStackTrace();
-            mostrarMensajeError("Error al cargar la vista de reservas. Por favor, inténtelo de nuevo más tarde.");
+            showError("Error al cargar la vista de crear parqueadero. Por favor, inténtelo de nuevo más tarde.");
         }
     }
 
-    private void mostrarMensajeError(String mensaje) {
+    private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
-        alert.setContentText(mensaje);
+        alert.setContentText(message);
         alert.showAndWait();
     }
 }
-
-
-
