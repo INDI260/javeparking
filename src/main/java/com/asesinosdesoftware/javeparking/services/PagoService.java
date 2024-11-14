@@ -175,4 +175,12 @@ public class PagoService {
         pagoRepository.agregarPagoReserva(pagoReserva);
     }
 
+    /**
+     * Método que registra el pago de suscripción en la base de datos
+     * @param pagoSuscripcion: Objeto PagoSuscripcion con detalles del pago
+     * @throws SQLException
+     */
+    public void pagarSuscripcion(PagoSuscripcion pagoSuscripcion) throws SQLException {
+        pagoSuscripcionRepository.agregarPagoSuscripcion(pagoSuscripcion);
+    }
 }
