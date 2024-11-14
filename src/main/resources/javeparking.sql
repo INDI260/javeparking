@@ -39,13 +39,13 @@ DROP TABLE IF EXISTS cliente;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE administrador (
-  id int NOT NULL AUTO_INCREMENT,
-  cedula varchar(20) NOT NULL,
-  nombre varchar(45) DEFAULT NULL,
-  apellido varchar(45) DEFAULT NULL,
-  hash varchar(100) NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY cedula_admin_UNIQUE (cedula)
+                          id int NOT NULL AUTO_INCREMENT,
+                          cedula varchar(20) NOT NULL,
+                          nombre varchar(45) DEFAULT NULL,
+                          apellido varchar(45) DEFAULT NULL,
+                          hash varchar(100) NOT NULL,
+                          PRIMARY KEY (id),
+                          UNIQUE KEY cedula_admin_UNIQUE (cedula)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -66,14 +66,14 @@ INSERT INTO administrador VALUES (1,'10','Luis','Ramos','$2a$10$Pqa7UsfTJ6OymjVK
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE cliente (
-  id int NOT NULL AUTO_INCREMENT,
-  cedula varchar(20) NOT NULL,
-  nombre varchar(45) DEFAULT NULL,
-  apellido varchar(45) DEFAULT NULL,
-  universidad varchar(1) DEFAULT NULL,
-  hash varchar(100) NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY cedula_cliente_UNIQUE (cedula)
+                              id int NOT NULL AUTO_INCREMENT,
+                              cedula varchar(20) NOT NULL,
+                              nombre varchar(45) DEFAULT NULL,
+                              apellido varchar(45) DEFAULT NULL,
+                              universidad varchar(1) DEFAULT NULL,
+                              hash varchar(100) NOT NULL,
+                              PRIMARY KEY (id),
+                              UNIQUE KEY cedula_cliente_UNIQUE (cedula)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -94,13 +94,13 @@ INSERT INTO cliente VALUES (1,'30','Emily','Ramos','n','$2a$10$TLbzW5kwgc354wlTo
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE empleado (
-  id int NOT NULL AUTO_INCREMENT,
-  cedula varchar(20) NOT NULL,
-  nombre varchar(45) DEFAULT NULL,
-  apellido varchar(45) DEFAULT NULL,
-  hash varchar(100) NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY cedula_empleado_UNIQUE (cedula)
+                              id int NOT NULL AUTO_INCREMENT,
+                              cedula varchar(20) NOT NULL,
+                              nombre varchar(45) DEFAULT NULL,
+                              apellido varchar(45) DEFAULT NULL,
+                              hash varchar(100) NOT NULL,
+                              PRIMARY KEY (id),
+                              UNIQUE KEY cedula_empleado_UNIQUE (cedula)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -122,11 +122,11 @@ INSERT INTO empleado VALUES (1,'20','Simba','Gonzales','$2a$10$AnfaTGHCE4RSXkUYd
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE parqueadero (
-  id int NOT NULL AUTO_INCREMENT,
-  TarifaPequeno decimal(10,0) NOT NULL,
-  TarifaMediano decimal(10,0) NOT NULL,
-  TarifaGrande decimal(10,0) NOT NULL,
-  PRIMARY KEY (id)
+                              id int NOT NULL AUTO_INCREMENT,
+                              TarifaPequeno decimal(10,0) NOT NULL,
+                              TarifaMediano decimal(10,0) NOT NULL,
+                              TarifaGrande decimal(10,0) NOT NULL,
+                              PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -147,13 +147,13 @@ INSERT INTO parqueadero VALUES (1,16,19,21);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE puesto (
-  id int NOT NULL AUTO_INCREMENT,
-  tamano varchar(1) DEFAULT NULL,
-  disponibilidad bit(1) DEFAULT NULL,
-  parqueaderoID int DEFAULT NULL,
-  PRIMARY KEY (id),
-  KEY parqueaderoID_idx (parqueaderoID),
-  CONSTRAINT parqueaderoID FOREIGN KEY (parqueaderoID) REFERENCES parqueadero (id)
+                              id int NOT NULL AUTO_INCREMENT,
+                              tamano varchar(1) DEFAULT NULL,
+                              disponibilidad bit(1) DEFAULT NULL,
+                              parqueaderoID int DEFAULT NULL,
+                              PRIMARY KEY (id),
+                              KEY parqueaderoID_idx (parqueaderoID),
+                              CONSTRAINT parqueaderoID FOREIGN KEY (parqueaderoID) REFERENCES parqueadero (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -174,17 +174,20 @@ INSERT INTO puesto VALUES (1,'g','0',1),(2,'g','0',1),(3,'g','0',1),(4,'m','0',1
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE vehiculo (
-                          id int NOT NULL AUTO_INCREMENT,
-                          placa varchar(10) DEFAULT NULL,
-                          tamano varchar(1) DEFAULT NULL,
-                          tipo varchar(45) DEFAULT NULL,
-                          clienteID int DEFAULT NULL,
-                          PRIMARY KEY (id),
-                          UNIQUE KEY placa_UNIQUE (placa),
-                          KEY clienteID_idx (clienteID),
-                          CONSTRAINT clienteID FOREIGN KEY (clienteID) REFERENCES cliente (id)
+                                id int NOT NULL AUTO_INCREMENT,
+                                placa varchar(10) DEFAULT NULL,
+                                tamano varchar(1) DEFAULT NULL,
+                                tipo varchar(45) DEFAULT NULL,
+                                clienteID int DEFAULT NULL,
+                                parqueadero_id int DEFAULT NULL,  -- Nueva columna para asociar el parqueadero
+                                PRIMARY KEY (id),
+                                UNIQUE KEY placa_UNIQUE (placa),
+                                KEY clienteID_idx (clienteID),
+                                KEY parqueadero_id_idx (parqueadero_id),  -- Índice para la clave foránea parqueadero_id
+                                CONSTRAINT clienteID FOREIGN KEY (clienteID) REFERENCES cliente (id),
+                                CONSTRAINT parqueadero_id FOREIGN KEY (parqueadero_id) REFERENCES parqueadero (id)  -- Clave foránea hacia parqueadero
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Dumping data for table vehiculo
@@ -199,16 +202,16 @@ CREATE TABLE vehiculo (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE reserva (
-  id int NOT NULL AUTO_INCREMENT,
-  horaEntrada datetime NOT NULL,
-  horaSalida datetime DEFAULT NULL,
-  vehiculoID int DEFAULT NULL,
-  puestoID int DEFAULT NULL,
-  PRIMARY KEY (id),
-  KEY vehiculoID_idx (vehiculoID),
-  KEY puestoId_idx (puestoID),
-  CONSTRAINT puestoId FOREIGN KEY (puestoID) REFERENCES puesto (id),
-  CONSTRAINT vehiculoID FOREIGN KEY (vehiculoID) REFERENCES vehiculo (id)
+                              id int NOT NULL AUTO_INCREMENT,
+                              horaEntrada datetime NOT NULL,
+                              horaSalida datetime DEFAULT NULL,
+                              vehiculoID int DEFAULT NULL,
+                              puestoID int DEFAULT NULL,
+                              PRIMARY KEY (id),
+                              KEY vehiculoID_idx (vehiculoID),
+                              KEY puestoId_idx (puestoID),
+                              CONSTRAINT puestoId FOREIGN KEY (puestoID) REFERENCES puesto (id),
+                              CONSTRAINT vehiculoID FOREIGN KEY (vehiculoID) REFERENCES vehiculo (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -228,17 +231,17 @@ CREATE TABLE reserva (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE suscripcion (
-  id int NOT NULL AUTO_INCREMENT,
-  clienteID int NOT NULL,
-  vehiculoID int NOT NULL,
-  fecha_inicio datetime DEFAULT NULL,
-  fecha_fin datetime DEFAULT NULL,
-  estado varchar(100) NOT NULL,
-  PRIMARY KEY (id),
-  KEY fk_cliente_suscripcion (clienteID),
-  KEY fk_vehiculo_suscripcion (vehiculoID),
-  CONSTRAINT fk_cliente_suscripcion FOREIGN KEY (clienteID) REFERENCES cliente (id),
-  CONSTRAINT fk_vehiculo_suscripcion FOREIGN KEY (vehiculoID) REFERENCES vehiculo (id)
+                              id int NOT NULL AUTO_INCREMENT,
+                              clienteID int NOT NULL,
+                              vehiculoID int NOT NULL,
+                              fecha_inicio datetime DEFAULT NULL,
+                              fecha_fin datetime DEFAULT NULL,
+                              estado varchar(100) NOT NULL,
+                              PRIMARY KEY (id),
+                              KEY fk_cliente_suscripcion (clienteID),
+                              KEY fk_vehiculo_suscripcion (vehiculoID),
+                              CONSTRAINT fk_cliente_suscripcion FOREIGN KEY (clienteID) REFERENCES cliente (id),
+                              CONSTRAINT fk_vehiculo_suscripcion FOREIGN KEY (vehiculoID) REFERENCES vehiculo (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -250,6 +253,28 @@ CREATE TABLE suscripcion (
 /*!40000 ALTER TABLE suscripcion DISABLE KEYS */;
 /*!40000 ALTER TABLE suscripcion ENABLE KEYS */;
 --UNLOCK TABLES;
+
+
+--
+-- Table structure for table registroop
+--
+CREATE TABLE registro_op (
+                                id INT NOT NULL AUTO_INCREMENT,       -- ID único para cada registro
+                                vehiculoID INT NOT NULL,              -- ID del vehículo (relación con vehiculo)
+                                hora_entrada DATETIME NOT NULL,       -- Hora de entrada del vehículo
+                                PRIMARY KEY (id),
+                                CONSTRAINT vehiculo_fk FOREIGN KEY (vehiculoID) REFERENCES vehiculo(id)  -- Relación con vehiculo
+);ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table suscripcion
+--
+
+--LOCK TABLES suscripcion WRITE;
+/*!40000 ALTER TABLE registroop DISABLE KEYS */;
+/*!40000 ALTER TABLE registroop ENABLE KEYS */;
+--UNLOCK TABLES;
+
 
 --
 -- Table structure for table pagoreserva

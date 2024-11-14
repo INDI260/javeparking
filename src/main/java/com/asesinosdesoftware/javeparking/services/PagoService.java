@@ -63,50 +63,48 @@ public class PagoService {
 
     }
 
+    /**
+     * Calcula el pago por parte del operario en función del tamaño del vehículo y las horas de estancia.
+     * @param placa Placa del vehículo a pagar.
+     * @param horasEstacionado Horas de permanencia en el parqueadero.
+     * @param pagoOp Objeto que almacenará los detalles del pago por operación.
+     * @throws SQLException si ocurre un error de base de datos.
+     */
     public void calcularPagoOp(String placa, int horasEstacionado, PagoOp pagoOp) throws SQLException {
+        // Obtener el vehículo, puesto y parqueadero asociados a la placa
+        Vehiculo vehiculo = pagoOpRepository.buscarVehiculoPorPlacaYParqueadero(placa);
 
-        // Crear la entidad Vehiculo
-        Vehiculo vehiculo = new Vehiculo();
+        if (vehiculo == null) {
+            throw new SQLException("Vehículo no encontrado en el sistema con placa: " + placa);
+        }
 
-        // Buscar el vehículo por placa
-        vehiculoRepository.buscarVehiculoPlaca(placa, vehiculo);
+        Parqueadero parqueadero = vehiculo.getParqueadero();
+        if (parqueadero == null) {
+            throw new SQLException("Parqueadero no encontrado para el vehículo con placa: " + placa);
+        }
 
-        // Buscar el parqueadero asociado al vehículo
-        Parqueadero parqueadero = new Parqueadero();
-        parqueaderoRepository.buscarParqueaderoPorId(vehiculo.getClienteid(), parqueadero);
-
-        // Establecer la fecha del pago
+        // Establecer la fecha y método de pago
         LocalDateTime fechaActual = LocalDateTime.now();
         pagoOp.setFecha(fechaActual);
-        pagoOp.setMetodoPago("Online");  // Suponiendo que el pago es online
+        pagoOp.setMetodoPago("Online");
 
         // Calcular la tarifa según el tamaño del vehículo
         BigDecimal tarifa;
         switch (vehiculo.getTamano()) {
-            case 'p':  // Vehículo pequeño
-                tarifa = parqueadero.getTarifaPequeno();
-                break;
-            case 'm':  // Vehículo mediano
-                tarifa = parqueadero.getTarifaMediano();
-                break;
-            case 'g':  // Vehículo grande
-                tarifa = parqueadero.getTarifaGrande();
-                break;
-            default:
-                throw new SQLException("Tamaño de vehículo no válido");
+            case 'p' -> tarifa = parqueadero.getTarifaPequeno();
+            case 'm' -> tarifa = parqueadero.getTarifaMediano();
+            case 'g' -> tarifa = parqueadero.getTarifaGrande();
+            default -> throw new SQLException("Tamaño de vehículo no válido");
         }
 
         // Calcular el valor del pago basado en la duración en horas
         BigDecimal valorPago = tarifa.multiply(BigDecimal.valueOf(horasEstacionado));
-        pagoOp.setValor(valorPago);  // Asignar el valor calculado al objeto PagoOp
-
-        // Asociar el vehículo al pago
+        pagoOp.setValor(valorPago);
         pagoOp.setVehiculo(vehiculo);
 
         // Registrar el pago en la base de datos
-        pagoOpRepository.agregarPagoOp(pagoOp);
+        pagoOpRepository.registrarPago(pagoOp);
     }
-
 
     /**
      * Método que agrega un pago de una reserva a la base de datos
@@ -127,12 +125,11 @@ public class PagoService {
     }
 
     /**
-     * Método que agrega un pago de una operación a la base de datos
-     * @param pagoOp: Objeto PagoOp con la información del pago
-     * @throws SQLException
+     * Registra el pago de una operación en la base de datos.
+     * @param pagoOp Pago de operación a registrar.
+     * @throws SQLException si ocurre un error de base de datos.
      */
     public void pagarOperacion(PagoOp pagoOp) throws SQLException {
-        pagoOpRepository.agregarPagoOp(pagoOp);  // Llamar al repositorio para guardar el pago
+        pagoOpRepository.registrarPago(pagoOp);
     }
-
 }

@@ -1,6 +1,5 @@
 package com.asesinosdesoftware.javeparking.controller;
 
-import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 import com.asesinosdesoftware.javeparking.services.RegistroOpService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import java.time.LocalDateTime;
 
 public class RegistroOpController {
 
@@ -18,50 +18,51 @@ public class RegistroOpController {
     private ComboBox<String> cmbTamano;
 
     @FXML
-    private TextField txtTipo;  // Cambié a TextField para que el tipo de vehículo sea digitado
+    private TextField txtTipo;
 
     private RegistroOpService registroOpService;
 
-    // Inicialización del servicio
+    // Constructor
     public RegistroOpController() {
         this.registroOpService = new RegistroOpService();
     }
 
     @FXML
     public void initialize() {
-        // No es necesario inicializar ComboBoxes si ya los maneja el servicio
-        // Solo se asegura que los elementos ya estén cargados correctamente en el ComboBox
+        // Inicializamos el ComboBox con los valores de tamaño posibles ('p', 'm', 'g')
+        cmbTamano.getItems().addAll("p", "m", "g");
     }
 
     @FXML
     public void agregarVehiculo(ActionEvent event) {
+        String placa = txtPlaca.getText().trim();
+        if (placa.isEmpty()) {
+            mostrarAlerta("Error", "La placa no puede estar vacía", AlertType.ERROR);
+            return;
+        }
+
+        String tipo = txtTipo.getText().trim();
+        if (tipo.isEmpty()) {
+            mostrarAlerta("Error", "Debe ingresar un tipo de vehículo", AlertType.ERROR);
+            return;
+        }
+
+        // Asegurarnos de que el tamaño fue seleccionado
+        String tamano = cmbTamano.getValue();
+        if (tamano == null || tamano.isEmpty()) {
+            mostrarAlerta("Error", "Debe seleccionar un tamaño para el vehículo", AlertType.ERROR);
+            return;
+        }
+
+        // Obtener la hora actual de entrada
+        LocalDateTime horaEntrada = LocalDateTime.now();
+
         try {
-            // Recoger los datos de la vista
-            String placa = txtPlaca.getText();
-            String tamanoStr = cmbTamano.getValue();  // Obtiene el valor String
-            String tipo = txtTipo.getText();  // Obtiene el valor del TextField
-
-            // Verificar si los campos están completos
-            if (placa.isEmpty() || tamanoStr == null || tipo.isEmpty()) {
-                mostrarAlerta("Error", "Todos los campos son obligatorios.", AlertType.ERROR);
-                return;
-            }
-
-            // Convertir el String a Character para el tamaño
-            char tamano = tamanoStr.charAt(0);  // Convierte el String a Character
-
-            // Crear el objeto Vehiculo (el ID y el clienteId se asignan automáticamente por el servicio)
-            Vehiculo vehiculo = new Vehiculo(0, placa, tamano, tipo.charAt(0), 0);
-
-            // Llamar al servicio para registrar el vehículo
-            registroOpService.registrarVehiculo(vehiculo);
-
-            // Mostrar alerta de éxito
-            mostrarAlerta("Éxito", "Vehículo registrado correctamente", AlertType.INFORMATION);
-
+            // Llamamos al servicio para registrar la entrada con tipo y tamaño como String
+            registroOpService.registrarEntrada(placa, tipo, tamano, horaEntrada);
+            mostrarAlerta("Éxito", "El vehículo ha ingresado correctamente.", AlertType.INFORMATION);
         } catch (Exception e) {
-            // Mostrar alerta de error si algo sale mal
-            mostrarAlerta("Error", "No se pudo registrar el vehículo: " + e.getMessage(), AlertType.ERROR);
+            mostrarAlerta("Error", "Ocurrió un error al registrar la entrada: " + e.getMessage(), AlertType.ERROR);
         }
     }
 
@@ -73,6 +74,8 @@ public class RegistroOpController {
         alert.showAndWait();
     }
 }
+
+
 
 
 

@@ -16,10 +16,11 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <TextField fx:id="valorTextField" layoutX="200.0" layoutY="150.0" prefWidth="200.0" promptText="Valor" editable="false" />
-        <TextField fx:id="metodoPagoTextField" layoutX="200.0" layoutY="200.0" prefWidth="200.0" promptText="Método de Pago" editable="false" />
-        <TextField fx:id="fechaTextField" layoutX="200.0" layoutY="250.0" prefWidth="200.0" promptText="Fecha" editable="false" />
-        <Button layoutX="200.0" layoutY="300.0" text="Pagar" onAction="#calcularPagoOp" />
+        <TextField fx:id="horasEstacionadoTextField" layoutX="200.0" layoutY="150.0" prefWidth="200.0" promptText="Horas estacionado" />
+        <TextField fx:id="valorTextField" layoutX="200.0" layoutY="200.0" prefWidth="200.0" promptText="Valor" editable="false" />
+        <TextField fx:id="metodoPagoTextField" layoutX="200.0" layoutY="250.0" prefWidth="200.0" promptText="Método de Pago" editable="false" />
+        <TextField fx:id="fechaTextField" layoutX="200.0" layoutY="300.0" prefWidth="200.0" promptText="Fecha" editable="false" />
+        <Button layoutX="200.0" layoutY="350.0" text="Pagar" onAction="#calcularPagoOp" />
     </children>
 </AnchorPane>
 

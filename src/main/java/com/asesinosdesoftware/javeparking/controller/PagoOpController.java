@@ -12,13 +12,16 @@ import java.time.LocalDateTime;
 
 public class PagoOpController {
 
-    private PagoService pagoService = new PagoService();
+    private final PagoService pagoService = new PagoService();
 
     @FXML
     private TextField placaTextField;
 
     @FXML
     private ComboBox<String> metodoPagoComboBox;  // El usuario selecciona el método de pago (efectivo o tarjeta)
+
+    @FXML
+    private TextField horasEstacionadoTextField;
 
     @FXML
     private TextField valorTextField;
@@ -33,10 +36,19 @@ public class PagoOpController {
     private void calcularPagoOp() {
         String placa = placaTextField.getText();
         String metodoPago = metodoPagoComboBox.getValue();
+        String horasEstacionadoStr = horasEstacionadoTextField.getText();
 
-        if (placa.isEmpty() || metodoPago == null) {
+        if (placa.isEmpty() || metodoPago == null || horasEstacionadoStr.isEmpty()) {
             // Mostrar un mensaje de error si falta algún dato
             mostrarError("Por favor, ingrese todos los datos requeridos.");
+            return;
+        }
+
+        int horasEstacionado;
+        try {
+            horasEstacionado = Integer.parseInt(horasEstacionadoStr);
+        } catch (NumberFormatException e) {
+            mostrarError("Ingrese un número válido de horas.");
             return;
         }
 
@@ -45,9 +57,9 @@ public class PagoOpController {
             PagoOp pagoOp = new PagoOp();
 
             // Usar el servicio para calcular el pago de la operación
-            pagoService.calcularPagoOp(placa, 0, pagoOp);  // 0 horas, ya que no es necesario que el usuario lo ingrese
+            pagoService.calcularPagoOp(placa, horasEstacionado, pagoOp);
 
-            // Establecer el método de pago (lo asigna el usuario)
+            // Establecer el método de pago seleccionado por el usuario
             pagoOp.setMetodoPago(metodoPago);
 
             // Establecer la fecha actual
