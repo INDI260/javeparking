@@ -1,4 +1,4 @@
-package com.asesinosdesoftware.javeparking;
+package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
@@ -64,7 +64,7 @@ public class HelloController {
 
          InicioDeSesionService U = new InicioDeSesionService();
 
-         U.InicioDeSesion(dbConnectionManager.getConnection(),Usuario.getText(),Contrasena.getText());
+         U.InicioDeSesion(Usuario.getText(),Contrasena.getText());
          Menu();
      }
      catch (Exception e) {
