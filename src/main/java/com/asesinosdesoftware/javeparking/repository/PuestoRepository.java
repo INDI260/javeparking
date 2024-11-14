@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PuestoRepository {
@@ -114,5 +115,35 @@ public class PuestoRepository {
             puestos.add(new Puesto(rs.getInt("id"),rs.getString("tamano").charAt(0),rs.getBoolean("disponibilidad"),rs.getInt("parqueaderoID")));
         }
     }
+
+    public List<Puesto> obtenerTodosPuestos() throws SQLException {
+        List<Puesto> puestos = new ArrayList<>();
+        String sql = "SELECT * FROM puesto";  // Asumiendo que la tabla es 'puesto'
+
+        // Usamos try-with-resources para cerrar conexiones y recursos automáticamente
+        try (PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                // Inicializamos el objeto Puesto
+                Puesto puesto = new Puesto();
+                puesto.setId(rs.getInt("id"));
+                puesto.setTamano(rs.getString("tamano").charAt(0));
+                puesto.setDisponibilidad(rs.getBoolean("disponibilidad"));
+                puesto.setParqueaderoID(rs.getInt("parqueaderoID"));
+
+                // Agregamos el objeto Puesto a la lista
+                puestos.add(puesto);
+            }
+
+        } catch (SQLException e) {
+            // Manejo de excepción, por ejemplo, mostrar un mensaje o registrar el error
+            System.err.println("Error al obtener los puestos: " + e.getMessage());
+            throw e;
+        }
+
+        return puestos;
+    }
+
 
 }
