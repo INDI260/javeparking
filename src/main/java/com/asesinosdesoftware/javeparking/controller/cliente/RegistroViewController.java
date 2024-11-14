@@ -38,6 +38,7 @@ public class RegistroViewController {
             showSuccess("Registro creado");
 
         } catch (Exception e) {
+            cliente = null;
             e.printStackTrace();
             showError("Registro de cliente Fallido");
 
