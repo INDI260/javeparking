@@ -46,7 +46,7 @@ public class VehiculoRepository {
      * @return Si se encuentra retorna un objeto tipo Vehículo con los parámetros encontrados en la base de datos o de lo contrario retorna null
      * @throws SQLException
      */
-    public Vehiculo buscarVehiculoID(int id, Vehiculo vehiculo) throws SQLException {
+    public Vehiculo buscarVehiculo(int id, Vehiculo vehiculo) throws SQLException {
 
         String sql = "SELECT * FROM vehiculo WHERE id = ?";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);

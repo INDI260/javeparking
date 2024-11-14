@@ -35,7 +35,7 @@ public class RegistroOpService {
         vehiculo.setClienteid(0);
         Puesto puesto = new Puesto();
         vehiculoRepository.agregarVehiculo(vehiculo);
-        vehiculoRepository.buscarVehiculoPlaca(placa,vehiculo);
+        vehiculoRepository.buscarVehiculo(placa,vehiculo);
         puestoRepository.buscarPuesto(tamano,false,puesto);
 
         // Crear un objeto RegistroOp y asignarle el vehículo y la hora de entrada

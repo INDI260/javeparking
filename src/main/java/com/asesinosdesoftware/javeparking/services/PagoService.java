@@ -112,6 +112,59 @@ public class PagoService {
         opRepository.registrarPago(pagoOp);
 
     }
+    public void calcularPagoSuscripcion(String placa, PagoSuscripcion pagoSuscripcion) throws SQLException {
+        Vehiculo vehiculo = new Vehiculo();
+        Suscripcion suscripcion = new Suscripcion();
+        Parqueadero parqueadero = new Parqueadero();
+
+        // Obtener detalles del vehículo y de la suscripción usando la placa
+        vehiculoRepository.buscarVehiculo(placa, vehiculo);
+        if (vehiculo.getId() == 0) {
+            throw new SQLException("Vehículo no encontrado para la placa: " + placa);
+        }
+
+        suscripcionRepository.buscarSuscripcionPorVehiculo(vehiculo, suscripcion);
+        if (suscripcion.getId() == 0) {
+            throw new SQLException("Suscripción no encontrada para el vehículo con placa: " + placa);
+        }
+
+        // Obtener el parqueadero asociado a la suscripción
+        parqueaderoRepository.buscarParqueaderoPorId(suscripcion.getIdparq(), parqueadero);
+        if (parqueadero.getId() <= 0) {
+            throw new SQLException("Parqueadero no encontrado para la suscripción"+suscripcion.getIdparq());
+        }
+
+        // Calcular el total de días de suscripción
+        LocalDateTime fechaInicio = suscripcion.getFechaInicio();
+        LocalDateTime fechaFin = suscripcion.getFechaFin();
+
+        // Verificar si las fechas son válidas
+        if (fechaInicio.isAfter(fechaFin)) {
+            throw new SQLException("La fecha de inicio no puede ser posterior a la fecha de fin.");
+        }
+
+        long diasSuscripcion = Duration.between(fechaInicio, fechaFin).toDays();
+
+        // Determinar tarifa diaria según el tamaño del vehículo
+        BigDecimal tarifaDiaria;
+        if (vehiculo.getTamano() == 'p') {
+            tarifaDiaria = parqueadero.getSuscripcionPequeno();
+        } else if (vehiculo.getTamano() == 'm') {
+            tarifaDiaria = parqueadero.getSuscripcionMediano();
+        } else if (vehiculo.getTamano() == 'g') {
+            tarifaDiaria = parqueadero.getSuscripcionGrande();
+        } else {
+            throw new SQLException("Tamaño de vehículo desconocido: " + vehiculo.getTamano());
+        }
+
+        // Calcular el valor total de la suscripción y asignar valores al pago
+        BigDecimal valorTotal = tarifaDiaria.multiply(BigDecimal.valueOf(diasSuscripcion));
+        pagoSuscripcion.setFecha(LocalDateTime.now());
+        pagoSuscripcion.setSuscripcion(suscripcion);
+        pagoSuscripcion.setValor(valorTotal);
+        pagoSuscripcion.setMetodoPago("Suscripción");
+    }
+
 
     /**
      * Método que agrega un pago de una reserva a la base de datos
