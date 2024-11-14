@@ -1,20 +1,22 @@
 package com.asesinosdesoftware.javeparking;
 
 import com.asesinosdesoftware.javeparking.entities.Sesion;
+import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
+import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.services.InicioDeSesionService;
-import com.asesinosdesoftware.javeparking.services.JDBCService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
-import java.sql.Connection;
+import java.util.Objects;
 
 public class HelloController {
+
+    IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
     @FXML
     private BorderPane contenedor;
 
@@ -36,7 +38,7 @@ public class HelloController {
         try {
             // Carga la vista desde el archivo FXML
             BorderPane pane = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
-            // Establece la vista cargada en el centro del contenedor principal
+            // Establece la vista cargada en el top del contenedor principal
             contenedor.setTop(pane);
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,7 +50,7 @@ public class HelloController {
     private void registrarCliente() {
         try {
             // Carga la vista desde el archivo FXML
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("Registro_View.fxml"));
+            AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Registro_View.fxml")));
             // Establece la vista cargada en el centro del contenedor principal
             contenedor.setCenter(pane);
         } catch (IOException e) {
@@ -60,11 +62,9 @@ public class HelloController {
     private void InicioSesion() {
      try{
 
-         JDBCService controller = new JDBCService();
-         Connection connection = controller.getConnection();
          InicioDeSesionService U = new InicioDeSesionService();
 
-         U.InicioDeSesion(connection,Usuario.getText(),Contrasena.getText());
+         U.InicioDeSesion(dbConnectionManager.getConnection(),Usuario.getText(),Contrasena.getText());
          Menu();
      }
      catch (Exception e) {
@@ -77,7 +77,7 @@ public class HelloController {
         if(Sesion.getTipo()=='a'){
             try {
                 // Carga la vista desde el archivo FXML
-                AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuAdminView.fxml"));
+                AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MenuAdminView.fxml")));
                 // Establece la vista cargada en el centro del contenedor principal
                 contenedor.setCenter(pane);
             } catch (IOException e) {
@@ -88,7 +88,7 @@ public class HelloController {
         if(Sesion.getTipo()=='c'){
             try {
                 // Carga la vista desde el archivo FXML
-                AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuClienteView.fxml"));
+                AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MenuClienteView.fxml")));
                 // Establece la vista cargada en el centro del contenedor principal
                 contenedor.setCenter(pane);
             } catch (IOException e) {
@@ -99,7 +99,7 @@ public class HelloController {
         if(Sesion.getTipo()=='e'){
             try {
                 // Carga la vista desde el archivo FXML
-                AnchorPane pane = FXMLLoader.load(getClass().getResource("MenuOperarioView.fxml"));
+                AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MenuOperarioView.fxml")));
                 // Establece la vista cargada en el centro del contenedor principal
                 contenedor.setCenter(pane);
             } catch (IOException e) {

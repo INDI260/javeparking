@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="com.asesinosdesoftware.javeparking.controller.RegistroOpController">
+    <children>
+        <Label layoutX="100.0" layoutY="40.0" text="Placa del Vehículo:" />
+        <TextField fx:id="txtPlaca" layoutX="250.0" layoutY="40.0" prefWidth="200.0" />
+
+        <Label layoutX="100.0" layoutY="80.0" text="Tamaño del Vehículo:" />
+        <ComboBox fx:id="cmbTamano" layoutX="250.0" layoutY="80.0" prefWidth="200.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="g" />
+                    <String fx:value="m" />
+                    <String fx:value="p" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Label layoutX="100.0" layoutY="120.0" text="Tipo de Vehículo:" />
+        <TextField fx:id="txtTipo" layoutX="250.0" layoutY="120.0" prefWidth="200.0" />
+
+        <Button layoutX="250.0" layoutY="160.0" text="Registrar Vehículo" onAction="#agregarVehiculo" />
+    </children>
+</AnchorPane>
+

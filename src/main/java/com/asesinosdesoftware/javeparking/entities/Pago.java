@@ -1,9 +1,12 @@
 package com.asesinosdesoftware.javeparking.entities;
 
-public class Pago {
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-    private int id; //Este dato lo crea automáticamte el manejador de bases de datos y por tanto no se debe asignar manualmente
-    private Reserva reserva; //Reserva asociada al pago
-    private float valor; //El valor monetario que debe recibirse en el pago
+public abstract class Pago {
 
+    private int id; // Este dato lo crea automáticamente el manejador de bases de datos
+    private BigDecimal valor; // El valor monetario que debe recibirse en el pago
+    private LocalDateTime fecha;//Este atributo guarda la fecha y la hora de entrada del vehículo en la reserva.
+    private String metodoPago;
 }

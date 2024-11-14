@@ -4,13 +4,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.MenuAdminViewController">
+<AnchorPane fx:id="contenedor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.menu.MenuAdminViewController">
     <children>
         <Button layoutX="208.0" layoutY="313.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="184.0" text="Gestion de Precios">
             <font>
                 <Font size="14.0" />
             </font></Button>
-        <Button layoutX="208.0" layoutY="143.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="184.0" text="Gestion de Parqueaderos">
+        <Button layoutX="208.0" layoutY="143.0" mnemonicParsing="false" onAction="#gestionarParq" prefHeight="29.0" prefWidth="184.0" text="Gestion de Parqueaderos">
             <font>
                 <Font size="14.0" />
             </font></Button>
@@ -18,7 +18,7 @@
             <font>
                 <Font size="14.0" />
             </font></Button>
-        <Button layoutX="208.0" layoutY="200.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="184.0" text="Gestion de Rservas">
+        <Button layoutX="208.0" layoutY="200.0" mnemonicParsing="false" onAction="#gestionarReservas" prefHeight="29.0" prefWidth="184.0" text="Gestion de Reservas">
             <font>
                 <Font size="14.0" />
             </font></Button>

@@ -5,16 +5,24 @@ public class Puesto {
     private int id; //Este dato lo crea automáticamte el manejador de bases de datos y por tanto no se debe asignar manualmente
     private char tamano; //El tamaño del puesto, puede ser grande mediano o pequeño (g, m, p)
     private boolean disponibilidad; //Detemina si el puesto está disponible u ocupado (false para disponible, true para ocupado)
-
-
-    public Puesto(int id, char tamano, boolean disponibilidad) {
-        this.id = id;
-        this.tamano = tamano;
-        this.disponibilidad = disponibilidad;
-    }
+    private int parqueaderoID;
 
     public Puesto() {
     }
+
+    /**
+     * Método constructor por parámetros
+     * @param id
+     * @param tamano
+     * @param disponibilidad
+     */
+    public Puesto(int id, char tamano, boolean disponibilidad, int parqueaderoID) {
+        this.id = id;
+        this.tamano = tamano;
+        this.disponibilidad = disponibilidad;
+        this.parqueaderoID = parqueaderoID;
+    }
+
 
     public int getId() {
         return id;
@@ -38,5 +46,13 @@ public class Puesto {
 
     public void setDisponibilidad(boolean disponibilidad) {
         this.disponibilidad = disponibilidad;
+    }
+
+    public int getParqueaderoID() {
+        return parqueaderoID;
+    }
+
+    public void setParqueaderoID(int parqueaderoID) {
+        this.parqueaderoID = parqueaderoID;
     }
 }

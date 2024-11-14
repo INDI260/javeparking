@@ -1,4 +1,4 @@
-package com.asesinosdesoftware.javeparking.controller;
+package com.asesinosdesoftware.javeparking.controller.menu;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +12,9 @@ public class ReservaClienteViewController {
     @FXML
     private AnchorPane contenedor;
 
+    /**
+     * Metodo que usa el servicio ReservaAdService para la creacion de la reserva por parte del Cliente
+     */
     @FXML
     private void ReservaIndividual() {
         try {

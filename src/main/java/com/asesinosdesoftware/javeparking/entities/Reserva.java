@@ -2,7 +2,6 @@ package com.asesinosdesoftware.javeparking.entities;
 
 import java.time.LocalDateTime;
 
-
 public class Reserva {
 
     private int id;
@@ -78,5 +77,9 @@ public class Reserva {
 
     public void setPuesto(Puesto puesto) {
         this.puesto = puesto;
+    }
+
+    public char getTamano() {
+        return vehiculo != null ? vehiculo.getTamano() : ' '; // Retorna un espacio si el vehículo es nulo
     }
 }
