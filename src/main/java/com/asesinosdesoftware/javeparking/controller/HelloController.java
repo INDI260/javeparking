@@ -1,4 +1,4 @@
-package com.asesinosdesoftware.javeparking;
+package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
