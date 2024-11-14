@@ -83,12 +83,14 @@ public class ReservaParqViewController {
     private void CrearReserva()throws SQLException {
         try{
             if(reserva==null){
+                reserva = new Reserva();
                 reservaCService.CrearReserva(IDHoraEntrada.getValue(),IDHoraSalida.getValue(),IDplaca.getText(),IdTamano.getValue(),reserva);
 
             }
             reserva = null;
             showSuccess("Reserva Creada con exito");
         } catch (ServiceException e){
+            reserva = null;
             showError(e.toString());
         }
     }

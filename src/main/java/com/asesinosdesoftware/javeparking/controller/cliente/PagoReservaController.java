@@ -20,23 +20,30 @@ public class PagoReservaController {
 
     @FXML
     private void pagoReservas() throws SQLException {
-
+    try{
         if(pagoReserva == null) {
+            pagoReserva = new PagoReserva();
             pagoService.calcularPago(IDPlaca.getText(),IDReserva.getText(), pagoReserva);
         }
         pagoService.pagarReserva(pagoReserva);
         pagoReserva = null;
         showSuccess("Pago realizado con éxito.");
+    }catch (SQLException e){
+        pagoReserva = null;
+        showError("Error en el pago de reservas: " + e.getMessage());
+        }
     }
 
     @FXML
     private void mostrarPrecio(){
 
         try {
+            pagoReserva = new PagoReserva();
             pagoService.calcularPago(IDPlaca.getText(), IDReserva.getText(), pagoReserva);
             showSuccess("Su factura es de un valor de: "+ pagoReserva.getValor());
         }
         catch (SQLException e) {
+            pagoReserva = null;
             showError("Error en el pago de reservas: " + e.getMessage());
         }
     }

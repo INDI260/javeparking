@@ -17,7 +17,7 @@ public class PagoSuscripcionRepository {
      * @throws SQLException
      */
     public void agregarPagoSuscripcion(PagoSuscripcion pagoSuscripcion) throws SQLException {
-        String sql = "INSERT INTO PagoSuscripcion (suscripcionID, valor, fecha_pago, metodo_pago) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO PagoSuscripcion (suscripcionID, valor, fechapago, metodopago) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql)) {
             ps.setInt(1, pagoSuscripcion.getSuscripcion().getId());
             ps.setBigDecimal(2, pagoSuscripcion.getValor()); // Asegúrate de que esto sea double

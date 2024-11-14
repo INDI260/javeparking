@@ -47,12 +47,14 @@ public class AgregarPuestosViewController {
         try{
 
             if(puesto==null){
+                puesto =new Puesto();
                 puestosService.agregarPuestos(parq,pequeno,mediano,grande,puesto);
             }
             puesto=null;
             showSuccess("Puestos añadidos al parqueadero de forma exitosa");
 
         }catch (SQLException | ServiceException e){
+            puesto=null;
             e.printStackTrace();
         }
     }

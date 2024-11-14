@@ -37,6 +37,7 @@ public class CrearParqViewController {
         try {
 
             if (parqueadero==null){
+                parqueadero = new Parqueadero();
                 parqueaderoService.crearparq(idPpequeno.getText(),idPmediano.getText(),idPgrande.getText(),idSpequeno.getText(),idSmediano.getText(),idSgrande.getText(),iddescuento.getValue(),parqueadero);
             }
 
@@ -44,6 +45,7 @@ public class CrearParqViewController {
             showSuccess("El nuevo parqueadero ha sido registrado");
 
         }catch (SQLException e){
+            parqueadero = null;
             e.printStackTrace();
         }
 

@@ -248,6 +248,7 @@ CREATE TABLE suscripcion (
   fecha_inicio datetime DEFAULT NULL,
   fecha_fin datetime DEFAULT NULL,
   estado varchar(100) NOT NULL,
+  idParq int NOT NULL,
   PRIMARY KEY (id),
   KEY fk_cliente_suscripcion (clienteID),
   KEY fk_vehiculo_suscripcion (vehiculoID),

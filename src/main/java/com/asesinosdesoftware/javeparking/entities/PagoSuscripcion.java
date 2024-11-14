@@ -13,16 +13,10 @@ public class PagoSuscripcion extends Pago{
 
     /**
      * Método constructor por parámetros
-     * @param suscripcion
-     * @param valor
-     * @param fecha
-     * @param metodoPago
+     *
      */
-    public PagoSuscripcion(Suscripcion suscripcion, BigDecimal valor, LocalDateTime fecha, String metodoPago) {
-        this.suscripcion = suscripcion;
-        this.valor = valor;
-        this.fecha = fecha;
-        this.metodoPago = metodoPago;
+    public PagoSuscripcion() {
+
     }
 
     // Getters y Setters

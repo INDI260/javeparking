@@ -15,7 +15,7 @@ public class PagoClViewController {
     private void Reserva() {
         try {
             // Crear un nuevo FXMLLoader para cargar la vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asesinosdesoftware/javeparking/PagoReserva.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asesinosdesoftware/javeparking/PagoReservaView.fxml"));
 
             // Cargar la nueva vista y obtener el pane
             AnchorPane pane = loader.load();
@@ -40,7 +40,7 @@ public class PagoClViewController {
     private void Suscripcion() {
         try {
             // Cargar la vista de pago de suscripción
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asesinosdesoftware/javeparking/PagoSuscripcion.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asesinosdesoftware/javeparking/PagoSuscripcionView.fxml"));
 
             // Cargar la nueva vista y obtener el pane
             AnchorPane pane = loader.load();
