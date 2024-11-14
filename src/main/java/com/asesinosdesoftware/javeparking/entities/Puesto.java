@@ -13,11 +13,13 @@ public class Puesto {
      * @param tamano
      * @param disponibilidad
      */
-    public Puesto(int id, char tamano, boolean disponibilidad, int parqueaderoID) {
+    public Puesto(int id, char tamano, boolean disponibilidad) {
         this.id = id;
         this.tamano = tamano;
         this.disponibilidad = disponibilidad;
     }
+
+
 
     /**
      * Método constructor vacío
@@ -25,6 +27,7 @@ public class Puesto {
     public Puesto() {
     }
 
+    /*Getters y setters*/
     public int getId() {
         return id;
     }
