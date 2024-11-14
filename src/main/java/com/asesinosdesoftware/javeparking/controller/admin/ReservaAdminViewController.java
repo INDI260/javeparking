@@ -103,7 +103,6 @@ public class ReservaAdminViewController {
         // Lógica para editar la reserva seleccionada
         Reserva reservaSeleccionada = tablaReservas.getSelectionModel().getSelectedItem();
         if (reservaSeleccionada != null) {
-
             try {
                 // Actualizar datos de reserva aquí
 

@@ -18,6 +18,7 @@ public class PagoService {
     ReservaRepository reservaRepository = new ReservaRepository();
     ParqueaderoRepository parqueaderoRepository= new ParqueaderoRepository();
     PagoRepository pagoRepository = new PagoRepository();
+    PagoOpRepository opRepository = new PagoOpRepository();
     PagoSuscripcionRepository pagoSuscripcionRepository = new PagoSuscripcionRepository();
     SuscripcionRepository suscripcionRepository= new SuscripcionRepository();
 
@@ -69,11 +70,51 @@ public class PagoService {
     }
 
     /**
-     * Método que calcula el pago de una suscripción en función de los días
-     * @param placa: Placa del vehículo suscrito
-     * @param pagoSuscripcion: Objeto donde se almacenará el resultado del cálculo
-     * @throws SQLException
+     * Calcula el pago por parte del operario en función del tamaño del vehículo y las horas de estancia.
+     * @param placa Placa del vehículo a pagar.
+     * @param horasEstacionado Horas de permanencia en el parqueadero.
+     * @param pagoOp Objeto que almacenará los detalles del pago por operación.
+     * @throws SQLException si ocurre un error de base de datos.
      */
+    public void calcularPagoOp(String placa, int horasEstacionado, PagoOp pagoOp) throws SQLException {
+        // Obtener el vehículo, puesto y parqueadero asociados a la placa
+        Vehiculo vehiculo = new Vehiculo();
+        vehiculoRepository.buscarVehiculo(placa,vehiculo);
+
+        if (vehiculo == null) {
+            throw new SQLException("Vehículo no encontrado en el sistema con placa: " + placa);
+        }
+
+        Parqueadero parqueadero = new Parqueadero();
+        parqueaderoRepository.buscarParqueaderoPorId(1,parqueadero);
+
+        if (parqueadero == null) {
+            throw new SQLException("Parqueadero no encontrado para el vehículo con placa: " + placa);
+        }
+
+        // Establecer la fecha y método de pago
+        LocalDateTime fechaActual = LocalDateTime.now();
+        pagoOp.setFecha(fechaActual);
+        pagoOp.setMetodoPago("Online");
+
+        // Calcular la tarifa según el tamaño del vehículo
+        BigDecimal tarifa;
+        switch (vehiculo.getTamano()) {
+            case 'p' -> tarifa = parqueadero.getTarifaPequeno();
+            case 'm' -> tarifa = parqueadero.getTarifaMediano();
+            case 'g' -> tarifa = parqueadero.getTarifaGrande();
+            default -> throw new SQLException("Tamaño de vehículo no válido");
+        }
+
+        // Calcular el valor del pago basado en la duración en horas
+        BigDecimal valorPago = tarifa.multiply(BigDecimal.valueOf(horasEstacionado));
+        pagoOp.setValor(valorPago);
+        pagoOp.setVehiculo(vehiculo);
+
+        // Registrar el pago en la base de datos
+        opRepository.registrarPago(pagoOp);
+
+    }
     public void calcularPagoSuscripcion(String placa, PagoSuscripcion pagoSuscripcion) throws SQLException {
         Vehiculo vehiculo = new Vehiculo();
         Suscripcion suscripcion = new Suscripcion();
@@ -127,14 +168,6 @@ public class PagoService {
         pagoSuscripcion.setMetodoPago("Suscripción");
     }
 
-    /**
-     * Método que registra el pago de suscripción en la base de datos
-     * @param pagoSuscripcion: Objeto PagoSuscripcion con detalles del pago
-     * @throws SQLException
-     */
-    public void pagarSuscripcion(PagoSuscripcion pagoSuscripcion) throws SQLException {
-        pagoSuscripcionRepository.agregarPagoSuscripcion(pagoSuscripcion);
-    }
 
     /**
      * Método que agrega un pago de una reserva a la base de datos
@@ -145,4 +178,12 @@ public class PagoService {
         pagoRepository.agregarPagoReserva(pagoReserva);
     }
 
+    /**
+     * Método que registra el pago de suscripción en la base de datos
+     * @param pagoSuscripcion: Objeto PagoSuscripcion con detalles del pago
+     * @throws SQLException
+     */
+    public void pagarSuscripcion(PagoSuscripcion pagoSuscripcion) throws SQLException {
+        pagoSuscripcionRepository.agregarPagoSuscripcion(pagoSuscripcion);
+    }
 }

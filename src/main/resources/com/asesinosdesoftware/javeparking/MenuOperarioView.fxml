@@ -4,16 +4,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.menu.MenuOperarioViewController">
+<AnchorPane fx:id="contenedor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.MenuOperarioViewController">
     <children>
-        <Button layoutX="247.0" layoutY="218.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="103.0" text="Pago">
+        <Button layoutX="247.0" layoutY="218.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="103.0" text="Pago" onAction="#IngresoPagoOp">
             <font>
                 <Font size="14.0" />
-            </font></Button>
-        <Button layoutX="226.0" layoutY="170.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="147.0" text="Ingreso de Vehiculo">
+            </font>
+        </Button>
+        <Button layoutX="226.0" layoutY="170.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="147.0" text="Ingreso de Vehiculo" onAction="#IngresoVehiculoOp">
             <font>
                 <Font size="14.0" />
-            </font></Button>
+            </font>
+        </Button>
         <Label layoutX="213.0" layoutY="52.0" prefHeight="45.0" prefWidth="172.0" text="Menu Operario">
             <font>
                 <Font name="System Bold" size="24.0" />
