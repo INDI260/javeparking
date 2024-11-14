@@ -25,13 +25,12 @@ public class InicioDeSesionService {
 
     /**
      * Método que permite iniciar sesión a partir de una cedula y una contraseña, determina si el usuario es un cliente, un empleado o un administrador y actualiza la sesión de accuerdo con ello
-     * @param connection: Conexión a la base de datos
      * @param cedula: Cédula ingresada por el usuario
      * @param password: Contraseña ingresada por el usuario
      * @throws SQLException
      * @throws InicioDeSesionException
      */
-    public void InicioDeSesion(Connection connection, String cedula, String password) throws SQLException, InicioDeSesionException {
+    public void InicioDeSesion(String cedula, String password) throws SQLException, InicioDeSesionException {
         if(Sesion.getTipo() != 'n'){
             throw new InicioDeSesionException("Ya hay una sesión iniciada. Por favor cierre la sesión antes de comenzar otra.");
         }
