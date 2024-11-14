@@ -1,36 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.lang.*?>
 
-<AnchorPane fx:id="contenedor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.PagoOpController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.PagoOpController" prefHeight="400.0" prefWidth="600.0">
     <children>
-        <Label layoutX="173.0" layoutY="40.0" prefHeight="45.0" prefWidth="253.0" text="Menu Pago Operario">
-            <font>
-                <Font name="System Bold" size="24.0" />
-            </font>
-        </Label>
-
-        <Label layoutX="100.0" layoutY="100.0" text="Placa del Vehículo:" />
-        <TextField fx:id="placaTextField" layoutX="250.0" layoutY="100.0" prefWidth="200.0" />
-
-        <Label layoutX="100.0" layoutY="140.0" text="Duración (horas):" />
-        <TextField fx:id="duracionTextField" layoutX="250.0" layoutY="140.0" prefWidth="200.0" />
-
-        <Button layoutX="226.0" layoutY="180.0" mnemonicParsing="false" onAction="#calcularPagoOp" prefHeight="29.0" prefWidth="147.0" text="Calcular Pago">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </Button>
-
-        <Label layoutX="100.0" layoutY="230.0" text="Valor Calculado:" />
-        <TextField fx:id="valorTextField" layoutX="250.0" layoutY="230.0" prefWidth="200.0" editable="false" />
-
-        <Label layoutX="100.0" layoutY="270.0" text="Método de Pago:" />
-        <TextField fx:id="metodoPagoTextField" layoutX="250.0" layoutY="270.0" prefWidth="200.0" editable="false" />
-
-        <Label layoutX="100.0" layoutY="310.0" text="Fecha del Pago:" />
-        <TextField fx:id="fechaTextField" layoutX="250.0" layoutY="310.0" prefWidth="200.0" editable="false" />
+        <TextField fx:id="placaTextField" layoutX="200.0" layoutY="50.0" prefWidth="200.0" promptText="Ingrese la placa" />
+        <ComboBox fx:id="metodoPagoComboBox" layoutX="200.0" layoutY="100.0" prefWidth="200.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Efectivo" />
+                    <String fx:value="Tarjeta" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <TextField fx:id="valorTextField" layoutX="200.0" layoutY="150.0" prefWidth="200.0" promptText="Valor" editable="false" />
+        <TextField fx:id="metodoPagoTextField" layoutX="200.0" layoutY="200.0" prefWidth="200.0" promptText="Método de Pago" editable="false" />
+        <TextField fx:id="fechaTextField" layoutX="200.0" layoutY="250.0" prefWidth="200.0" promptText="Fecha" editable="false" />
+        <Button layoutX="200.0" layoutY="300.0" text="Pagar" onAction="#calcularPagoOp" />
     </children>
 </AnchorPane>
+

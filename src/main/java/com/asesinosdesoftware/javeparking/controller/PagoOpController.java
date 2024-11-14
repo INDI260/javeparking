@@ -4,9 +4,11 @@ import com.asesinosdesoftware.javeparking.entities.PagoOp;
 import com.asesinosdesoftware.javeparking.services.PagoService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class PagoOpController {
 
@@ -16,13 +18,10 @@ public class PagoOpController {
     private TextField placaTextField;
 
     @FXML
-    private TextField horasEstacionadoTextField;
+    private ComboBox<String> metodoPagoComboBox;  // El usuario selecciona el método de pago (efectivo o tarjeta)
 
     @FXML
     private TextField valorTextField;
-
-    @FXML
-    private TextField metodoPagoTextField;
 
     @FXML
     private TextField fechaTextField;
@@ -33,35 +32,36 @@ public class PagoOpController {
     @FXML
     private void calcularPagoOp() {
         String placa = placaTextField.getText();
-        String horasEstacionadoStr = horasEstacionadoTextField.getText();
+        String metodoPago = metodoPagoComboBox.getValue();
 
-        if (placa.isEmpty() || horasEstacionadoStr.isEmpty()) {
+        if (placa.isEmpty() || metodoPago == null) {
             // Mostrar un mensaje de error si falta algún dato
             mostrarError("Por favor, ingrese todos los datos requeridos.");
             return;
         }
 
         try {
-            // Convertir la duración en horas a un valor entero
-            int horasEstacionado = Integer.parseInt(horasEstacionadoStr);
-
             // Crear un objeto PagoOp donde se almacenará el resultado
             PagoOp pagoOp = new PagoOp();
 
             // Usar el servicio para calcular el pago de la operación
-            pagoService.calcularPagoOp(placa, horasEstacionado, pagoOp);
+            pagoService.calcularPagoOp(placa, 0, pagoOp);  // 0 horas, ya que no es necesario que el usuario lo ingrese
+
+            // Establecer el método de pago (lo asigna el usuario)
+            pagoOp.setMetodoPago(metodoPago);
+
+            // Establecer la fecha actual
+            LocalDateTime fechaActual = LocalDateTime.now();
+            pagoOp.setFecha(fechaActual);
 
             // Mostrar los resultados en los campos de texto correspondientes
             valorTextField.setText(pagoOp.getValor().toString());
-            metodoPagoTextField.setText(pagoOp.getMetodoPago());
+            metodoPagoComboBox.setValue(pagoOp.getMetodoPago());
             fechaTextField.setText(pagoOp.getFecha().toString());
 
         } catch (SQLException e) {
             // Manejar errores de base de datos
             mostrarError("Error al calcular el pago: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            // Manejar errores si las horas ingresadas no son un número válido
-            mostrarError("Por favor, ingrese un número válido para las horas de estacionamiento.");
         }
     }
 
@@ -77,6 +77,8 @@ public class PagoOpController {
         alert.showAndWait();
     }
 }
+
+
 
 
 

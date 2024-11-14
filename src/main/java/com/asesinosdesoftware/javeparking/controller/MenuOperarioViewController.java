@@ -6,41 +6,50 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert;
 
+import java.io.IOException;
+
 
 public class MenuOperarioViewController {
 
     @FXML
     public AnchorPane contenedor;
 
-    // Este método carga la vista de registro de vehículo
     @FXML
     private void IngresoVehiculoOp(ActionEvent event) {
         try {
-            // Cargar la vista de registro de vehículo
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asesinosdesoftware/javeparking/views/RegistroOpView.fxml"));
-            AnchorPane root = loader.load();
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("/com/asesinosdesoftware/javeparking/RegistroOpView.fxml"));
 
-            // Colocar la nueva vista dentro del contenedor
-            contenedor.getChildren().setAll(root);
+            contenedor.getChildren().clear();
 
-        } catch (Exception e) {
-            // En caso de error al cargar la vista
+            AnchorPane.setTopAnchor(pane, 0.0);
+            AnchorPane.setBottomAnchor(pane, 0.0);
+            AnchorPane.setLeftAnchor(pane, 0.0);
+            AnchorPane.setRightAnchor(pane, 0.0);
+
+            contenedor.getChildren().add(pane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
             mostrarMensajeError("No se pudo cargar la vista de registro de vehículo: " + e.getMessage());
         }
     }
 
+
     @FXML
     private void IngresoPagoOp(ActionEvent event) {
         try {
-            // Cargar la vista de PagoOp
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asesinosdesoftware/javeparking/views/PagoOpView.fxml"));
-            AnchorPane root = loader.load();
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("/com/asesinosdesoftware/javeparking/PagoOpView.fxml"));
 
-            // Colocar la nueva vista dentro del contenedor
-            contenedor.getChildren().setAll(root);
+            contenedor.getChildren().clear();
 
-        } catch (Exception e) {
-            // En caso de error al cargar la vista
+            AnchorPane.setTopAnchor(pane, 0.0);
+            AnchorPane.setBottomAnchor(pane, 0.0);
+            AnchorPane.setLeftAnchor(pane, 0.0);
+            AnchorPane.setRightAnchor(pane, 0.0);
+            contenedor.getChildren().add(pane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
             mostrarMensajeError("No se pudo cargar la vista de PagoOp: " + e.getMessage());
         }
     }
