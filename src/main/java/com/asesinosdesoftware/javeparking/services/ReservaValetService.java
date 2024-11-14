@@ -3,7 +3,7 @@ package com.asesinosdesoftware.javeparking.services;
 import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
-import com.asesinosdesoftware.javeparking.exceptions.ReservasException;
+import com.asesinosdesoftware.javeparking.exceptions.ServiceException;
 import com.asesinosdesoftware.javeparking.repository.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -23,9 +23,9 @@ public class ReservaValetService {
      * @param IDplaca
      * @param reserva
      * @throws SQLException
-     * @throws ReservasException
+     * @throws ServiceException
      */
-    public void crearReservaValet(String IDHoraEntrada, String IDHoraSalida, String IDplaca, Reserva reserva) throws SQLException, ReservasException {
+    public void crearReservaValet(String IDHoraEntrada, String IDHoraSalida, String IDplaca, Reserva reserva) throws SQLException, ServiceException {
         // Fecha y hora de la reserva
         LocalDate fechaActual = LocalDate.now();
         LocalTime horaEntrada = LocalTime.parse(IDHoraEntrada);
@@ -35,7 +35,7 @@ public class ReservaValetService {
 
         // Validación de hora de entrada y salida
         if (horaSalidaCompleta.isBefore(horaEntradaCompleta) || horaSalidaCompleta.isEqual(horaEntradaCompleta)) {
-            throw new ReservasException("La hora de salida debe ser posterior a la hora de entrada.");
+            throw new ServiceException("La hora de salida debe ser posterior a la hora de entrada.");
         }
 
         // Verificar que el vehículo existe
@@ -47,7 +47,7 @@ public class ReservaValetService {
         puestoRepository.buscarPuesto("", false, puesto); // Aquí se pasa una cadena vacía para buscar cualquier puesto disponible
 
         if (puesto == null) {
-            throw new ReservasException("No hay puestos disponibles para valet parking.");
+            throw new ServiceException("No hay puestos disponibles para valet parking.");
         }
 
         // Configurar la reserva
@@ -71,9 +71,9 @@ public class ReservaValetService {
      * @param IDplaca
      * @param reservaSeleccionada
      * @throws SQLException
-     * @throws ReservasException
+     * @throws ServiceException
      */
-    public void editarReservaValet(String IDHoraEntrada, String IDHoraSalida, String IDplaca, Reserva reservaSeleccionada) throws SQLException, ReservasException {
+    public void editarReservaValet(String IDHoraEntrada, String IDHoraSalida, String IDplaca, Reserva reservaSeleccionada) throws SQLException, ServiceException {
         // Actualizar datos de la reserva
         LocalDate fechaActual = LocalDate.now();
         LocalTime horaEntrada = LocalTime.parse(IDHoraEntrada);
@@ -82,7 +82,7 @@ public class ReservaValetService {
         LocalDateTime horaSalidaCompleta = LocalDateTime.of(fechaActual, horaSalida);
 
         if (horaSalidaCompleta.isBefore(horaEntradaCompleta) || horaSalidaCompleta.isEqual(horaEntradaCompleta)) {
-            throw new ReservasException("La hora de salida debe ser posterior a la hora de entrada.");
+            throw new ServiceException("La hora de salida debe ser posterior a la hora de entrada.");
         }
 
         // Buscar el vehículo
@@ -102,7 +102,7 @@ public class ReservaValetService {
         puestoRepository.buscarPuesto("", false, nuevoPuesto); // Pasamos una cadena vacía para buscar cualquier puesto disponible
 
         if (nuevoPuesto == null) {
-            throw new ReservasException("No hay puestos disponibles para valet parking.");
+            throw new ServiceException("No hay puestos disponibles para valet parking.");
         }
 
         // Actualizar la reserva

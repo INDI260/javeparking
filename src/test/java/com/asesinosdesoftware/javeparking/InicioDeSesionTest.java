@@ -45,7 +45,7 @@ public class InicioDeSesionTest {
     @Test
     void inicioDeSesionAdmin() {
         try {
-            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "10", "1234");
+            inicioDeSesionService.InicioDeSesion( "10", "1234");
             assertEquals('a', Sesion.getTipo());
         } catch (SQLException | InicioDeSesionException e) {
             fail(e.getMessage());
@@ -56,7 +56,7 @@ public class InicioDeSesionTest {
     @Test
     void inicioDeSesionEmpleado() {
         try {
-            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "20", "1234");
+            inicioDeSesionService.InicioDeSesion("20", "1234");
             assertEquals('e', Sesion.getTipo());
         } catch (SQLException | InicioDeSesionException e) {
             fail(e.getMessage());
@@ -67,7 +67,7 @@ public class InicioDeSesionTest {
     @Test
     void inicioDeSesionCliente() {
         try {
-            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "30", "1234");
+            inicioDeSesionService.InicioDeSesion("30", "1234");
             assertEquals('c', Sesion.getTipo());
         } catch (SQLException | InicioDeSesionException e) {
             fail(e.getMessage());
@@ -78,8 +78,8 @@ public class InicioDeSesionTest {
     @Test
     void inicioDeSesionConSesionYaAbierta() {
         try{
-            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "10", "1234");
-            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "20", "1234");
+            inicioDeSesionService.InicioDeSesion("10", "1234");
+            inicioDeSesionService.InicioDeSesion("20", "1234");
             fail();
         }
         catch (SQLException | InicioDeSesionException e) {
@@ -90,7 +90,7 @@ public class InicioDeSesionTest {
     @Test
     void inicioDeSesionContraseniaIncorrecta() {
         try{
-            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "10", "2345");
+            inicioDeSesionService.InicioDeSesion("10", "2345");
             fail();
         }
         catch (SQLException | InicioDeSesionException e) {
@@ -101,7 +101,7 @@ public class InicioDeSesionTest {
     @Test
     void inicioDeSesionUsuarioNoExistente() {
         try{
-            inicioDeSesionService.InicioDeSesion(dbConnectionManager.getConnection(), "00", "1234");
+            inicioDeSesionService.InicioDeSesion("00", "1234");
             fail();
         }
         catch (SQLException | InicioDeSesionException e) {

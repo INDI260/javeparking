@@ -2,7 +2,7 @@ package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.Puesto;
 import com.asesinosdesoftware.javeparking.entities.Reserva;
-import com.asesinosdesoftware.javeparking.exceptions.ReservasException;
+import com.asesinosdesoftware.javeparking.exceptions.ServiceException;
 import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
 import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
@@ -92,7 +92,7 @@ public class ReservaValetViewController {
             reservaValet = null;
             showSuccess("Reserva de Valet Parking creada con éxito");
             cargarReservas();
-        } catch (ReservasException e) {
+        } catch (ServiceException e) {
             showError(e.toString());
         }
     }
@@ -110,7 +110,7 @@ public class ReservaValetViewController {
                 reservaValetService.editarReservaValet(IDHoraEntrada.getValue(), IDHoraSalida.getValue(), IDplaca.getText(), reservaSeleccionada);
                 showSuccess("Reserva de Valet Parking editada con éxito");
                 cargarReservas();
-            } catch (ReservasException e) {
+            } catch (ServiceException e) {
                 showError(e.toString());
             }
         } else {
