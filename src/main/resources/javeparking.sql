@@ -25,14 +25,15 @@
 DROP TABLE IF EXISTS pagoreserva;
 DROP TABLE IF EXISTS pagosuscripcion;
 DROP TABLE IF EXISTS pagoop;
+DROP TABLE IF EXISTS registroop;
 DROP TABLE IF EXISTS administrador;
 DROP TABLE IF EXISTS reserva;
 DROP TABLE IF EXISTS empleado;
 DROP TABLE IF EXISTS puesto;
-DROP TABLE IF EXISTS parqueadero;
 DROP TABLE IF EXISTS suscripcion;
 DROP TABLE IF EXISTS vehiculo;
 DROP TABLE IF EXISTS cliente;
+DROP TABLE IF EXISTS parqueadero;
 
 
 
@@ -83,7 +84,11 @@ CREATE TABLE cliente (
 
 --LOCK TABLES cliente WRITE;
 /*!40000 ALTER TABLE cliente DISABLE KEYS */;
-INSERT INTO cliente VALUES (1,'30','Emily','Ramos','n','$2a$10$TLbzW5kwgc354wlTo6XWAuLknBx4EqMAOzKzzAU1HUtg7BiEBbjJS'),(2,'40','Tran','Esposito','a','$2a$10$/AwbCPDoJ5aTjW87X7XwQuyRlxY09fPgPjxKDZeNCCbxpzgDXD/96'),(3,'50','Maria','Menethil','e','$2a$10$fPRqtz8UTVuiVDkgOIdVzOYIkrsn3tBNSvvaVB7bjchuHRRdd8H.m');
+
+INSERT INTO cliente VALUES (0,'0','default','default','n','$2a$10$TLbzW5kwgc354wlTo6XWAuLknBx4EqMAOzKzzAU1HUtg7BiEBbjJS'),
+                           (1,'30','Emily','Ramos','n','$2a$10$TLbzW5kwgc354wlTo6XWAuLknBx4EqMAOzKzzAU1HUtg7BiEBbjJS'),
+                           (2,'40','Tran','Esposito','a','$2a$10$/AwbCPDoJ5aTjW87X7XwQuyRlxY09fPgPjxKDZeNCCbxpzgDXD/96'),
+                           (3,'50','Maria','Menethil','e','$2a$10$fPRqtz8UTVuiVDkgOIdVzOYIkrsn3tBNSvvaVB7bjchuHRRdd8H.m');
 /*!40000 ALTER TABLE cliente ENABLE KEYS */;
 --UNLOCK TABLES;
 
@@ -183,7 +188,6 @@ CREATE TABLE vehiculo (
                                 PRIMARY KEY (id),
                                 UNIQUE KEY placa_UNIQUE (placa),
                                 KEY clienteID_idx (clienteID),
-                                KEY parqueadero_id_idx (parqueadero_id),  -- Índice para la clave foránea parqueadero_id
                                 CONSTRAINT clienteID FOREIGN KEY (clienteID) REFERENCES cliente (id),
                                 CONSTRAINT parqueadero_id FOREIGN KEY (parqueadero_id) REFERENCES parqueadero (id)  -- Clave foránea hacia parqueadero
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -258,19 +262,20 @@ CREATE TABLE suscripcion (
 --
 -- Table structure for table registroop
 --
-CREATE TABLE registro_op (
+CREATE TABLE registroop (
                                 id INT NOT NULL AUTO_INCREMENT,       -- ID único para cada registro
                                 vehiculoID INT NOT NULL,              -- ID del vehículo (relación con vehiculo)
-                                hora_entrada DATETIME NOT NULL,       -- Hora de entrada del vehículo
+                                hora_entrada DATETIME NOT NULL,        -- Hora de entrada del vehículo
+                                puestoID INT NOT NULL,              -- ID del puesto
                                 PRIMARY KEY (id),
                                 CONSTRAINT vehiculo_fk FOREIGN KEY (vehiculoID) REFERENCES vehiculo(id)  -- Relación con vehiculo
-);ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table suscripcion
+-- Dumping data for table registroop
 --
 
---LOCK TABLES suscripcion WRITE;
+--LOCK TABLES registroop WRITE;
 /*!40000 ALTER TABLE registroop DISABLE KEYS */;
 /*!40000 ALTER TABLE registroop ENABLE KEYS */;
 --UNLOCK TABLES;

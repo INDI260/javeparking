@@ -1,6 +1,7 @@
 package com.asesinosdesoftware.javeparking.controller;
 
 import com.asesinosdesoftware.javeparking.entities.PagoOp;
+import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
 import com.asesinosdesoftware.javeparking.services.PagoService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -70,10 +71,13 @@ public class PagoOpController {
             valorTextField.setText(pagoOp.getValor().toString());
             metodoPagoComboBox.setValue(pagoOp.getMetodoPago());
             fechaTextField.setText(pagoOp.getFecha().toString());
+            showSuccess("Pago exitoso");
 
         } catch (SQLException e) {
             // Manejar errores de base de datos
             mostrarError("Error al calcular el pago: " + e.getMessage());
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -86,6 +90,14 @@ public class PagoOpController {
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+    // Método para mostrar un mensaje de éxito
+    private void showSuccess(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Éxito");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
         alert.showAndWait();
     }
 }

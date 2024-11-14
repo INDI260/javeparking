@@ -2,6 +2,7 @@ package com.asesinosdesoftware.javeparking.repository;
 
 import com.asesinosdesoftware.javeparking.entities.RegistroOp;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
+import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
 import com.asesinosdesoftware.javeparking.persistencia.H2DBConnectionManager;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 
@@ -13,29 +14,20 @@ public class RegistroOpRepository {
     private VehiculoRepository vehiculoRepository = new VehiculoRepository();
     private IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
 
-    public void agregarRegistroOp(RegistroOp registroOp) throws SQLException {
-        // Primero, obtenemos el vehículo por la placa
-        Vehiculo vehiculo = vehiculoRepository.buscarVehiculoPlaca(registroOp.getPlaca(), new Vehiculo());
+    public void agregarRegistroOp(RegistroOp registroOp) throws SQLException, RepositoryException {
+        // Insertar el registro de operación en la tabla `registroop`
+        String sql = "INSERT INTO registroop (vehiculoid, hora_entrada,puestoid) VALUES (?, ?,?)";
+        PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-        // Verificar que el vehículo existe antes de registrar la entrada
-        if (vehiculo != null) {
-            // Insertar el registro de entrada
-            String sql = "INSERT INTO registro_op (placa, tamano, tipo, hora_entrada) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ps.setInt(1, registroOp.getVehiculo().getId());
+        ps.setObject(2, registroOp.getHoraEntrada());  // Hora de entrada actual
+        ps.setInt(3,registroOp.getPuesto().getId());
 
-            ps.setString(1, registroOp.getPlaca());
-
-            // Convertimos tipo y tamaño de String a char al momento de insertar
-            ps.setString(2, Character.toString(registroOp.getTamano()));
-            ps.setString(3,Character.toString(vehiculo.getTipo()));
-            ps.setObject(4, registroOp.getHoraEntrada().toLocalTime());  // Hora de entrada actual
-
-            ps.executeUpdate();
-        } else {
-            throw new SQLException("El vehículo con la placa " + registroOp.getPlaca() + " no existe.");
-        }
+        ps.executeUpdate();
     }
 }
+
+
 
 
 

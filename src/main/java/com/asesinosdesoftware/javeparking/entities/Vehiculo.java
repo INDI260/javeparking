@@ -7,7 +7,6 @@ public class Vehiculo {
     private char tamano; // El tamaño del vehículo. Puede ser grande, mediano o pequeño (g, m, p)
     private char tipo; // Tipo de vehículo
     private int clienteid;
-    private Parqueadero parqueadero; // Parqueadero asociado al vehículo
 
     /**
      * Método constructor por parámetros de vehiculo.
@@ -73,15 +72,4 @@ public class Vehiculo {
         this.clienteid = clienteid;
     }
 
-    public Parqueadero getParqueadero() {
-        return parqueadero;
-    }
-
-    /**
-     * Método para asignar un parqueadero al vehículo.
-     * @param parqueadero: Objeto Parqueadero asociado al vehículo.
-     */
-    public void setParqueadero(Parqueadero parqueadero) {
-        this.parqueadero = parqueadero;
-    }
 }

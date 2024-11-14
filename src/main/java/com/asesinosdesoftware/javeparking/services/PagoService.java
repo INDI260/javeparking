@@ -1,6 +1,7 @@
 package com.asesinosdesoftware.javeparking.services;
 
 import com.asesinosdesoftware.javeparking.entities.*;
+import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.*;
 
@@ -70,15 +71,18 @@ public class PagoService {
      * @param pagoOp Objeto que almacenará los detalles del pago por operación.
      * @throws SQLException si ocurre un error de base de datos.
      */
-    public void calcularPagoOp(String placa, int horasEstacionado, PagoOp pagoOp) throws SQLException {
+    public void calcularPagoOp(String placa, int horasEstacionado, PagoOp pagoOp) throws SQLException, RepositoryException {
         // Obtener el vehículo, puesto y parqueadero asociados a la placa
-        Vehiculo vehiculo = pagoOpRepository.buscarVehiculoPorPlacaYParqueadero(placa);
+        Vehiculo vehiculo = new Vehiculo();
+        vehiculoRepository.buscarVehiculoPlaca(placa,vehiculo);
 
         if (vehiculo == null) {
             throw new SQLException("Vehículo no encontrado en el sistema con placa: " + placa);
         }
 
-        Parqueadero parqueadero = vehiculo.getParqueadero();
+        Parqueadero parqueadero = new Parqueadero();
+        parqueaderoRepository.buscarParqueaderoPorId(1,parqueadero);
+
         if (parqueadero == null) {
             throw new SQLException("Parqueadero no encontrado para el vehículo con placa: " + placa);
         }
@@ -104,6 +108,7 @@ public class PagoService {
 
         // Registrar el pago en la base de datos
         pagoOpRepository.registrarPago(pagoOp);
+
     }
 
     /**
