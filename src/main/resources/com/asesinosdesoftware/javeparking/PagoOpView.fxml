@@ -34,4 +34,3 @@
         <TextField fx:id="fechaTextField" layoutX="250.0" layoutY="310.0" prefWidth="200.0" editable="false" />
     </children>
 </AnchorPane>
-

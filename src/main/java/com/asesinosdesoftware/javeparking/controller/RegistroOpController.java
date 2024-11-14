@@ -15,10 +15,10 @@ public class RegistroOpController {
     private TextField txtPlaca;
 
     @FXML
-    private ComboBox<Character> cmbTamano;
+    private ComboBox<String> cmbTamano;
 
     @FXML
-    private ComboBox<String> cmbTipo;  // ComboBox para tipo de vehículo
+    private TextField txtTipo;  // Cambié a TextField para que el tipo de vehículo sea digitado
 
     private RegistroOpService registroOpService;
 
@@ -38,14 +38,17 @@ public class RegistroOpController {
         try {
             // Recoger los datos de la vista
             String placa = txtPlaca.getText();
-            char tamano = cmbTamano.getValue();
-            String tipo = cmbTipo.getValue();
+            String tamanoStr = cmbTamano.getValue();  // Obtiene el valor String
+            String tipo = txtTipo.getText();  // Obtiene el valor del TextField
 
             // Verificar si los campos están completos
-            if (placa.isEmpty() || tamano == '\0' || tipo == null) {
+            if (placa.isEmpty() || tamanoStr == null || tipo.isEmpty()) {
                 mostrarAlerta("Error", "Todos los campos son obligatorios.", AlertType.ERROR);
                 return;
             }
+
+            // Convertir el String a Character para el tamaño
+            char tamano = tamanoStr.charAt(0);  // Convierte el String a Character
 
             // Crear el objeto Vehiculo (el ID y el clienteId se asignan automáticamente por el servicio)
             Vehiculo vehiculo = new Vehiculo(0, placa, tamano, tipo.charAt(0), 0);
@@ -70,5 +73,6 @@ public class RegistroOpController {
         alert.showAndWait();
     }
 }
+
 
 

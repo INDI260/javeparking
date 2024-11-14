@@ -1,36 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.collections.*?>
-<?import java.lang.String?>
+<?import java.lang.*?>
 
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.RegistroOpController"
-      spacing="15" padding="20" alignment="CENTER">
-
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="com.asesinosdesoftware.javeparking.controller.RegistroOpController">
     <children>
-        <!-- Campo para ingresar la placa del vehículo -->
-        <TextField fx:id="txtPlaca" promptText="Placa del Vehículo" />
+        <Label layoutX="100.0" layoutY="40.0" text="Placa del Vehículo:" />
+        <TextField fx:id="txtPlaca" layoutX="250.0" layoutY="40.0" prefWidth="200.0" />
 
-        <!-- ComboBox para seleccionar el tamaño del vehículo -->
-        <ComboBox fx:id="cmbTamano" promptText="Selecciona el tamaño">
+        <Label layoutX="100.0" layoutY="80.0" text="Tamaño del Vehículo:" />
+        <ComboBox fx:id="cmbTamano" layoutX="250.0" layoutY="80.0" prefWidth="200.0">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <String>Grande</String>
-                    <String>Mediano</String>
-                    <String>Pequeño</String>
+                    <String fx:value="g" />
+                    <String fx:value="m" />
+                    <String fx:value="p" />
                 </FXCollections>
             </items>
         </ComboBox>
 
-        <!-- Campo para ingresar el tipo de vehículo -->
-        <TextField fx:id="txtTipo" promptText="Escribe el tipo de vehículo" />
+        <Label layoutX="100.0" layoutY="120.0" text="Tipo de Vehículo:" />
+        <TextField fx:id="txtTipo" layoutX="250.0" layoutY="120.0" prefWidth="200.0" />
 
-        <!-- Botón para registrar el vehículo -->
-        <Button text="Registrar Vehículo" onAction="#agregarVehiculo" />
+        <Button layoutX="250.0" layoutY="160.0" text="Registrar Vehículo" onAction="#agregarVehiculo" />
     </children>
-
-</VBox>
-
-
+</AnchorPane>
 
