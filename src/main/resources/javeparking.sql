@@ -30,6 +30,7 @@ DROP TABLE IF EXISTS administrador;
 DROP TABLE IF EXISTS reserva;
 DROP TABLE IF EXISTS empleado;
 DROP TABLE IF EXISTS puesto;
+DROP TABLE IF EXISTS parqueadero;
 DROP TABLE IF EXISTS suscripcion;
 DROP TABLE IF EXISTS vehiculo;
 DROP TABLE IF EXISTS cliente;
@@ -84,9 +85,7 @@ CREATE TABLE cliente (
 
 --LOCK TABLES cliente WRITE;
 /*!40000 ALTER TABLE cliente DISABLE KEYS */;
-
-INSERT INTO cliente VALUES (0,'0','default','default','n','$2a$10$TLbzW5kwgc354wlTo6XWAuLknBx4EqMAOzKzzAU1HUtg7BiEBbjJS'),
-                           (1,'30','Emily','Ramos','n','$2a$10$TLbzW5kwgc354wlTo6XWAuLknBx4EqMAOzKzzAU1HUtg7BiEBbjJS'),
+INSERT INTO cliente VALUES (1,'30','Emily','Ramos','n','$2a$10$TLbzW5kwgc354wlTo6XWAuLknBx4EqMAOzKzzAU1HUtg7BiEBbjJS'),
                            (2,'40','Tran','Esposito','a','$2a$10$/AwbCPDoJ5aTjW87X7XwQuyRlxY09fPgPjxKDZeNCCbxpzgDXD/96'),
                            (3,'50','Maria','Menethil','e','$2a$10$fPRqtz8UTVuiVDkgOIdVzOYIkrsn3tBNSvvaVB7bjchuHRRdd8H.m');
 /*!40000 ALTER TABLE cliente ENABLE KEYS */;
@@ -119,6 +118,9 @@ INSERT INTO empleado VALUES (1,'20','Simba','Gonzales','$2a$10$AnfaTGHCE4RSXkUYd
 /*!40000 ALTER TABLE empleado ENABLE KEYS */;
 --UNLOCK TABLES;
 
+--
+-- Table structure for table pagoreserva
+--
 
 --
 -- Table structure for table parqueadero
@@ -127,11 +129,15 @@ INSERT INTO empleado VALUES (1,'20','Simba','Gonzales','$2a$10$AnfaTGHCE4RSXkUYd
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE parqueadero (
-                              id int NOT NULL AUTO_INCREMENT,
-                              TarifaPequeno decimal(10,0) NOT NULL,
-                              TarifaMediano decimal(10,0) NOT NULL,
-                              TarifaGrande decimal(10,0) NOT NULL,
-                              PRIMARY KEY (id)
+  id int NOT NULL AUTO_INCREMENT,
+  TarifaPequeno decimal(10,0) NOT NULL,
+  TarifaMediano decimal(10,0) NOT NULL,
+  TarifaGrande decimal(10,0) NOT NULL,
+  SuscripcionPequeno decimal(10,0) NOT NULL,
+  SuscripcionMediano decimal(10,0) NOT NULL,
+  SuscripcionGrande decimal(10,0) NOT NULL,
+  DescuentoJaveriano decimal(10,4) NOT NULL,
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -141,7 +147,7 @@ CREATE TABLE parqueadero (
 
 --LOCK TABLES parqueadero WRITE;
 /*!40000 ALTER TABLE parqueadero DISABLE KEYS */;
-INSERT INTO parqueadero VALUES (1,16,19,21);
+INSERT INTO parqueadero VALUES (1,16,19,21,14,16,19,0.5);
 /*!40000 ALTER TABLE parqueadero ENABLE KEYS */;
 --UNLOCK TABLES;
 
@@ -173,7 +179,7 @@ INSERT INTO puesto VALUES (1,'g','0',1),(2,'g','0',1),(3,'g','0',1),(4,'m','0',1
 --UNLOCK TABLES;
 
 --
--- Table structure for table Vehiculo
+-- Table structure for table reserva
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -191,7 +197,7 @@ CREATE TABLE vehiculo (
                                 CONSTRAINT clienteID FOREIGN KEY (clienteID) REFERENCES cliente (id),
                                 CONSTRAINT parqueadero_id FOREIGN KEY (parqueadero_id) REFERENCES parqueadero (id)  -- Clave foránea hacia parqueadero
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table vehiculo
@@ -235,17 +241,18 @@ CREATE TABLE reserva (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE suscripcion (
-                              id int NOT NULL AUTO_INCREMENT,
-                              clienteID int NOT NULL,
-                              vehiculoID int NOT NULL,
-                              fecha_inicio datetime DEFAULT NULL,
-                              fecha_fin datetime DEFAULT NULL,
-                              estado varchar(100) NOT NULL,
-                              PRIMARY KEY (id),
-                              KEY fk_cliente_suscripcion (clienteID),
-                              KEY fk_vehiculo_suscripcion (vehiculoID),
-                              CONSTRAINT fk_cliente_suscripcion FOREIGN KEY (clienteID) REFERENCES cliente (id),
-                              CONSTRAINT fk_vehiculo_suscripcion FOREIGN KEY (vehiculoID) REFERENCES vehiculo (id)
+  id int NOT NULL AUTO_INCREMENT,
+  clienteID int NOT NULL,
+  vehiculoID int NOT NULL,
+  fecha_inicio datetime DEFAULT NULL,
+  fecha_fin datetime DEFAULT NULL,
+  estado varchar(100) NOT NULL,
+  idParq int NOT NULL,
+  PRIMARY KEY (id),
+  KEY fk_cliente_suscripcion (clienteID),
+  KEY fk_vehiculo_suscripcion (vehiculoID),
+  CONSTRAINT fk_cliente_suscripcion FOREIGN KEY (clienteID) REFERENCES cliente (id),
+  CONSTRAINT fk_vehiculo_suscripcion FOREIGN KEY (vehiculoID) REFERENCES vehiculo (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -282,8 +289,9 @@ CREATE TABLE registroop (
 
 
 --
--- Table structure for table pagoreserva
+-- Table structure for table vehiculo
 --
+
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;

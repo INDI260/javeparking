@@ -4,6 +4,7 @@ module com.asesinosdesoftware.javeparking {
     requires java.sql;
     requires spring.security.crypto;
     requires com.h2database;
+    requires java.sql.rowset;
 
     opens com.asesinosdesoftware.javeparking to javafx.fxml;
     opens com.asesinosdesoftware.javeparking.controller to javafx.fxml;
@@ -19,4 +20,7 @@ module com.asesinosdesoftware.javeparking {
     exports com.asesinosdesoftware.javeparking.repository;
     exports com.asesinosdesoftware.javeparking.services;
     exports com.asesinosdesoftware.javeparking.exceptions;
+    opens com.asesinosdesoftware.javeparking.controller.menu to javafx.fxml;
+    opens com.asesinosdesoftware.javeparking.controller.cliente to javafx.fxml;
+    opens com.asesinosdesoftware.javeparking.controller.admin to javafx.fxml;
 }

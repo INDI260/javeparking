@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.admin.AgregarPuestosViewController">
+   <children>
+      <TextField fx:id="idparq" layoutX="226.0" layoutY="159.0" />
+      <TextField fx:id="cantP" layoutX="226.0" layoutY="215.0" />
+      <TextField fx:id="cantM" layoutX="226.0" layoutY="270.0" />
+      <TextField fx:id="cantG" layoutX="226.0" layoutY="320.0" />
+      <Label layoutX="43.0" layoutY="219.0" text="Cantidad Puestos Pequeños" />
+      <Label layoutX="43.0" layoutY="274.0" text="Cantidad Puestos Medianos" />
+      <Label layoutX="52.0" layoutY="324.0" text="Cantidad Puestos Grandes" />
+      <Label layoutX="108.0" layoutY="163.0" text="Id Parqueadero" />
+      <Label layoutX="130.0" layoutY="71.0" prefHeight="35.0" prefWidth="339.0" text="Agregar Puestos Parqueadero">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="439.0" layoutY="197.0" mnemonicParsing="false" onAction="#agregarpuestos" prefHeight="85.0" prefWidth="107.0" text="Agregar">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

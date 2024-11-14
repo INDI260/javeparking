@@ -1,46 +1,39 @@
-package com.asesinosdesoftware.javeparking.controller;
+package com.asesinosdesoftware.javeparking.controller.cliente;
 
 import com.asesinosdesoftware.javeparking.entities.Cliente;
 import com.asesinosdesoftware.javeparking.entities.Sesion;
 import com.asesinosdesoftware.javeparking.entities.Vehiculo;
 import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
 import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
+import com.asesinosdesoftware.javeparking.services.VehiculoService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-public class ReVehiculoviewController {
+public class EliminarVehiculoViewController {
+
+    Vehiculo vehiculo = new Vehiculo();
+    VehiculoService vehiculoService = new VehiculoService();
+    Cliente dueno = new Cliente();
+
     @FXML
-    public ComboBox <String> IdTamano;
+    public TextField IDPlaca;
+
     @FXML
-    public TextField IdTipo;
-    @FXML
-    public TextField IdPlaca;
-    @FXML
-    private void registrovehiculo(){
+    private void EliminarVehiculo(){
     try {
-        Cliente Dueno = new Cliente();
-        Vehiculo v = new Vehiculo();
 
-        v.setTamano(IdTamano.getValue().charAt(0));
-        v.setTipo(IdTipo.getText().charAt(0));
-        v.setPlaca(IdPlaca.getText());
+        vehiculoService.EliminarVehiculo(IDPlaca.getText(),vehiculo,dueno);
+        showSuccess("Vehiculo eliminado con exito");
 
-        VehiculoRepository vehiculoRepository = new VehiculoRepository();
-        ClienteRepository clienterepository = new ClienteRepository();
 
-        clienterepository.buscarCliente(Sesion.getcedula(),Dueno);
-        v.setClienteid(Dueno.getId());
-        vehiculoRepository.agregarVehiculo(v);
+    }catch (Exception e) {
+        showError(e.toString());
 
-        showSuccess("Registro de Vehiculo Exitoso");
-    } catch (Exception e){
-        e.printStackTrace();
-        showError("Error al agregar vehiculo");
-    }
+        }
 
     }
+
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -57,4 +50,5 @@ public class ReVehiculoviewController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

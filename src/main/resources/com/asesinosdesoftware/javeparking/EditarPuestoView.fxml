@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="378.0" prefWidth="634.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.admin.EditarPuestoViewController">
+    <children>
+        <Label style="-fx-font-size: 24; -fx-font-weight: bold;" text="Gestión de Puestos" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" />
+
+        <!-- TableView con espacio inferior ajustado -->
+        <TableView fx:id="tablaPuestos" layoutX="81.0" layoutY="239.0" prefHeight="125.0" prefWidth="442.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="111.0" AnchorPane.topAnchor="239.0">
+            <columns>
+                <TableColumn fx:id="columnaIDPuesto" prefWidth="72.0" text="ID Puesto" />
+                <TableColumn fx:id="columnaTamano" prefWidth="85.99996948242188" text="Tamaño" />
+                <TableColumn fx:id="columnaIDParqueadero" prefWidth="111.99996948242188" text="ID Parqueadero" />
+                <TableColumn fx:id="columnaDisponibilidad" prefWidth="112.0" text="Disponibilidad" />
+            </columns>
+        </TableView>
+
+        <!-- Formulario en GridPane, reposicionado más abajo -->
+        <GridPane hgap="10" layoutX="36.0" layoutY="54.0" minWidth="561.0" prefHeight="167.0" prefWidth="561.0" vgap="10">
+
+            <!-- Primera columna, segunda fila -->
+            <Label text="Tamaño del Puesto:" GridPane.columnIndex="0" />
+            <ComboBox fx:id="IdTamano" prefWidth="200" GridPane.columnIndex="1" />
+
+            <!-- Primera columna, tercera fila -->
+            <Label text="ID Parqueadero:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="IDparqueadero" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <!-- ComboBox y Label para asignar disponibilidad -->
+            <Label text="Disponibilidad:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <ComboBox fx:id="comboDisponibilidad" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <!-- Botones para editar y eliminar puesto en la cuarta fila -->
+            <Button onAction="#editarPuesto" text="Editar Puesto" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button onAction="#eliminarPuesto" text="Eliminar Puesto" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+    </children>
+</AnchorPane>

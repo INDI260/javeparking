@@ -1,10 +1,10 @@
 package com.asesinosdesoftware.javeparking.exceptions;
 
-public class ReservasException extends Exception {
+public class ServiceException extends Exception {
 
     private String detalle;
 
-    public ReservasException(String a){
+    public ServiceException(String a){
         detalle = a;
     }
     public String toString(){

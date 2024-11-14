@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.SuscripcionViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.cliente.SuscripcionViewController">
     <children>
         <Label layoutX="200.0" layoutY="22.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="Registrar Suscripción" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="22.0">
             <font>
@@ -12,19 +12,21 @@
             </font>
         </Label>
 
-        <Label layoutX="20.0" layoutY="240.0" text="Placa del Vehículo:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="240.0" />
-        <TextField fx:id="placaTextField" layoutX="20.0" layoutY="260.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="260.0" />
+        <Label layoutX="20.0" layoutY="214.0" text="Placa del Vehículo:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="214.0" />
+        <TextField fx:id="placaTextField" layoutX="20.0" layoutY="234.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="234.0" />
 
         <Label layoutX="20.0" layoutY="102.0" text="Fecha de Inicio:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="102.0" />
         <DatePicker fx:id="fechaInicioPicker" layoutX="20.0" layoutY="122.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="122.0" />
 
-        <Label text="Fecha de Fin:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0" />
-        <DatePicker fx:id="fechaFinPicker" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="200.0" />
+        <Label layoutX="20.0" layoutY="154.0" text="Fecha de Fin:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="154.0" />
+        <DatePicker fx:id="fechaFinPicker" layoutX="20.0" layoutY="174.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="174.0" />
 
         <Button layoutX="200.0" layoutY="320.0" onAction="#agregarSuscripcion" prefHeight="50.0" prefWidth="199.0" text="Agregar Suscripción" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="320.0">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
+      <Label layoutX="20.0" layoutY="270.0" text="IdParqueadero" />
+      <TextField fx:id="idparq" layoutX="14.0" layoutY="295.0" />
     </children>
 </AnchorPane>

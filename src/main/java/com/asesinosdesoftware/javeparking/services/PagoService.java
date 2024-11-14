@@ -1,7 +1,6 @@
 package com.asesinosdesoftware.javeparking.services;
 
 import com.asesinosdesoftware.javeparking.entities.*;
-import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
 import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.repository.*;
 
@@ -10,6 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class PagoService {
 
@@ -18,8 +18,9 @@ public class PagoService {
     ReservaRepository reservaRepository = new ReservaRepository();
     ParqueaderoRepository parqueaderoRepository= new ParqueaderoRepository();
     PagoRepository pagoRepository = new PagoRepository();
+    PagoOpRepository opRepository = new PagoOpRepository();
     PagoSuscripcionRepository pagoSuscripcionRepository = new PagoSuscripcionRepository();
-    PagoOpRepository pagoOpRepository = new PagoOpRepository();
+    SuscripcionRepository suscripcionRepository= new SuscripcionRepository();
 
     /**
      * Método que calcula la información del pago de una reserva
@@ -28,17 +29,17 @@ public class PagoService {
      * @return: Un objeto tipo PagoReserva con la información del pago
      * @throws SQLException
      */
-    public void calcularPagoReserva(String placa, String idReserva, PagoReserva pagoReserva) throws SQLException {
-
+    public void calcularPago(String placa, String idReserva, PagoReserva pagoReserva) throws SQLException {
+      
        Reserva reserva = new Reserva();
        Vehiculo vehiculo = new Vehiculo();
        Puesto puesto = new Puesto();
        Parqueadero parqueadero = new Parqueadero();
-        vehiculoRepository.buscarVehiculoPlaca(placa, vehiculo);
+        vehiculoRepository.buscarVehiculo(placa, vehiculo);
         reservaRepository.buscarReservaPorId(Integer.parseInt(idReserva), reserva);
         puestoRepository.buscarPuesto(reserva.getPuesto().getId(),puesto);
         parqueaderoRepository.buscarParqueaderoPorId(puesto.getParqueaderoID(), parqueadero);
-
+       
 
         LocalDateTime fechaActual = LocalDateTime.now();
 
@@ -60,6 +61,7 @@ public class PagoService {
         }
 
         int duracion = (int) Duration.between(reserva.getHoraEntrada(), reserva.getHoraSalida()).toHours();
+
         pagoReserva.setValor(tarifa.multiply(BigDecimal.valueOf(duracion)));
 
     }
@@ -71,10 +73,10 @@ public class PagoService {
      * @param pagoOp Objeto que almacenará los detalles del pago por operación.
      * @throws SQLException si ocurre un error de base de datos.
      */
-    public void calcularPagoOp(String placa, int horasEstacionado, PagoOp pagoOp) throws SQLException, RepositoryException {
+    public void calcularPagoOp(String placa, int horasEstacionado, PagoOp pagoOp) throws SQLException {
         // Obtener el vehículo, puesto y parqueadero asociados a la placa
         Vehiculo vehiculo = new Vehiculo();
-        vehiculoRepository.buscarVehiculoPlaca(placa,vehiculo);
+        vehiculoRepository.buscarVehiculo(placa,vehiculo);
 
         if (vehiculo == null) {
             throw new SQLException("Vehículo no encontrado en el sistema con placa: " + placa);
@@ -107,7 +109,7 @@ public class PagoService {
         pagoOp.setVehiculo(vehiculo);
 
         // Registrar el pago en la base de datos
-        pagoOpRepository.registrarPago(pagoOp);
+        opRepository.registrarPago(pagoOp);
 
     }
 
@@ -120,21 +122,4 @@ public class PagoService {
         pagoRepository.agregarPagoReserva(pagoReserva);
     }
 
-    /**
-     * Método que agrega un pago de una suscripcion a la base de datos
-     * @param pagoSuscripcion: Pago a añadir a la base de datos
-     * @throws SQLException
-     */
-    public void pagarSuscripcion(PagoSuscripcion pagoSuscripcion) throws SQLException {
-        pagoSuscripcionRepository.agregarPagoSuscripcion(pagoSuscripcion);
-    }
-
-    /**
-     * Registra el pago de una operación en la base de datos.
-     * @param pagoOp Pago de operación a registrar.
-     * @throws SQLException si ocurre un error de base de datos.
-     */
-    public void pagarOperacion(PagoOp pagoOp) throws SQLException {
-        pagoOpRepository.registrarPago(pagoOp);
-    }
 }

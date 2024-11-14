@@ -1,7 +1,7 @@
 package com.asesinosdesoftware.javeparking.services;
 
 import com.asesinosdesoftware.javeparking.entities.*;
-import com.asesinosdesoftware.javeparking.exceptions.ReservasException;
+import com.asesinosdesoftware.javeparking.exceptions.ServiceException;
 import com.asesinosdesoftware.javeparking.repository.*;
 
 import java.sql.SQLException;
@@ -22,10 +22,10 @@ public class ReservaCService {
      * @param IDplaca
      * @param IdTamano
      * @param R
-     * @throws ReservasException
+     * @throws ServiceException
      * @throws SQLException
      */
-    public void CrearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva R) throws ReservasException, SQLException {
+    public void CrearReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva R) throws ServiceException, SQLException {
 
             LocalDate D = LocalDate.now();
             LocalTime TE = LocalTime.parse(IDHoraEntrada);
@@ -33,18 +33,19 @@ public class ReservaCService {
             LocalTime TS = LocalTime.parse(IDHoraSalida);
             LocalDateTime HoradeSalida = LocalDateTime.of(D, TS);
             if (HoradeSalida.isBefore(HoradeEntrada)||HoradeSalida.isEqual(HoradeEntrada)) {
-                throw new ReservasException("Hora de entrada y salida mal definida");
+                throw new ServiceException("Hora de entrada y salida mal definida");
 
             }
             Vehiculo V = new Vehiculo();
-            VR.buscarVehiculoPlaca(IDplaca,V);
+            VR.buscarVehiculo(IDplaca,V);
 
             Puesto P = new Puesto();
 
             PR.buscarPuesto(IdTamano,false,P);
             if(V.getTamano()!=IdTamano.charAt(0)){
-                throw new ReservasException("Tamaño de reserva y de auto no coinciden");
+                throw new ServiceException("Tamaño de reserva y de auto no coinciden");
             }
+
             R.setHoraEntrada(HoradeEntrada);
             R.setHoraSalida(HoradeSalida);
             R.setVehiculo(V);
@@ -56,7 +57,8 @@ public class ReservaCService {
             RR.agregarReserva(R);
             P.setDisponibilidad(true);
             PR.actualizarPuesto(P);
-        System.out.println("Hola");
+
+
     }
 
 }

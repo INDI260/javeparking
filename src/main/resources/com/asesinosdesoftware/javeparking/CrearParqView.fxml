@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.admin.CrearParqViewController">
+   <children>
+      <TextField fx:id="idPpequeno" layoutX="224.0" layoutY="83.0" />
+      <TextField fx:id="idPmediano" layoutX="224.0" layoutY="129.0" />
+      <TextField fx:id="idPgrande" layoutX="224.0" layoutY="174.0" />
+      <TextField fx:id="idSpequeno" layoutX="224.0" layoutY="219.0" />
+      <TextField fx:id="idSmediano" layoutX="224.0" layoutY="268.0" />
+      <TextField fx:id="idSgrande" layoutX="224.0" layoutY="311.0" />
+      <Label layoutX="205.0" layoutY="32.0" text="Establecer Precios" textFill="RED">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="105.0" layoutY="87.0" text="Puesto Pequeño" />
+      <Label layoutX="106.0" layoutY="144.0" text="Puesto Mediano" />
+      <Label layoutX="109.0" layoutY="178.0" text="Puesto Grande" />
+      <Label layoutX="77.0" layoutY="223.0" text="Suscripcion Pequeña" />
+      <Label layoutX="77.0" layoutY="272.0" text="Suscripcion Mediana" />
+      <Label layoutX="89.0" layoutY="315.0" text="Suscripcion Grande" />
+      <Button layoutX="470.0" layoutY="183.0" mnemonicParsing="false" onAction="#crearparq" prefHeight="53.0" prefWidth="52.0" text="Crear" />
+      <Label layoutX="85.0" layoutY="359.0" text="Descuento Javeriano" />
+
+      <!-- ComboBox con valores predefinidos -->
+      <ComboBox fx:id="iddescuento" layoutX="224.0" layoutY="356.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <Double fx:value="0.1" />
+               <Double fx:value="0.2" />
+               <Double fx:value="0.3" />
+               <Double fx:value="0.4" />
+               <Double fx:value="0.5" />
+               <Double fx:value="0.6" />
+               <Double fx:value="0.7" />
+               <Double fx:value="0.8" />
+               <Double fx:value="0.9" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+   </children>
+</AnchorPane>

@@ -1,10 +1,5 @@
-package com.asesinosdesoftware.javeparking.controller;
+package com.asesinosdesoftware.javeparking.controller.menu;
 
-import com.asesinosdesoftware.javeparking.entities.*;
-import com.asesinosdesoftware.javeparking.repository.ClienteRepository;
-import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
-import com.asesinosdesoftware.javeparking.repository.ReservaRepository;
-import com.asesinosdesoftware.javeparking.repository.VehiculoRepository;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
@@ -20,7 +15,7 @@ public class PagoClViewController {
     private void Reserva() {
         try {
             // Crear un nuevo FXMLLoader para cargar la vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asesinosdesoftware/javeparking/PagoReserva.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asesinosdesoftware/javeparking/PagoReservaView.fxml"));
 
             // Cargar la nueva vista y obtener el pane
             AnchorPane pane = loader.load();
@@ -45,7 +40,7 @@ public class PagoClViewController {
     private void Suscripcion() {
         try {
             // Cargar la vista de pago de suscripción
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asesinosdesoftware/javeparking/PagoSuscripcion.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asesinosdesoftware/javeparking/PagoSuscripcionView.fxml"));
 
             // Cargar la nueva vista y obtener el pane
             AnchorPane pane = loader.load();

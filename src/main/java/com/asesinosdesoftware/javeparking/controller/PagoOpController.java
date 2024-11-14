@@ -76,8 +76,6 @@ public class PagoOpController {
         } catch (SQLException e) {
             // Manejar errores de base de datos
             mostrarError("Error al calcular el pago: " + e.getMessage());
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
