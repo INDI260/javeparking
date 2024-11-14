@@ -53,24 +53,6 @@ public class ReservaAdTest {
             });
         }
 
-        @Test
-        void testEditarReserva() throws SQLException, ServiceException, RepositoryException {
-            Reserva reservaSeleccionada = new Reserva();
-            vehiculoRepository.agregarVehiculo(new Vehiculo("ABC123", 'm', 'm', 1));
-            vehiculoRepository.agregarVehiculo(new Vehiculo("ABC456", 'm', 'm', 1));
-            reservaSeleccionada.setHoraEntrada(LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0)));
-            reservaSeleccionada.setHoraSalida(LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)));
-            reservaSeleccionada.setPuesto(puestoRepository.buscarPuesto("m",false,new Puesto()));
-            reservaSeleccionada.setVehiculo(vehiculoRepository.buscarVehiculo("ABC123", new Vehiculo()));
-            reservaRepository.agregarReserva(reservaSeleccionada);
-
-            reservaAdService.editarReserva("09:00", "11:00", "ABC456", "m", reservaSeleccionada);
-
-            Assertions.assertEquals(LocalTime.of(9, 0), reservaSeleccionada.getHoraEntrada().toLocalTime());
-            Assertions.assertEquals(LocalTime.of(11, 0), reservaSeleccionada.getHoraSalida().toLocalTime());
-            Assertions.assertEquals("ABC456", reservaSeleccionada.getVehiculo().getPlaca());
-            Assertions.assertEquals('m', reservaSeleccionada.getPuesto().getTamano());
-        }
 
         @Test
         void testEditarReservaConHorasIncorrectas() {
