@@ -1,13 +1,17 @@
 package com.asesinosdesoftware.javeparking.controller.admin;
 
 import com.asesinosdesoftware.javeparking.entities.Puesto;
+import com.asesinosdesoftware.javeparking.exceptions.ServiceException;
 import com.asesinosdesoftware.javeparking.repository.PuestoRepository;
+import com.asesinosdesoftware.javeparking.services.PuestosService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.sql.SQLException;
 
 public class EditarPuestoViewController {
 
@@ -29,12 +33,12 @@ public class EditarPuestoViewController {
     private ComboBox<Boolean> comboDisponibilidad;
 
     @FXML
-    private TextField IDpuesto;
-    @FXML
     private TextField IDparqueadero;
 
     // Lista observable para la tabla
     private ObservableList<Puesto> puestosObservableList = FXCollections.observableArrayList();
+
+    PuestosService puestosService = new PuestosService();
 
     /**
      * Inicialización del controlador.
@@ -75,12 +79,36 @@ public class EditarPuestoViewController {
 
     @FXML
     public void editarPuesto() {
+    Puesto puestoseleccionado = tablaPuestos.getSelectionModel().getSelectedItem();
 
 
+    if (puestoseleccionado != null) {
+        int parq = Integer.parseInt(IDparqueadero.getText());
+        try {
+
+            puestosService.editarpuestos(IdTamano.getValue(),parq,comboDisponibilidad.getValue(),puestoseleccionado);
+            showSuccess("Puesto editado con exito");
+            cargarPuestos();
+
+        }catch (ServiceException | SQLException e) {
+            showError(e.toString());
+        }
+    } else showError("Seleccione un puesto para editar");
 
     }
     @FXML
     public void eliminarPuesto() {
+        Puesto puestoseleccionado = tablaPuestos.getSelectionModel().getSelectedItem();
+        if (puestoseleccionado != null) {
+            try {
+                puestosService.eliminarPuestos(puestoseleccionado);
+                showSuccess("Puesto eliminado con exito");
+                cargarPuestos();
+            }catch (Exception e) {
+                showError("Error al eliminar el puesto");
+                e.printStackTrace();
+            }
+        }
     }
 
 

@@ -19,25 +19,22 @@
 
         <!-- Formulario en GridPane, reposicionado más abajo -->
         <GridPane hgap="10" layoutX="36.0" layoutY="54.0" minWidth="561.0" prefHeight="167.0" prefWidth="561.0" vgap="10">
-            <!-- Primera columna, primera fila -->
-            <Label text="ID Puesto:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="IDpuesto" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
             <!-- Primera columna, segunda fila -->
-            <Label text="Tamaño del Puesto:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <ComboBox fx:id="IdTamano" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Tamaño del Puesto:" GridPane.columnIndex="0" />
+            <ComboBox fx:id="IdTamano" prefWidth="200" GridPane.columnIndex="1" />
 
             <!-- Primera columna, tercera fila -->
-            <Label text="ID Parqueadero:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <TextField fx:id="IDparqueadero" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="ID Parqueadero:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="IDparqueadero" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
             <!-- ComboBox y Label para asignar disponibilidad -->
-            <Label text="Disponibilidad:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <ComboBox fx:id="comboDisponibilidad" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Disponibilidad:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <ComboBox fx:id="comboDisponibilidad" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
             <!-- Botones para editar y eliminar puesto en la cuarta fila -->
-            <Button onAction="#editarPuesto" text="Editar Puesto" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button onAction="#eliminarPuesto" text="Eliminar Puesto" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button onAction="#editarPuesto" text="Editar Puesto" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button onAction="#eliminarPuesto" text="Eliminar Puesto" GridPane.columnIndex="2" GridPane.rowIndex="3" />
 
             <columnConstraints>
                 <ColumnConstraints />
@@ -45,7 +42,6 @@
                 <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints />
                 <RowConstraints />
                 <RowConstraints />
                 <RowConstraints />

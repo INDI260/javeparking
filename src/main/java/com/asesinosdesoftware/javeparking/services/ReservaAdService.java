@@ -85,7 +85,6 @@ public class ReservaAdService {
     public void editarReserva(String IDHoraEntrada, String IDHoraSalida,String IDplaca, String IdTamano,Reserva reservaSeleccionada) throws SQLException, ServiceException {
              // Actualizar datos de reserva aquí
                 Puesto puesto = new Puesto();
-                ReservaRepository reservaRepository = new ReservaRepository();
 
                 LocalDate fechaActual = LocalDate.now();
                 LocalTime horaEntrada = LocalTime.parse(IDHoraEntrada);
@@ -132,7 +131,6 @@ public class ReservaAdService {
      */
     public void eliminarReserva(Reserva reservaSeleccionada) throws SQLException {
 
-                ReservaRepository reservaRepository = new ReservaRepository();
                 reservaRepository.eliminarReserva(reservaSeleccionada);
                 Puesto puesto = new Puesto();
                 puestoRepository.buscarPuesto(reservaSeleccionada.getPuesto().getId(),puesto);

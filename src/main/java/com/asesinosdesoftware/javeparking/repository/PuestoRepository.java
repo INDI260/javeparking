@@ -89,14 +89,18 @@ public class PuestoRepository {
      * @throws SQLException
      */
     public void actualizarPuesto(Puesto puesto) throws SQLException {
-
-        String sql = "UPDATE puesto SET `disponibilidad` = ? WHERE `id` = ?";
+        String sql = "UPDATE puesto SET `tamano` = ?, `parqueaderoID` = ?, `disponibilidad` = ? WHERE `id` = ?";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
-        ps.setBoolean(1, puesto.isDisponibilidad());
-        ps.setInt(2, puesto.getId());
+
+        // Establece los valores para cada campo
+        ps.setString(1, Character.toString(puesto.getTamano()));
+        ps.setInt(2, puesto.getParqueaderoID());
+        ps.setBoolean(3, puesto.isDisponibilidad());
+        ps.setInt(4, puesto.getId());
+
+        // Ejecutar la actualización
         ps.executeUpdate();
     }
-
     /**
      * Método que retorna una lista de puestos de la base de datos con una disponibilidad y un tamaño dados
      * @param puestos:Lista de puestos encontrados
@@ -143,6 +147,13 @@ public class PuestoRepository {
         }
 
         return puestos;
+    }
+
+    public void eliminarPuesto(Puesto puesto) throws SQLException {
+        String sql = "DELETE FROM puesto WHERE `id` = ?";
+        PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);
+        ps.setInt(1, puesto.getId());
+        ps.executeUpdate();
     }
 
 

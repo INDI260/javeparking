@@ -44,4 +44,24 @@ public class PuestosService {
 
     }
 
+    public void editarpuestos(String tamano, int idparq, Boolean disponibilidad,Puesto puestoseleccionado) throws SQLException, ServiceException {
+
+        Parqueadero parqueadero = new Parqueadero();
+        if(parqueaderoRepository.buscarParqueaderoPorId(idparq,parqueadero)==null ){
+            throw new ServiceException("No se encontro el parqueadero solicitado");
+        }
+
+        puestoseleccionado.setTamano(tamano.charAt(0));
+        puestoseleccionado.setDisponibilidad(disponibilidad);
+        puestoseleccionado.setParqueaderoID(idparq);
+        puestoRepository.actualizarPuesto(puestoseleccionado);
+
+
+    }
+
+    public void eliminarPuestos(Puesto puestoseleccionado) throws SQLException, ServiceException {
+
+        puestoRepository.eliminarPuesto(puestoseleccionado);
+    }
+
 }
