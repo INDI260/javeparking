@@ -25,6 +25,13 @@ public class Vehiculo {
         this.clienteid = clienteid;
     }
 
+    public Vehiculo(String placa, char tamano, char tipo, int clienteid) {
+        this.placa = placa;
+        this.tamano = tamano;
+        this.tipo = tipo;
+        this.clienteid = clienteid;
+    }
+
     /**
      * Constructor vació de vehiculo.
      */
