@@ -24,6 +24,7 @@ public class Puesto {
     }
 
 
+    /*getters y setters*/
     public int getId() {
         return id;
     }

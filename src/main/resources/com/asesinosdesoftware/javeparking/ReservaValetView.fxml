@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="378.0" prefWidth="634.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.ReservaValetViewController">
+    <children>
+        <Label style="-fx-font-size: 24; -fx-font-weight: bold;" text="Gestión de Reservas Valet" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" />
+
+        <!-- TableView con espacio inferior ajustado -->
+        <TableView fx:id="tablaReservas" layoutX="125.0" layoutY="239.0" prefHeight="125.0" prefWidth="385.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="124.0" AnchorPane.topAnchor="239.0">
+            <columns>
+                <TableColumn fx:id="columnaID" prefWidth="190.0" text="ID Reserva" />
+                <TableColumn fx:id="columnaTamano" prefWidth="189.3333740234375" text="Tamaño" />
+            </columns>
+        </TableView>
+
+        <!-- Formulario en GridPane, reposicionado más abajo -->
+        <GridPane hgap="10" layoutX="37.0" layoutY="64.0" minWidth="561.0" prefHeight="167.0" prefWidth="561.0" vgap="10">
+            <!-- Primera columna, primera fila -->
+            <Label text="Placa del Vehículo:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="IDplaca" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <!-- Primera columna, segunda fila -->
+            <Label text="Hora de Entrada:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <ComboBox fx:id="IDHoraEntrada" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <!-- Primera columna, tercera fila -->
+            <Label text="Hora de Salida:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <ComboBox fx:id="IDHoraSalida" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <!-- Primera columna, cuarta fila -->
+            <Label text="Tamaño del Puesto:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <ComboBox fx:id="IdTamano" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+            <!-- Botones en la quinta fila -->
+            <Button onAction="#crearReservaValet" prefHeight="26.0" prefWidth="105.0" text="Crear Reserva" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <Button onAction="#editarReservaValet" prefHeight="26.0" prefWidth="197.0" text="Editar Reserva" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button onAction="#eliminarReservaValet" text="Eliminar Reserva" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+    </children>
+</AnchorPane>

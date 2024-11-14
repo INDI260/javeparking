@@ -48,7 +48,10 @@ public class PagoService {
         pagoReserva.setMetodoPago("Online");
 
         BigDecimal tarifa;
-        if(puesto.getTamano() == 'p'){
+        if(suscripcionRepository.buscarSuscripcionPorVehiculo(vehiculo, new Suscripcion()) != null && suscripcionRepository.buscarSuscripcionPorVehiculo(vehiculo, new Suscripcion()).getEstado().equalsIgnoreCase("Activa")){
+            tarifa = BigDecimal.valueOf(0);
+        }
+        else if(puesto.getTamano() == 'p'){
             tarifa = parqueadero.getTarifaPequeno();
         }
         else if(puesto.getTamano() == 'm'){

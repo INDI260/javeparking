@@ -64,7 +64,7 @@ public class HelloController {
 
          InicioDeSesionService U = new InicioDeSesionService();
 
-         U.InicioDeSesion(dbConnectionManager.getConnection(),Usuario.getText(),Contrasena.getText());
+         U.InicioDeSesion(Usuario.getText(),Contrasena.getText());
          Menu();
      }
      catch (Exception e) {

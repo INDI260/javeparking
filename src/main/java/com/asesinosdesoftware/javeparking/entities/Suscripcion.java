@@ -3,7 +3,7 @@ package com.asesinosdesoftware.javeparking.entities;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Suscripcion {
+public class    Suscripcion {
     private int id;
     private Cliente cliente;
     private Vehiculo vehiculo; // Atributo para el vehículo asociado
