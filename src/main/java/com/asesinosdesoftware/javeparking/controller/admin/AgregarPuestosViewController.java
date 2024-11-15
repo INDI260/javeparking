@@ -23,6 +23,10 @@ public class AgregarPuestosViewController {
     PuestosService puestosService = new PuestosService();
     Puesto puesto;
 
+    /**
+     * Metodo que permite añadir los puestos a los parqueaderos
+     * la logica del metodo es controlada por puestosService
+     */
     @FXML
     private void agregarpuestos(){
         int parq;

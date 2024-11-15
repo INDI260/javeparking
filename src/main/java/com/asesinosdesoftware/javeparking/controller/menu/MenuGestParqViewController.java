@@ -11,6 +11,9 @@ public class MenuGestParqViewController {
     @FXML
     public AnchorPane contenedor;
 
+    /**
+     * // Método para cargar y mostrar la vista de crear parqueadero
+     */
     @FXML
     private void crearParq() {
         try {
@@ -31,6 +34,9 @@ public class MenuGestParqViewController {
         }
     }
 
+    /**
+     * // Método para cargar y mostrar la vista de añadir puestos
+     */
     @FXML
     private void anadirpuestos() {
         try {
@@ -51,6 +57,9 @@ public class MenuGestParqViewController {
         }
     }
 
+    /**
+     * // Método para cargar y mostrar la vista de editarpuestos
+     */
     @FXML
     private void editarpuestos() {
         try {

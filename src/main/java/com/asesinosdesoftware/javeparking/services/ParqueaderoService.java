@@ -10,6 +10,19 @@ public class ParqueaderoService {
 
     ParqueaderoRepository parqueaderoRepository = new ParqueaderoRepository();
 
+
+    /**
+     * metodo que permite la creacion del parqueadero
+     * @param parqPequeno
+     * @param parqMediano
+     * @param parqGrande
+     * @param suPequena
+     * @param suMediano
+     * @param suGrande
+     * @param idjave
+     * @param parqueadero
+     * @throws SQLException
+     */
     public void crearparq(String parqPequeno, String parqMediano, String parqGrande, String suPequena, String suMediano, String suGrande, Double idjave,Parqueadero parqueadero) throws SQLException {
 
         BigDecimal bdParqPequeno = new BigDecimal(parqPequeno);

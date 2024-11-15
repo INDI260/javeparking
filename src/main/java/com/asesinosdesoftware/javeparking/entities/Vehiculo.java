@@ -25,6 +25,20 @@ public class Vehiculo {
     }
 
     /**
+     * Método constructor por parámetros de vehiculo.
+     * @param placa
+     * @param tamano
+     * @param tipo
+     * @param clienteid
+     */
+    public Vehiculo(String placa, char tamano, char tipo, int clienteid) {
+        this.placa = placa;
+        this.tamano = tamano;
+        this.tipo = tipo;
+        this.clienteid = clienteid;
+    }
+
+    /**
      * Constructor vacío de vehículo.
      */
     public Vehiculo() {

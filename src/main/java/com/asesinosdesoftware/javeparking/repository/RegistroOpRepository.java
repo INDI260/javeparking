@@ -14,6 +14,12 @@ public class RegistroOpRepository {
     private VehiculoRepository vehiculoRepository = new VehiculoRepository();
     private IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
 
+    /**
+     * Método que agrega un registro a la base de datos
+     * @param registroOp:Registro que se va a agregar
+     * @throws SQLException
+     * @throws RepositoryException
+     */
     public void agregarRegistroOp(RegistroOp registroOp) throws SQLException, RepositoryException {
         // Insertar el registro de operación en la tabla `registroop`
         String sql = "INSERT INTO registroop (vehiculoid, hora_entrada,puestoid) VALUES (?, ?,?)";

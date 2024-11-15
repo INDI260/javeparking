@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="com.asesinosdesoftware.javeparking.controller.RegistroOpController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="com.asesinosdesoftware.javeparking.controller.operario.RegistroOpController">
     <children>
         <Label layoutX="100.0" layoutY="40.0" text="Placa del Vehículo:" />
         <TextField fx:id="txtPlaca" layoutX="250.0" layoutY="40.0" prefWidth="200.0" />

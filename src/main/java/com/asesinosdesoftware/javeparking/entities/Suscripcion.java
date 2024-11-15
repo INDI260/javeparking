@@ -3,9 +3,9 @@ package com.asesinosdesoftware.javeparking.entities;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Suscripcion {
+public class    Suscripcion {
     private int id;
-    private Cliente cliente;
+    private Cliente cliente;//Cliente suscrito
     private Vehiculo vehiculo; // Atributo para el vehículo asociado
     private LocalDateTime fechaInicio; // Fecha de inicio
     private LocalDateTime fechaFin; // Fecha de finalización
@@ -90,6 +90,10 @@ public class Suscripcion {
         this.idparq = idparq;
     }
 
+    /**
+     * Método toString
+     * @return
+     */
     @Override
     public String toString() {
         return "Suscripcion{" +

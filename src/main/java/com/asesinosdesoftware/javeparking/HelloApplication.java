@@ -15,6 +15,14 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
 
+    /**
+     * metodo que carga la pantalla de inicio del programa
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-View.fxml"));
@@ -24,6 +32,10 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
+    /**
+     * metodo main del programa
+     * @param args
+     */
     public static void main(String[] args) {
 
         try {
@@ -38,7 +50,7 @@ public class HelloApplication extends Application {
             ReservaRepository reservaRepository = new ReservaRepository();
 
             JDBCInitializer initializer = new JDBCInitializer(dbConnectionManager,administradorRepository,clienteRepository,empleadoRepository);
-            initializer.inicializarTablas();
+            //initializer.inicializarTablas();
 
         } catch (Exception e) {
             System.out.println("Ocurrio un error: " + e);

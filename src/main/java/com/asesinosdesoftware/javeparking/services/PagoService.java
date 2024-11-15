@@ -48,7 +48,10 @@ public class PagoService {
         pagoReserva.setMetodoPago("Online");
 
         BigDecimal tarifa;
-        if(puesto.getTamano() == 'p'){
+        if(suscripcionRepository.buscarSuscripcionPorVehiculo(vehiculo, new Suscripcion()) != null && suscripcionRepository.buscarSuscripcionPorVehiculo(vehiculo, new Suscripcion()).getEstado().equalsIgnoreCase("Activa")){
+            tarifa = BigDecimal.valueOf(0);
+        }
+        else if(puesto.getTamano() == 'p'){
             tarifa = parqueadero.getTarifaPequeno();
         }
         else if(puesto.getTamano() == 'm'){
@@ -112,6 +115,13 @@ public class PagoService {
         opRepository.registrarPago(pagoOp);
 
     }
+
+    /**
+     * metodo que calcula la informacion del pago de la suscripcion asociada al vehiculo
+     * @param placa
+     * @param pagoSuscripcion
+     * @throws SQLException
+     */
     public void calcularPagoSuscripcion(String placa, PagoSuscripcion pagoSuscripcion) throws SQLException {
         Vehiculo vehiculo = new Vehiculo();
         Suscripcion suscripcion = new Suscripcion();

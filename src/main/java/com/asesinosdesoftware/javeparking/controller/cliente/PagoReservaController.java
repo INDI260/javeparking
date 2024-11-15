@@ -18,6 +18,13 @@ public class PagoReservaController {
     @FXML
     public TextField IDReserva;
 
+
+    /**
+     * Metodo que permite realizar el pago de la reserva asociada al vehiculo y al cliente
+     * este pago se guarda en su respectiva tabla pagoreserva
+     * la logica de este metodo se encuentra en pagoService
+     * @throws SQLException
+     */
     @FXML
     private void pagoReservas() throws SQLException {
     try{
@@ -34,6 +41,10 @@ public class PagoReservaController {
         }
     }
 
+    /**
+     * metodo que permite mostrar el valor a pagar en la reserva
+     * la logica del metodo se encuentra en pagoService
+     */
     @FXML
     private void mostrarPrecio(){
 

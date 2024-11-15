@@ -11,7 +11,7 @@ public class PagoReserva extends Pago {
     private Reserva reserva; // Reserva asociada al pago (opcional)
     private BigDecimal valor; // El valor monetario que debe recibirse en el pago
     private LocalDateTime fecha;//Este atributo guarda la fecha y la hora de entrada del vehículo en la reserva.
-    private String metodoPago;
+    private String metodoPago;//Método de pago usado
 
     /**
      * Método constructor por parámetros

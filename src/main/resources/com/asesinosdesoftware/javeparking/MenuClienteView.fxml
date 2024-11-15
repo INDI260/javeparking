@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contenedor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.menu.MenuClienteViewController">
+<AnchorPane fx:id="contenedor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asesinosdesoftware.javeparking.controller.menu.MenuClienteViewController">
    <children>
       <Button layoutX="247.0" layoutY="213.0" mnemonicParsing="false" onAction="#vehiculo" prefHeight="29.0" prefWidth="103.0" text="Vehiculos">
          <font>
@@ -14,7 +14,7 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button layoutX="247.0" layoutY="170.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="103.0" text="Valet Parkin">
+      <Button layoutX="247.0" layoutY="170.0" mnemonicParsing="false" onAction="#valet" prefHeight="29.0" prefWidth="103.0" text="Valet Parking">
          <font>
             <Font size="14.0" />
          </font></Button>
