@@ -43,6 +43,11 @@ public class ParqueaderoRepository {
         return null;
     }
 
+    /**
+     * Método que agrega un parqueadero a la base de datos
+     * @param parqueadero: Parqueadero que se va a agregar
+     * @throws SQLException
+     */
     public void agregarParqueadero(Parqueadero parqueadero) throws SQLException {
         String sql = "INSERT INTO parqueadero (TarifaPequeno, TarifaMediano, TarifaGrande, "
                 + "SuscripcionPequeno, SuscripcionMediano, SuscripcionGrande, DescuentoJaveriano) "

@@ -120,6 +120,11 @@ public class PuestoRepository {
         }
     }
 
+    /**
+     * Método que lista todos los puestos anexados en labase de datos
+     * @return: Lista de lso puestos
+     * @throws SQLException
+     */
     public List<Puesto> obtenerTodosPuestos() throws SQLException {
         List<Puesto> puestos = new ArrayList<>();
         String sql = "SELECT * FROM puesto";  // Asumiendo que la tabla es 'puesto'
