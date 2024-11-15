@@ -13,6 +13,17 @@ public class PuestosService {
     PuestoRepository puestoRepository = new PuestoRepository();
     ParqueaderoRepository parqueaderoRepository = new ParqueaderoRepository();
 
+
+    /**
+     * metodo que permite crear puestos y asociarlos que estan asociados a un parqueadero en especifico
+     * @param idparq
+     * @param cantP
+     * @param cantM
+     * @param cantG
+     * @param puesto
+     * @throws SQLException
+     * @throws ServiceException
+     */
     public void agregarPuestos(int idparq, int cantP, int cantM, int cantG, Puesto puesto) throws SQLException, ServiceException {
 
         Parqueadero parqueadero = new Parqueadero();
@@ -44,6 +55,15 @@ public class PuestosService {
 
     }
 
+    /**
+     * metodo que permite editar los puestos seleccionados
+     * @param tamano
+     * @param idparq
+     * @param disponibilidad
+     * @param puestoseleccionado
+     * @throws SQLException
+     * @throws ServiceException
+     */
     public void editarpuestos(String tamano, int idparq, Boolean disponibilidad,Puesto puestoseleccionado) throws SQLException, ServiceException {
 
         Parqueadero parqueadero = new Parqueadero();
@@ -59,6 +79,12 @@ public class PuestosService {
 
     }
 
+    /**
+     * metodo que permite eliminar los puestos seleccionados
+     * @param puestoseleccionado
+     * @throws SQLException
+     * @throws ServiceException
+     */
     public void eliminarPuestos(Puesto puestoseleccionado) throws SQLException, ServiceException {
 
         puestoRepository.eliminarPuesto(puestoseleccionado);

@@ -31,6 +31,9 @@ public class HelloController {
         System.exit(0);
     }
 
+    /**
+     *  // Método para volver a la pagina de hello-view que es la inicial
+     */
     @FXML
     private void CerrarSesion() {
         InicioDeSesionService Cerrar = new InicioDeSesionService();
@@ -45,7 +48,9 @@ public class HelloController {
         }
     }
 
-    // Método para cargar y mostrar la vista de registrar persona
+    /**
+     *  // Método para cargar y mostrar la vista de registrar persona
+     */
     @FXML
     private void registrarCliente() {
         try {
@@ -57,7 +62,10 @@ public class HelloController {
             e.printStackTrace();
         }
     }
-    // Método para cargar y mostrar la vista de Inicio de sesion
+
+    /**
+     * // Método para cargar y mostrar la vista de Inicio de sesion
+     */
     @FXML
     private void InicioSesion() {
      try{

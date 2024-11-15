@@ -11,6 +11,9 @@ public class PagoClViewController {
     @FXML
     private AnchorPane contenedor;
 
+    /**
+     * // Método para cargar y mostrar la vista de reserva para el cliente
+     */
     @FXML
     private void Reserva() {
         try {
@@ -36,6 +39,9 @@ public class PagoClViewController {
         }
     }
 
+    /**
+     * // Método para cargar y mostrar la vista de suscripcion para el cliente
+     */
     @FXML
     private void Suscripcion() {
         try {

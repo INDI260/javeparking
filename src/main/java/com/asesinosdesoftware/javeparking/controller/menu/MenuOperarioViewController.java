@@ -14,6 +14,10 @@ public class MenuOperarioViewController {
     @FXML
     public AnchorPane contenedor;
 
+    /**
+     * // Método para cargar y mostrar la vista de Ingreso de vehiculo por parte del operario
+     * @param event
+     */
     @FXML
     private void IngresoVehiculoOp(ActionEvent event) {
         try {
@@ -35,6 +39,10 @@ public class MenuOperarioViewController {
     }
 
 
+    /**
+     * // Método para cargar y mostrar la vista de ingreso del pago de operario
+     * @param event
+     */
     @FXML
     private void IngresoPagoOp(ActionEvent event) {
         try {

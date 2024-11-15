@@ -154,6 +154,11 @@ public class PuestoRepository {
         return puestos;
     }
 
+    /**
+     * Metodo que elimina el puesto recibido de la base de datos
+     * @param puesto
+     * @throws SQLException
+     */
     public void eliminarPuesto(Puesto puesto) throws SQLException {
         String sql = "DELETE FROM puesto WHERE `id` = ?";
         PreparedStatement ps = dbConnectionManager.getConnection().prepareStatement(sql);

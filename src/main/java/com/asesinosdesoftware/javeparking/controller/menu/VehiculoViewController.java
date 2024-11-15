@@ -14,8 +14,10 @@ public class VehiculoViewController {
         private AnchorPane contenedor;
 
 
-        // Método para cargar y mostrar la vista de registrar cliente
-        @FXML
+    /**
+     * // Método para cargar y mostrar la vista de registrar cliente
+     */
+    @FXML
         private void registrarvehiculo() {
             try {
                 // Cargar la vista desde el archivo FXML
@@ -34,7 +36,9 @@ public class VehiculoViewController {
             }
         }
 
-    // Método para cargar y mostrar la vista de registrar cliente
+    /**
+     *  // Método para cargar y mostrar la vista de registrar cliente
+     */
     @FXML
     private void eliminarvehiculo() {
         try {

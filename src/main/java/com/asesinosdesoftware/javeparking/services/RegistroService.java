@@ -11,6 +11,18 @@ import java.sql.SQLException;
 public class RegistroService {
     ClienteRepository clienteRepository = new ClienteRepository();
 
+    /**
+     * Metodo que permite le registro de nuevos clientes
+     * @param nombre
+     * @param apellido
+     * @param cedula
+     * @param contrasena
+     * @param IdUni
+     * @param cliente
+     * @throws SQLException
+     * @throws RepositoryException
+     * @throws ServiceException
+     */
     public void registro(String nombre,String apellido,String cedula,String contrasena,String IdUni, Cliente cliente) throws SQLException, RepositoryException, ServiceException {
 
         if (clienteRepository.buscarCliente(cedula,cliente)!=null){
