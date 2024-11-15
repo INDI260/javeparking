@@ -6,9 +6,9 @@ import com.asesinosdesoftware.javeparking.persistencia.IDBConnectionManager;
 import com.asesinosdesoftware.javeparking.services.InicioDeSesionService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -17,6 +17,7 @@ import java.util.Objects;
 public class HelloController {
 
     IDBConnectionManager dbConnectionManager = new H2DBConnectionManager();
+
     @FXML
     private BorderPane contenedor;
 
@@ -24,7 +25,6 @@ public class HelloController {
     public TextField Usuario;
     @FXML
     public TextField Contrasena;
-    // Contenedor principal del layout, inyectado desde el archivo FXML
 
     @FXML
     private void Salir() {
@@ -36,17 +36,17 @@ public class HelloController {
      */
     @FXML
     private void CerrarSesion() {
-        InicioDeSesionService Cerrar = new InicioDeSesionService();
-        Cerrar.CerrarSesion();
+        InicioDeSesionService cerrar = new InicioDeSesionService();
+        cerrar.CerrarSesion();
         try {
-            // Carga la vista desde el archivo FXML
-            BorderPane pane = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
-            // Establece la vista cargada en el top del contenedor principal
+            Parent pane = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
             contenedor.setTop(pane);
         } catch (IOException e) {
             e.printStackTrace();
+            showError("Error al cargar la vista de inicio de sesión.");
         }
     }
+
 
     /**
      *  // Método para cargar y mostrar la vista de registrar persona
@@ -54,66 +54,54 @@ public class HelloController {
     @FXML
     private void registrarCliente() {
         try {
-            // Carga la vista desde el archivo FXML
-            AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Registro_View.fxml")));
-            // Establece la vista cargada en el centro del contenedor principal
-            contenedor.setCenter(pane);
+            // Cargar Registro_View.fxml usando Parent en lugar de AnchorPane
+            Parent registroView = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Registro_View.fxml")));
+            contenedor.setCenter(registroView); // Establecer en el centro del BorderPane
         } catch (IOException e) {
             e.printStackTrace();
+            showError("Error al cargar la vista de registro.");
         }
     }
+
 
     /**
      * // Método para cargar y mostrar la vista de Inicio de sesion
      */
     @FXML
     private void InicioSesion() {
-     try{
-
-         InicioDeSesionService U = new InicioDeSesionService();
-
-         U.InicioDeSesion(Usuario.getText(),Contrasena.getText());
-         Menu();
-     }
-     catch (Exception e) {
-         e.printStackTrace();
+        try {
+            InicioDeSesionService inicioService = new InicioDeSesionService();
+            inicioService.InicioDeSesion(Usuario.getText(), Contrasena.getText());
+            Menu();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Error al iniciar sesión.");
         }
-
     }
+
     @FXML
-    private void Menu(){
-        if(Sesion.getTipo()=='a'){
-            try {
-                // Carga la vista desde el archivo FXML
-                AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MenuAdminView.fxml")));
-                // Establece la vista cargada en el centro del contenedor principal
-                contenedor.setCenter(pane);
-            } catch (IOException e) {
-                e.printStackTrace();
+    private void Menu() {
+        try {
+            Parent pane = null;
+            switch (Sesion.getTipo()) {
+                case 'a':
+                    pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MenuAdminView.fxml")));
+                    break;
+                case 'c':
+                    pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MenuClienteView.fxml")));
+                    break;
+                case 'e':
+                    pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MenuOperarioView.fxml")));
+                    break;
             }
-
-        }
-        if(Sesion.getTipo()=='c'){
-            try {
-                // Carga la vista desde el archivo FXML
-                AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MenuClienteView.fxml")));
-                // Establece la vista cargada en el centro del contenedor principal
+            if (pane != null) {
                 contenedor.setCenter(pane);
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else {
+                showError("No se pudo determinar el tipo de sesión.");
             }
-
-        }
-        if(Sesion.getTipo()=='e'){
-            try {
-                // Carga la vista desde el archivo FXML
-                AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MenuOperarioView.fxml")));
-                // Establece la vista cargada en el centro del contenedor principal
-                contenedor.setCenter(pane);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Error al cargar el menú.");
         }
     }
 
@@ -125,7 +113,6 @@ public class HelloController {
         alert.showAndWait();
     }
 
-    // Método para mostrar un mensaje de éxito
     private void showSuccess(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Éxito");
@@ -133,5 +120,4 @@ public class HelloController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }
