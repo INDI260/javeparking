@@ -1,4 +1,4 @@
-package com.asesinosdesoftware.javeparking.controller;
+package com.asesinosdesoftware.javeparking.controller.operario;
 
 import com.asesinosdesoftware.javeparking.entities.RegistroOp;
 import com.asesinosdesoftware.javeparking.services.RegistroOpService;

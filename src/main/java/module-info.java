@@ -24,4 +24,7 @@ module com.asesinosdesoftware.javeparking {
     opens com.asesinosdesoftware.javeparking.controller.cliente to javafx.fxml;
     opens com.asesinosdesoftware.javeparking.controller.admin to javafx.fxml;
     exports com.asesinosdesoftware.javeparking.controller;
+    exports com.asesinosdesoftware.javeparking.controller.operario;
+    opens com.asesinosdesoftware.javeparking.controller.operario to javafx.fxml;
+    exports com.asesinosdesoftware.javeparking.controller.menu;
 }
