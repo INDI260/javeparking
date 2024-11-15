@@ -9,7 +9,7 @@ public class ReservaValet {
     private LocalDateTime horaSalida; // Hora de salida del vehículo
     private Vehiculo vehiculo; // Vehículo asociado a la reserva
     private Cliente cliente; // Cliente que realizó la reserva
-    private Puesto puesto;
+    private Puesto puesto;//Puesto asignado al vehiculo
     private String numeroReserva; // Número único de la reserva para el valet
 
     /**

@@ -7,6 +7,9 @@ public class Puesto {
     private boolean disponibilidad; //Detemina si el puesto está disponible u ocupado (false para disponible, true para ocupado)
     private int parqueaderoID;
 
+    /**
+     * Método constructor vacío
+     */
     public Puesto() {
     }
 

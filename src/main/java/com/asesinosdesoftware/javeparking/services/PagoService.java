@@ -115,6 +115,13 @@ public class PagoService {
         opRepository.registrarPago(pagoOp);
 
     }
+
+    /**
+     * metodo que calcula la informacion del pago de la suscripcion asociada al vehiculo
+     * @param placa
+     * @param pagoSuscripcion
+     * @throws SQLException
+     */
     public void calcularPagoSuscripcion(String placa, PagoSuscripcion pagoSuscripcion) throws SQLException {
         Vehiculo vehiculo = new Vehiculo();
         Suscripcion suscripcion = new Suscripcion();

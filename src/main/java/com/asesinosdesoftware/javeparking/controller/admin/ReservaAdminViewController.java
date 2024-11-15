@@ -128,7 +128,7 @@ public class ReservaAdminViewController {
             try  {
 
                 RAd.eliminarReserva(reservaSeleccionada);
-                showSuccess("Reserva editada con exito");
+                showSuccess("Reserva eliminada con exito");
                 cargarReservas();
 
             } catch (Exception e) {

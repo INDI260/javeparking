@@ -3,9 +3,9 @@ package com.asesinosdesoftware.javeparking.entities;
 import java.time.LocalDateTime;
 
 public class RegistroOp{
-    private LocalDateTime horaEntrada;
-    private Vehiculo vehiculo;
-    private Puesto puesto;
+    private LocalDateTime horaEntrada;//Hora de entrada del vehículo
+    private Vehiculo vehiculo;//vehículo registrado
+    private Puesto puesto;//Puesto asignado al vehículo
 
     // Getters y Setters
     public Vehiculo getVehiculo() {

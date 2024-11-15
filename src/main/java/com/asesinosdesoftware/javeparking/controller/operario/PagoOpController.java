@@ -1,7 +1,6 @@
-package com.asesinosdesoftware.javeparking.controller;
+package com.asesinosdesoftware.javeparking.controller.operario;
 
 import com.asesinosdesoftware.javeparking.entities.PagoOp;
-import com.asesinosdesoftware.javeparking.exceptions.RepositoryException;
 import com.asesinosdesoftware.javeparking.services.PagoService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

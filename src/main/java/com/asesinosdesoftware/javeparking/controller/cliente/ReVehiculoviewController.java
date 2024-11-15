@@ -22,6 +22,10 @@ public class ReVehiculoviewController {
     @FXML
     public TextField IdPlaca;
 
+    /**
+     * metodo que permite registrar un vehiculo aosciado al cliente
+     * la logica se encuentra en vehiculoService
+     */
     @FXML
     private void registrovehiculo() {
     try {

@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Clase de legado que permite realizar la conexión a una base de datos MySQL
+ */
 public class MySQLDBConnectionManager implements IDBConnectionManager{
 
     private static final String FILENAME = "dbconfig";
