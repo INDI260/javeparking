@@ -28,6 +28,11 @@ public class SuscripcionViewController {
     private TextField placaTextField;
     @FXML
     private TextField idparq;
+
+    /**
+     * metodo que permite crear una suscripcion asociada al vehiculo del cliente
+     * la logica se encuentra en suscripcionService
+     */
     @FXML
     private void agregarSuscripcion() {
         int idParq = Integer.parseInt(idparq.getText());

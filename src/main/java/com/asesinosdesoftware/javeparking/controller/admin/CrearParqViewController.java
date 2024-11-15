@@ -31,6 +31,10 @@ public class CrearParqViewController {
     public ComboBox <Double> iddescuento;
 
 
+    /**
+     * Metodo que permite la creacion del parqueadero y se le asignan los diferentes puestos
+     * la logica del metodo esta controlada por parqueaderoService
+     */
     @FXML
     private void crearparq(){
 

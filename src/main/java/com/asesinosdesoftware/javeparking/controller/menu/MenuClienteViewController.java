@@ -13,7 +13,9 @@ public class MenuClienteViewController {
     private AnchorPane contenedor;
 
 
-    // Método para cargar y mostrar la vista de registrar cliente
+    /**
+     *  Método para cargar y mostrar la vista de registrar cliente
+     */
     @FXML
     private void vehiculo() {
         try {
@@ -33,6 +35,9 @@ public class MenuClienteViewController {
         }
     }
 
+    /**
+     * metodo que carga la vista de reserva para el cliente
+     */
     @FXML
     private void reserva() {
         try {
@@ -52,7 +57,9 @@ public class MenuClienteViewController {
         }
     }
 
-    // Método para cargar y mostrar la vista de suscripciones
+    /**
+     * Método para cargar y mostrar la vista de suscripciones
+     */
     @FXML
     private void suscripcion() {
         try {
@@ -72,6 +79,9 @@ public class MenuClienteViewController {
         }
     }
 
+    /**
+     * metodo para cargar la vista de pago para el cliente
+     */
     @FXML
     private void pagar() {
         try {
@@ -91,6 +101,9 @@ public class MenuClienteViewController {
         }
     }
 
+    /**
+     * metodo para cargar la vista de valet para el cliente
+     */
     @FXML
     private void valet() {
         try {
