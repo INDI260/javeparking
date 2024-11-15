@@ -98,7 +98,7 @@ public class MenuClienteViewController {
             contenedor.getChildren().add(pane);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } 
     }
 
 }
