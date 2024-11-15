@@ -12,7 +12,7 @@ public class PagoSuscripcion extends Pago{
     private String metodoPago; // Método de pago (ej: Tarjeta de Crédito, PayPal)
 
     /**
-     * Método constructor por parámetros
+     * Método constructor vacío
      *
      */
     public PagoSuscripcion() {

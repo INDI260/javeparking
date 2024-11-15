@@ -8,5 +8,5 @@ public class PagoValet extends Pago{
     //private Valet valet; // Valet asociado al pago (Todavía no esta implementado)
     private BigDecimal valor; // El valor monetario que debe recibirse en el pago
     private LocalDateTime fecha;//Este atributo guarda la fecha y la hora de entrada del vehículo en la reserva.
-    private String metodoPago;
+    private String metodoPago;//Método de pago usado
 }

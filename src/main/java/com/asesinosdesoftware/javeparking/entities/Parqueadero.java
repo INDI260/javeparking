@@ -10,10 +10,10 @@ public class Parqueadero {
     private BigDecimal TarifaPequeno; //Tarifa cobrada por hora para un puesto pequeño
     private BigDecimal TarifaMediano; //Tarifa cobrada por hora para un puesto mediano
     private BigDecimal TarifaGrande; //Tarifa cobrada por hora para un puesto grande
-    private BigDecimal SuscripcionPequeno;
-    private BigDecimal SuscripcionMediano;
-    private BigDecimal SuscripcionGrande;
-    private BigDecimal DescuentoJaveriano;
+    private BigDecimal SuscripcionPequeno; //Valor de la suscripción para un puesto pequeño
+    private BigDecimal SuscripcionMediano;//Valor de la suscripción para un puesto mediano
+    private BigDecimal SuscripcionGrande; //Valor de la suscripción para un puesto grande
+    private BigDecimal DescuentoJaveriano; //Porcenaje de descuento por ser miembro de la comunidad
 
     /*Getters y setters*/
     public int getId() {

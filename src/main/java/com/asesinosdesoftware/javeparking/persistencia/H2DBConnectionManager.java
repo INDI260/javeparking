@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Clase que permite establecer la conexión con una base de datos H2 de tipo archivo
+ */
 public class H2DBConnectionManager implements IDBConnectionManager{
 
     private ResourceBundle reader = null;
