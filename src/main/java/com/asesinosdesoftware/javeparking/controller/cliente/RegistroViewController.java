@@ -25,6 +25,10 @@ public class RegistroViewController {
     RegistroService registroService = new RegistroService();
     Cliente cliente;
 
+    /**
+     * Metodo que permite el registro de nuevos clientes en el sistema
+     * la logica se encuentra en registroService
+     */
     @FXML
     private void registro() {
 

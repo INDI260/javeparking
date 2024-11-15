@@ -77,6 +77,11 @@ public class EditarPuestoViewController {
         }
     }
 
+    /**
+     * metodo que permite al administrador editar los datos de los puestos
+     * registrados en cada parqueadero
+     * la logica del metodo esta en puestosService
+     */
     @FXML
     public void editarPuesto() {
     Puesto puestoseleccionado = tablaPuestos.getSelectionModel().getSelectedItem();
@@ -96,6 +101,11 @@ public class EditarPuestoViewController {
     } else showError("Seleccione un puesto para editar");
 
     }
+
+    /**
+     * metodo que permite al administrador eliminar un puesto de cualquier parqueader
+     * la logica del metodo se encuentra en puestosService
+     */
     @FXML
     public void eliminarPuesto() {
         Puesto puestoseleccionado = tablaPuestos.getSelectionModel().getSelectedItem();

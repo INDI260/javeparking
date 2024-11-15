@@ -11,6 +11,10 @@ public class MenuAdminViewController {
 
     public AnchorPane contenedor;
 
+    /**
+     * metodo que carga la pantalla de gestion de reservas para el administrador
+     * @param event
+     */
     @FXML
     private void gestionarReservas(ActionEvent event) {
         try {
@@ -31,6 +35,10 @@ public class MenuAdminViewController {
         }
     }
 
+    /**
+     * metodo que carga la pantalla de gestion de parqueaderos para el administrador
+     * @param event
+     */
     @FXML
     private void gestionarParq(ActionEvent event) {
         try {

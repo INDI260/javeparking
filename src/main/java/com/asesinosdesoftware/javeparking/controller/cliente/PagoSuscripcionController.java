@@ -16,6 +16,13 @@ public class PagoSuscripcionController {
     @FXML
     public TextField IDPlaca;
 
+
+    /**
+     * Metodo que permite registrar el pago de las suscripciones del cliente,
+     * el registro queda guardado en la tabla pagosuscripcion
+     * la logica del programa la maneja pagoService
+     * @throws SQLException
+     */
     @FXML
     private void pagoSuscripcion() throws SQLException {
         try {
@@ -32,6 +39,10 @@ public class PagoSuscripcionController {
         }
     }
 
+    /**
+     * Metodo que permite mostrar los valores a pagar por la suscripcion asociada al vehiculo
+     * la logica se maneja en pagoService
+     */
     @FXML
     private void mostrarPrecioSuscripcion() {
         try {

@@ -19,6 +19,11 @@ public class EliminarVehiculoViewController {
     @FXML
     public TextField IDPlaca;
 
+
+    /**
+     * Metodo que le permite al cliente eliminar el vehiculo asociado a el
+     * la logica del metodo se encuentra en vehiculoService
+     */
     @FXML
     private void EliminarVehiculo(){
     try {

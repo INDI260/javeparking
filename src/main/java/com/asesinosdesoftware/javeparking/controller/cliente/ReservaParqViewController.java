@@ -43,7 +43,9 @@ public class ReservaParqViewController {
     @FXML
     public TextField IDplaca;
 
-
+    /**
+     * metodo que carga los datos iniciales de la pantalla
+     */
     @FXML
     public void initialize() {
         // Configurar las columnas de la tabla
@@ -59,6 +61,10 @@ public class ReservaParqViewController {
         });
     }
 
+    /**
+     * metodo que carga los puestos filtrados en la tabla relacionada
+     * @param tamanoSeleccionado
+     */
     private void cargarPuestosFiltrados(char tamanoSeleccionado) {
         // Crear lista de puestos
         List<Puesto> puestos = new ArrayList<>();
@@ -79,6 +85,12 @@ public class ReservaParqViewController {
         }
     }
 
+    /**
+     * Metodo que permite crear una reserva de parqueadero por parte del cliente
+     * tambien se le asocia un puesto en el parqueadero
+     * la logica se encuentra en reservaCService
+     * @throws SQLException
+     */
     @FXML
     private void CrearReserva()throws SQLException {
         try{
